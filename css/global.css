@@ -1,4 +1,4 @@
-/* reset */
+/* ##### reset ############### */
 body {
 	margin: 0;
 	font: 12px sans-serif;
@@ -7,12 +7,7 @@ body {
 a { text-decoration:none; color:inherit; }
 a:hover { text-decoration:underline; }
 
-/* main settings */
-#header .table,
-#body {
-	width: 90%;
-	margin: auto;
-	}
+/* ##### settings ############### */
 #header.fixed {
 	position: fixed;
 	width: 100%;
@@ -34,6 +29,7 @@ a:hover { text-decoration:underline; }
 	#header .table {
 		display: table;
 		height: 100%;
+		margin: auto;
 		}
 		#header .table > * {
 			display: table-cell;
@@ -46,15 +42,14 @@ a:hover { text-decoration:underline; }
 		#header .title span {
 			font-size: 20px;
 			font-weight: bold;
-			}
-		#header .title span ~ * {
-			margin-left: 1.5em;
+			margin-right: .5em;
 			}
 		#header .title a[href*='youtube.com'] {
 			display: inline-block;
 			width: 70px;
 			height: 30px;
-			background: left url(yt.png);
+			background: no-repeat center url(yt.png);
+			background-size: contain;
 			}
 		#header .title a[href*=github] {
 			font-weight: bold;
@@ -64,6 +59,9 @@ a:hover { text-decoration:underline; }
 			}
 
 /* body */
+#body {
+	margin: auto;
+	}
 #body .playlists {
 	position: relative;
 	border-radius: 2px;
@@ -81,7 +79,6 @@ a:hover { text-decoration:underline; }
 		padding: 5px;
 		border-radius: 2px;
 		background: #fff;
-		/*font: normal 1px courier;*/
 		}
 	#body .playlist.hover {
 		box-shadow: 0 0 20px rgba(0,0,0,.2);
@@ -155,3 +152,12 @@ a:hover { text-decoration:underline; }
 	background-size: cover;
 	cursor: pointer;
 	}
+
+/* ##### responsive ############### */
+@media (max-width: 9999px) { #header .table, #body { width: 1190px; } }
+@media (max-width: 1190px) { #header .table, #body { width:  895px; } }
+@media (max-width:  895px) { #header .table, #body { width:  600px; } }
+@media (max-width:  600px) { #header .table, #body { width:  305px; }
+	#header .title span { font-size: inherit; }
+	#header .title a[href*='youtube.com'] { width: 45px; }
+}
