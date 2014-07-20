@@ -73,6 +73,22 @@ a:hover { text-decoration:underline; }
 	content: "";
 	clear: both;
 	}
+#body .playlists:empty {
+	padding: 50px 0;
+	text-align: center;
+	font-weight: bold;
+	color: rgba(0,0,0,.2);
+	text-shadow: 0 1px 0 #fff;
+	}
+#body .playlists:empty:before {
+	display: block;
+	content: "No playlist :(";
+	font-size: 28px;
+	}
+#body .playlists:empty:after {
+	display: block;
+	content: "Click the \"Connection\" button to start !";
+	}
 	#body .playlist {
 		float: left;
 		margin: 10px 0 0 10px;
