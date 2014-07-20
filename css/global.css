@@ -110,6 +110,10 @@ a:hover { text-decoration:underline; }
 						font-weight: bold;
 						white-space: nowrap;
 						}
+					#body .playlist .header .absolute a:empty:after {
+						content: "New playlist";
+						font-style: italic;
+						}
 			#body .playlist .header .edit {
 				width: 1px;
 				}
