@@ -15,14 +15,10 @@ $(function() {
 
 	nbVideos();
 
-	/*$('.playlist', $playlists)
-		.mouseover(function() {
-			$(this).addClass('hover');
-			console.log('asd')
-		})
-		.mouseout(function() {
-			$(this).removeClass('hover');
-		});*/
+	$('.playlist .edit', $playlists)
+		.click(function() {
+			$(this.parentNode.parentNode).toggleClass('edit');
+		});
 
 	$playlists
 		.dragndrop({
