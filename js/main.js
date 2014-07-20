@@ -4,8 +4,9 @@ $(function() {
 	var
 		DURATION = 150,
 		CSS_CLOSE = {backgroundPosition:'0px'},
-		$playlists = $('#body .playlists'),
-		NList_nbVideos = $playlists[0].getElementsByTagName('em');
+		$playlists_container = $('#body .playlists'),
+		$playlists = $('.playlist', $playlists_container),
+		NList_nbVideos = $playlists_container[0].getElementsByTagName('em');
 
 	function nbVideos() {
 		$.each(NList_nbVideos, function() {
@@ -15,12 +16,12 @@ $(function() {
 
 	nbVideos();
 
-	$('.playlist .edit', $playlists)
+	$('.edit, .cancel', $playlists)
 		.click(function() {
-			$(this.parentNode.parentNode).toggleClass('edit');
+			$(this).parents('.playlist').toggleClass('edit');
 		});
 
-	$playlists
+	$playlists_container
 		.dragndrop({
 			duration: DURATION,
 			ondrag: function(drops, drags) {
