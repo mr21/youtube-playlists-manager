@@ -141,6 +141,8 @@ a:hover { text-decoration:underline; }
 					height: 16px;
 					background: url(edit.png);
 					-webkit-transition: width .1s ease-in;
+					   -moz-transition: width .1s ease-in;
+					    -ms-transition: width .1s ease-in;
 					}
 				#body .playlist      .header:hover .edit a,
 				#body .playlist.edit .header       .edit a {
@@ -175,6 +177,8 @@ a:hover { text-decoration:underline; }
 				bottom: 100%;
 				background: rgba(255,255,255,.95);
 				-webkit-transition: all .25s ease-out;
+				   -moz-transition: all .25s ease-out;
+				    -ms-transition: all .25s ease-out;
 				}
 			#body .playlist.edit .jqdnd-drop form {
 				bottom: 0%;
