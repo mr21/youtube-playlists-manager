@@ -16,9 +16,22 @@ $(function() {
 
 	nbVideos();
 
-	$('.edit, .cancel', $playlists)
+	$('.edit a', $playlists)
 		.click(function() {
-			$(this).parents('.playlist').toggleClass('edit');
+			var $pl = $(this.parentNode.parentNode.parentNode);
+			if ($pl.hasClass('edit')) {
+				$pl.removeClass('edit');
+			} else {
+				$pl[0].getElementsByTagName('form')[0][0].value =
+					$pl.find('.name a')[0].textContent;
+				$pl.addClass('edit');
+			}
+			return false;
+		});
+
+	$('.cancel', $playlists)
+		.click(function() {
+			$(this.parentNode.parentNode.parentNode).removeClass('edit');
 		});
 
 	$playlists_container
