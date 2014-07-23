@@ -10,10 +10,17 @@ var
 GoogleAPI(
 	$('#header .connection a')[0],
 	function() {
-		lg('success')
+		lg('success');
+		gapi.client.youtube.playlists.list({
+			part: 'snippet',
+			maxResults: 50,
+			mine: true
+		}).execute(function(pl) {
+			lg(pl);
+		});
 	},
 	function() {
-		lg('fail')
+		lg('fail');
 	}
 );
 
