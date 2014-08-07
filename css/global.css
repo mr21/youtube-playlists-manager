@@ -17,7 +17,7 @@ a:hover { text-decoration:underline; }
 	padding-top: 50px;
 	}
 #header,
-#body .playlists {
+#body #playlists {
 	background: #eee;
 	}
 
@@ -62,29 +62,29 @@ a:hover { text-decoration:underline; }
 #body {
 	margin: auto;
 	}
-#body .playlists {
+#body #playlists {
 	position: relative;
 	border-radius: 2px;
 	margin-top: 35px;
 	}
-#body .playlists:after {
+#body #playlists:after {
 	display: block;
 	content: "";
 	clear: both;
 	}
-#body .playlists:empty {
+#body #playlists:empty {
 	padding: 50px 0;
 	text-align: center;
 	font-weight: bold;
 	color: rgba(0,0,0,.2);
 	text-shadow: 0 1px 0 #fff;
 	}
-#body .playlists:empty:before {
+#body #playlists:empty:before {
 	display: block;
 	content: "No playlist :(";
 	font-size: 28px;
 	}
-#body .playlists:empty:after {
+#body #playlists:empty:after {
 	display: block;
 	content: "Click the \"Connection\" button to start !";
 	}
@@ -157,33 +157,40 @@ a:hover { text-decoration:underline; }
 				font-size: 12px;
 				opacity: .5;
 				}
-		#body .playlist .jqdnd-drop {
+		#body .playlist .body {
 			position: relative;
 			width: 275px; /* 4*64=256 + 19 */
 			height: 180px; /* 5 * 36 */
-			overflow-y: scroll;
-			background: rgba(0,0,0,.03);
-			}
-		#body .playlist.hover .jqdnd-drop {
 			overflow: hidden;
-			background: #fff;
 			}
-			#body .playlist .jqdnd-drop form {
+			#body .playlist .body > * {
 				position: absolute;
-				z-index: 1;
-				opacity: 0;
 				width: 100%;
 				height: 100%;
+				}
+			#body .playlist .body .bg {
+				background-size: cover;
+				background-position: center;
+				}
+			#body .playlist .body .jqdnd-drop {
+				overflow-y: scroll;
+				background: rgba(255,255,255,.8);
+				}
+				#body .playlist.hover .body .jqdnd-drop {
+					background: rgba(255,255,255,.92);
+					}
+			#body .playlist .body form {
+				opacity: 0;
 				bottom: 100%;
 				background: rgba(255,255,255,.95);
 				-webkit-transition: all .25s ease-out;
 				   -moz-transition: all .25s ease-out;
 				    -ms-transition: all .25s ease-out;
 				}
-			#body .playlist.edit .jqdnd-drop form {
-				bottom: 0%;
-				opacity: 1;
-				}
+				#body .playlist.edit .body form {
+					bottom: 0%;
+					opacity: 1;
+					}
 
 .jqdnd-drag,
 .jqdnd-dragHole {
