@@ -1,12 +1,13 @@
-// jQuery call
-var dd = $.fn.dragndrop = function(arg) {
-	return new dd.obj(this, arg);
+/*
+	jQuery - drag 'n' drop - 1.0
+	https://github.com/Mr21/jquery-dragndrop
+*/
+
+$.fn.dragndrop = function(arg) {
+	return new $.fn.dragndrop.obj(this, arg);
 };
 
-dd.CSS_RELATIVE = {left:'0px', top:'0px'};
-
-// Attributs / Events
-dd.obj = function($parent, arg) {
+$.fn.dragndrop.obj = function($parent, arg) {
 	var self = this;
 	this.arg = arg;
 	this.duration = arg.duration || 200;
@@ -19,6 +20,7 @@ dd.obj = function($parent, arg) {
 	this.dragW = 0;
 	this.dragH = 0;
 	this.keyCtrl = false;
+	this.keyShift = false;
 	this.mouseLeft = false;
 	this.mouseDrag = false;
 	this.mouseX = 0;
@@ -42,6 +44,7 @@ dd.obj = function($parent, arg) {
 	$(window)
 		.blur(function() {
 			self.keyCtrl = false;
+			self.keyShift = false;
 			self.mouseLeft = false;
 			self.dragStop();
 		});
@@ -50,8 +53,8 @@ dd.obj = function($parent, arg) {
 		.mouseup(function() {
 			if (self.mouseDrag) {
 				self.dragStop();
-			} else if (!self.keyCtrl) {
-				self.unselect();
+			} else if (!self.keyCtrl && !self.keyShift) {
+				self.unselectAll();
 			}
 			self.mouseLeft = false;
 		})
@@ -66,19 +69,20 @@ dd.obj = function($parent, arg) {
 			switch (e.keyCode) {
 				case 224: case 91: case 93:
 				case 17: self.keyCtrl = true; break;
+				case 16: self.keyShift = true; break;
 			}
 		})
 		.keyup(function(e) {
 			switch (e.keyCode) {
 				case 224: case 91: case 93:
 				case 17: self.keyCtrl = false; break;
+				case 16: self.keyShift = false; break;
 			}
 		});
-
 };
 
 // Methodes
-dd.obj.prototype = {
+$.fn.dragndrop.obj.prototype = {
 	dragDimension: function() {
 		var $drag = $('.jqdnd-drag:first', this.$parent);
 		this.dragW = $drag.width();
@@ -113,29 +117,64 @@ dd.obj.prototype = {
 					e.preventDefault();
 					if (e.button === 0) {
 						var $this = $(this),
+							elems = [],
 							selected = $this.hasClass('selected');
-						if ($this.css('position') !== 'absolute')
+						if ($this.css('position') !== 'absolute') {
 							self.mouseLeft = true;
-						if (!self.keyCtrl && !selected)
-							self.unselect();
-						if (!selected) {
 							self.stopAnimations();
-							self.elemsSelected.push(this);
-							$this.addClass('selected').html('<span class="jqdnd-dragNumber">' + self.elemsSelected.length + '</span>');
-						} else if (self.keyCtrl) {
+						}
+						if (!selected && !self.keyCtrl) {
+							if (self.keyShift && self.elemsSelected.length)
+								elems.push(self.elemsSelected[self.elemsSelected.length - 1]);
+							self.unselectAll();
+						}
+						if (!selected || self.keyShift) {
+							if (self.keyShift) {
+								var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
+								if (elemA !== this) {
+									var	$drags = $('.jqdnd-drag', self.$parent),
+										AInd = $.inArray(elemA, $drags),
+										BInd = $.inArray(this, $drags),
+										incr = AInd < BInd ? 1 : -1,
+										i = AInd + incr;
+									for (; i !== BInd; i += incr)
+										if (!$drags.eq(i).hasClass('selected'))
+											elems.push($drags[i]);
+								}
+							}
+							if (!selected)
+								elems.push(this);
+							self.select(elems);
+						} else if (selected && self.keyCtrl) {
 							self.elemsSelected.splice(self.elemsSelected.indexOf(this), 1);
-							$this.removeClass('selected').empty();
-							$.each(self.elemsSelected, function(i) {
-								this.firstChild.textContent = i + 1;
-							});
+							self.unselect($this);
+							$(self.elemsSelected)
+								.children('.jqdnd-dragNumber')
+								.html(function(i) { return i + 1; });
 						}
 					}
 				});
 		}
 	},
 
-	unselect: function() {
-		$(this.elemsSelected).removeClass('selected').empty();
+	select: function(elems) {
+		var a = this.elemsSelected;
+		$(elems)
+			.addClass('selected')
+			.append(function() {
+				return '<span class="jqdnd-dragNumber">'+ a.push(this) +'</span>';
+			});
+	},
+
+	unselect: function(elems) {
+		$(elems)
+			.removeClass('selected')
+			.children('.jqdnd-dragNumber')
+				.remove();
+	},
+
+	unselectAll: function() {
+		this.unselect(this.elemsSelected);
 		this.elemsSelected.length = 0;
 	},
 
@@ -181,7 +220,7 @@ dd.obj.prototype = {
 				marginTop  : '0px'
 			}, self.duration, 'swing', function() {
 				$(this)
-					.css(dd.CSS_RELATIVE)
+					.css({left:'0px', top:'0px'})
 					.insertAfter(this._$prev);
 				this._$prev.remove();
 				if (++i === nbElems) {
