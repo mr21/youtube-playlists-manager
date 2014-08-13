@@ -157,7 +157,7 @@ a.fa:hover { text-decoration:none; }
 		#body .playlist .body {
 			position: relative;
 			width: 275px; /* 4*64=256 + 19 */
-			height: 180px; /* 5 * 36 */
+			height: 192px; /* 4*48 */
 			overflow: hidden;
 			}
 			#body .playlist .body > * {
@@ -204,11 +204,11 @@ a.fa:hover { text-decoration:none; }
 
 .jqdnd-drag,
 .jqdnd-dragHole {
-	height: 36px;
+	height: 48px;
 	}
 .jqdnd-drag {
 	width: 64px;
-	background: no-repeat center;
+	background: no-repeat left center;
 	background-size: cover;
 	cursor: pointer;
 	}
