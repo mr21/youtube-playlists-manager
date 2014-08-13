@@ -6,6 +6,7 @@ body {
 	}
 a { text-decoration:none; color:inherit; }
 a:hover { text-decoration:underline; }
+a.fa:hover { text-decoration:none; }
 
 /* ##### settings ############### */
 #header.fixed {
@@ -45,11 +46,8 @@ a:hover { text-decoration:underline; }
 			margin-right: .5em;
 			}
 		#header .title a[href*='youtube.com'] {
-			display: inline-block;
-			width: 70px;
-			height: 30px;
-			background: no-repeat center url(yt.png);
-			background-size: contain;
+			font-size: 28px;
+			color: #e62d27;
 			}
 		#header .title a[href*=github] {
 			font-weight: bold;
@@ -138,15 +136,14 @@ a:hover { text-decoration:underline; }
 				#body .playlist .header .edit a {
 					display: inline-block;
 					width: 0px;
-					height: 16px;
-					background: url(edit.png);
+					overflow: hidden;
 					-webkit-transition: width .1s ease-in;
 					   -moz-transition: width .1s ease-in;
 					    -ms-transition: width .1s ease-in;
 					}
 				#body .playlist      .header:hover .edit a,
 				#body .playlist.edit .header       .edit a {
-					width: 16px;
+					width: 1em;
 					}
 			#body .playlist .header em:before { content: "("; }
 			#body .playlist .header em:after  { content: ")"; }

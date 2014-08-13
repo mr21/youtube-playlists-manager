@@ -25,7 +25,7 @@ ytplm.playlist.prototype = {
 						'</div>' +
 					'</div>' +
 					'<div class="edit">' +
-						'<a href="#"></a>' +
+						'<a href="#" class="fa fa-gear" title="Settings"></a>' +
 					'</div>' +
 					'<em class="nbVideos"></em>' +
 				'</div>' +
