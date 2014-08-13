@@ -80,8 +80,8 @@ ytplm.playlist.prototype = {
 				maxResults: 50
 			},
 			function(data) {
-				$.each(data, function(i) {
-					// self.jq_scope.append(self[i].jq_scope);
+				$.each(data, function() {
+					self.jq_drop.append((new ytplm.video(this)).jq_scope);
 				});
 				self.jq_scope.removeClass('waiting');
 			}
@@ -91,20 +91,3 @@ ytplm.playlist.prototype = {
 		this.jq_bg.css('background-image', 'url(' + imgUrl + ')');
 	}
 };
-
-/*
-id: "PLeeapPi3g3XxjCErDLm011DyI4T16dP0c"
-snippet: Object
-	channelId: "UC84M_g2fMtiNiTV7Lq6hXag"
-	channelTitle: "Mr21u"
-	description: ""
-	playlistId: "PL13C8BA3123C8B802"
-	position: 0
-	publishedAt: "2014-08-12T16:41:32.000Z"
-	resourceId: Object
-		videoId: "4wPQ2kMJ8mI"
-	thumbnails: Object
-		default: Object
-			url: "https://i.ytimg.com/vi/4wPQ2kMJ8mI/default.jpg" 120*90
-	title: "The Crystal Method - Sling the Decks (The Single Barrel Mix)"
-*/

@@ -208,7 +208,7 @@ a.fa:hover { text-decoration:none; }
 	}
 .jqdnd-drag {
 	width: 64px;
-	background-repeat: no-repeat;
+	background: no-repeat center;
 	background-size: cover;
 	cursor: pointer;
 	}
