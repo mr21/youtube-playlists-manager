@@ -40,19 +40,20 @@ ytplm.playlists = {
 	},
 	load: function() {
 		var self = this;
-		gapi.client.youtube.playlists.list({
-			part: 'snippet',
-			maxResults: 50,
-			mine: true
-		}).execute(function(pls) {
-			lg(pls)
-			pls = pls.items;
-			$.each(pls, function(i) {
-				self[i] = new ytplm.playlist(this);
-				self.jq_scope.append(self[i].jq_scope);
-			});
-			self.updateAllNbVideos();
-		});
+		ytplm.extractData(
+			gapi.client.youtube.playlists.list,
+			{
+				part: 'snippet',
+				maxResults: 50,
+				mine: true
+			},
+			function(data) {
+				$.each(data, function(i) {
+					self[i] = new ytplm.playlist(this);
+					self.jq_scope.append(self[i].jq_scope);
+				});
+			}
+		);
 	},
 	updateAllNbVideos: function() {
 		$.each(this.nl_nbVideos, function() {
