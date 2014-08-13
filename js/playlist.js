@@ -15,7 +15,7 @@ ytplm.playlist = function(p) {
 ytplm.playlist.prototype = {
 	createDom: function(p) {
 		this.jq_scope = $(
-			'<div class="playlist">' +
+			'<div class="playlist waiting">' +
 				'<div class="header">' +
 					'<div class="name">' +
 						'<div class="relative">' +
@@ -32,6 +32,7 @@ ytplm.playlist.prototype = {
 				'<div class="body">' +
 					'<div class="bg"></div>' +
 					'<div class="jqdnd-drop"></div>' +
+					'<i class="waiting fa fa-refresh fa-spin"></i>' +
 					'<form>' +
 						'<input type="text" value="" placeholder="Playlist\'s name"/><br/>' +
 						'<input type="button" value="Cancel" class="cancel"/>' +

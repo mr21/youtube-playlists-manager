@@ -176,6 +176,19 @@ a.fa:hover { text-decoration:none; }
 				#body .playlist.hover .body .jqdnd-drop {
 					background: rgba(255,255,255,.92);
 					}
+			#body .playlist .body .waiting {
+				display: none;
+				width: auto;
+				height: auto;
+				left: 50%;
+				top: 50%;
+				margin: -.5em 0 0 -.5em;
+				font-size: 100px;
+				opacity: .2;
+				}
+				#body .playlist.waiting .body .waiting {
+					display: block;
+					}
 			#body .playlist .body form {
 				opacity: 0;
 				bottom: 100%;
