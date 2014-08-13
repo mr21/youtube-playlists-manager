@@ -1,11 +1,4 @@
 ytplm.playlist = function(p) {
-
-	// lg('id          : ' + p.id);
-	// lg('title       : ' + p.snippet.title);
-	// lg('description : ' + p.snippet.description);
-	// lg('publishedAt : ' + p.snippet.publishedAt);
-	// lg('thumbnails  : ' + p.snippet.thumbnails.medium.url);
-
 	this.createDom(p);
 	this.attachEvents();
 	this.loadVideos(p.id);
@@ -78,14 +71,40 @@ ytplm.playlist.prototype = {
 		});
 	},
 	loadVideos: function(id) {
-		/*gapi.client.youtube.playlistItems.list(requestOptions)
-		.execute(function(data) {
-			$.each(data.items, function() {
-			});
-		});
-		this.jq_drop;*/
+		var self = this;
+		ytplm.extractData(
+			gapi.client.youtube.playlistItems.list,
+			{
+				playlistId: id,
+				part: 'snippet',
+				maxResults: 50
+			},
+			function(data) {
+				$.each(data, function(i) {
+					// self.jq_scope.append(self[i].jq_scope);
+				});
+				self.jq_scope.removeClass('waiting');
+			}
+		);
 	},
 	setBackground: function(imgUrl) {
 		this.jq_bg.css('background-image', 'url(' + imgUrl + ')');
 	}
 };
+
+/*
+id: "PLeeapPi3g3XxjCErDLm011DyI4T16dP0c"
+snippet: Object
+	channelId: "UC84M_g2fMtiNiTV7Lq6hXag"
+	channelTitle: "Mr21u"
+	description: ""
+	playlistId: "PL13C8BA3123C8B802"
+	position: 0
+	publishedAt: "2014-08-12T16:41:32.000Z"
+	resourceId: Object
+		videoId: "4wPQ2kMJ8mI"
+	thumbnails: Object
+		default: Object
+			url: "https://i.ytimg.com/vi/4wPQ2kMJ8mI/default.jpg" 120*90
+	title: "The Crystal Method - Sling the Decks (The Single Barrel Mix)"
+*/
