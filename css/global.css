@@ -5,7 +5,7 @@ html, body {
 body {
 	margin: 0;
 	font: 12px sans-serif;
-	color: #444;
+	color: #666;
 	background: #111;
 	}
 a { text-decoration:none; color:inherit; }
@@ -33,7 +33,6 @@ q {
 	z-index: 1;
 	height: 100%;
 	padding: 0 8px;
-	color: #444;
 	text-align: center;
 	border-right: 5px solid rgba(0,0,0,.4);
 	background: #151515;
@@ -51,16 +50,16 @@ q {
 		font-size: 24px;
 		}
 		#header > a:hover {
-			color: #888;
+			color: #aaa;
 			}
 		#header .youtube {
 			font-size: 48px;
 			}
-		body.connection-0 #header a.save,
-		body.connection-0 #header a.logout {
+		body[connected="0"] #header a.save,
+		body[connected="0"] #header a.logout {
 			display: none;
 			}
-		body.connection-1 #header a.login {
+		body[connected="1"] #header a.login {
 			display: none;
 			}
 
@@ -92,7 +91,6 @@ q {
 			margin-top: -100px;
 			text-align: center;
 			font-size: 18px;
-			color: #444;
 			}
 			#playlists .placeholder b {
 				font-size: 64px;
@@ -104,10 +102,10 @@ q {
 			#playlists .placeholder > * {
 				display: none;
 				}
-			body.connection-0 #playlists .placeholder .connection {
+			body[connected="0"] #playlists .placeholder .connection {
 				display: block;
 				}
-			body.connection-1 #playlists.waiting .placeholder .waiting {
+			body[connected="1"] #playlists.waiting .placeholder .waiting {
 				display: block;
 				font-size: 100px;
 				}

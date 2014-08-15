@@ -1,57 +1,35 @@
-function GoogleAPI(elem, fn_success, fn_fail) {
-	var jq_body = $(document.body),
-		click_set,
-		connected,
-		api_id = {
-			client_id: '514381834459-gr3dgmesev8jflg5364piutqb6alb35b.apps.googleusercontent.com',
-			scope: ['https://www.googleapis.com/auth/youtube']
-		};
-
-	function elemText(status) {
-		connected = status;
-		jq_body
-			.removeClass('connection-' + (!status)*1)
-			.addClass('connection-' + status);
-	}
-
-	function click() {
-		if (connected)
-			logout();
-		else
-			login(false);
-		return false;
-	}
-
-	function logout() {
+ytplm.connection = {
+	id: {
+		client_id: '514381834459-gr3dgmesev8jflg5364piutqb6alb35b.apps.googleusercontent.com',
+		scope: ['https://www.googleapis.com/auth/youtube']
+	},
+	bodyStatus: function(status) {
+		document.body.setAttribute('connected', status);
+	},
+	logout: function() {
 		gapi.auth.signOut();
-		elemText(0);
-	}
-
-	function login(now) {
-		api_id.immediate = now;
-		gapi.auth.authorize(api_id, function(authResult) {
-			if (!click_set) {
-				click_set = true;
-				elemText(0);
-				$(elem).click(click);
-			}
+		bodyStatus(0);
+	},
+	login: function(now) {
+		this.id.immediate = now;
+		gapi.auth.authorize(this.id, function(authResult) {
 			if (authResult.status.signed_in) {
 				gapi.client.load('youtube', 'v3', function() {
-					elemText(1);
-					fn_success();
+					bodyStatus(1);
+					ytplm.playlists.load();
 				});
 			} else {
-				elemText(0);
-				fn_fail();
+				bodyStatus(0);
+				console.log('Connection failed... :(');
 			}
 		});
-	}
-
-	window.gapi_onload = function() {
+	},
+	gapiOnload: function() {
+		var self = this;
 		gapi.auth.init(function() {
 			setTimeout(function() {
-				login(true);
+				self.login(true);
 			}, 1);
 		});
 	}
-}
+};
