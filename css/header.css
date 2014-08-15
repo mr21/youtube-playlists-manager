@@ -1,0 +1,34 @@
+#header {
+	position: fixed;
+	z-index: 1;
+	height: 100%;
+	padding: 0 8px;
+	text-align: center;
+	border-right: 5px solid rgba(0,0,0,.4);
+	background: #151515;
+	}
+	#header > * {
+		display: block;
+		margin-top: 10px;
+		}
+	#header hr {
+		border: 0;
+		border-top: 1px dashed;
+		opacity: .33;
+		}
+	#header > a {
+		font-size: 24px;
+		}
+		#header > a:hover {
+			color: #aaa;
+			}
+		#header .youtube {
+			font-size: 48px;
+			}
+		body[connected="0"] #header a.save,
+		body[connected="0"] #header a.logout {
+			display: none;
+			}
+		body[connected="1"] #header a.login {
+			display: none;
+			}

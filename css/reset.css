@@ -1,0 +1,29 @@
+html, body {
+	height: 100%;
+	}
+body {
+	margin: 0;
+	font: 12px sans-serif;
+	color: #666;
+	background: #111;
+	}
+
+a { text-decoration:none; color:inherit; }
+	a:hover { text-decoration:underline; }
+	a.fa:hover { text-decoration:none; }
+
+q {
+	font-style: italic;
+	}
+	q:before, q:after {
+		font-style: normal;
+		}
+	q:before { content: '«\A0'; }
+	q:after  { content: '\A0»'; }
+
+.placeholder {
+	display: none;
+	}
+	.placeholder:only-child {
+		display: block;
+		}
