@@ -1,5 +1,6 @@
 function GoogleAPI(elem, fn_success, fn_fail) {
-	var click_set,
+	var jq_body = $(document.body),
+		click_set,
 		connected,
 		api_id = {
 			client_id: '514381834459-gr3dgmesev8jflg5364piutqb6alb35b.apps.googleusercontent.com',
@@ -8,7 +9,9 @@ function GoogleAPI(elem, fn_success, fn_fail) {
 
 	function elemText(status) {
 		connected = status;
-		elem.textContent = status ? 'Log out' : 'Log in';
+		jq_body
+			.removeClass('connection-' + (!status)*1)
+			.addClass('connection-' + status);
 	}
 
 	function click() {
@@ -21,7 +24,7 @@ function GoogleAPI(elem, fn_success, fn_fail) {
 
 	function logout() {
 		gapi.auth.signOut();
-		elemText();
+		elemText(0);
 	}
 
 	function login(now) {
@@ -29,16 +32,16 @@ function GoogleAPI(elem, fn_success, fn_fail) {
 		gapi.auth.authorize(api_id, function(authResult) {
 			if (!click_set) {
 				click_set = true;
-				elemText();
+				elemText(0);
 				$(elem).click(click);
 			}
 			if (authResult.status.signed_in) {
 				gapi.client.load('youtube', 'v3', function() {
-					elemText(true);
+					elemText(1);
 					fn_success();
 				});
 			} else {
-				elemText();
+				elemText(0);
 				fn_fail();
 			}
 		});

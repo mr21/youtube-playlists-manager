@@ -1,206 +1,229 @@
 /* ##### reset ############### */
+html, body {
+	height: 100%;
+}
 body {
 	margin: 0;
 	font: 12px sans-serif;
-	background: #fff;
+	color: #444;
+	background: #111;
 	}
 a { text-decoration:none; color:inherit; }
 a:hover { text-decoration:underline; }
 a.fa:hover { text-decoration:none; }
+q {
+	font-style: italic;
+	}
+	q:before, q:after {
+		font-style: normal;
+		}
+	q:before { content: '«\A0'; }
+	q:after  { content: '\A0»'; }
 
-/* ##### settings ############### */
-#header.fixed {
-	position: fixed;
-	width: 100%;
-	z-index: 1;
+.placeholder {
+	display: none;
 	}
-#header.fixed ~ #body {
-	padding-top: 50px;
-	}
-#header,
-#body #playlists {
-	background: #eee;
-	}
+	.placeholder:only-child {
+		display: block;
+		}
 
 /* header */
 #header {
-	height: 50px;
-	box-shadow: 0 2px 2px rgba(0,0,0,.17);
+	position: fixed;
+	z-index: 1;
+	height: 100%;
+	padding: 0 8px;
+	color: #444;
+	text-align: center;
+	border-right: 5px solid rgba(0,0,0,.4);
+	background: #151515;
 	}
-	#header .table {
-		display: table;
-		height: 100%;
-		margin: auto;
+	#header > * {
+		display: block;
+		margin-top: 10px;
 		}
-		#header .table > * {
-			display: table-cell;
-			vertical-align: middle;
-			height: 100%;
+	#header hr {
+		border: 0;
+		border-top: 1px dashed;
+		opacity: .33;
+		}
+	#header > a {
+		font-size: 24px;
+		}
+		#header > a:hover {
+			color: #888;
 			}
-		#header .title > * {
-			vertical-align: middle;
+		#header .youtube {
+			font-size: 48px;
 			}
-		#header .title span {
-			font-size: 20px;
-			font-weight: bold;
-			margin-right: .5em;
+		body.connection-0 #header a.save,
+		body.connection-0 #header a.logout {
+			display: none;
 			}
-		#header .title a[href*='youtube.com'] {
-			font-size: 28px;
-			color: #e62d27;
-			}
-		#header .title a[href*=github] {
-			font-weight: bold;
-			}
-		#header .connection {
-			text-align: right;
+		body.connection-1 #header a.login {
+			display: none;
 			}
 
 /* body */
-#body {
-	margin: auto;
-	}
-#body #playlists {
+#playlists {
 	position: relative;
-	border-radius: 2px;
-	margin-top: 35px;
+	box-sizing: border-box;
+	margin-left: 62px;
+	padding-top: 15px;
+	height: 100%;
+	overflow: auto;
 	}
-#body #playlists:after {
-	display: block;
-	content: "";
-	clear: both;
-	}
-#body #playlists:empty {
-	padding: 50px 0;
-	text-align: center;
-	font-weight: bold;
-	color: rgba(0,0,0,.2);
-	text-shadow: 0 1px 0 #fff;
-	}
-#body #playlists:empty:before {
-	display: block;
-	content: "No playlist :(";
-	font-size: 28px;
-	}
-#body #playlists:empty:after {
-	display: block;
-	content: "Click the \"Connection\" button to start !";
-	}
-	#body .playlist {
-		float: left;
-		margin: 10px 0 0 10px;
-		padding: 5px;
-		border-radius: 2px;
-		background: #fff;
+	#playlists:after {
+		display: block;
+		content: "";
+		clear: both;
 		}
-	#body .playlist:last-child {
-		margin-bottom: 10px;
+	#playlists:empty {
+		padding: 50px 0;
+		text-align: center;
+		font-weight: bold;
+		color: rgba(0,0,0,.2);
+		text-shadow: 0 1px 0 #fff;
 		}
-	#body .playlist.hover {
-		box-shadow: 0 0 20px rgba(0,0,0,.2);
-		}
-		#body .playlist .header {
-			display: table;
+		#playlists .placeholder {
+			position: absolute;
 			width: 100%;
-			height: 100%;
-			color: #333;
-			font-size: 14px;
-			line-height: 14px;
+			top: 50%;
+			margin-top: -100px;
+			text-align: center;
+			font-size: 18px;
+			color: #444;
 			}
-			#body .playlist .header > * {
-				display: table-cell;
-				height: 100%;
-				vertical-align: top; /* fx */
+			#playlists .placeholder b {
+				font-size: 64px;
 				}
-			#body .playlist .header .relative {
-				position: relative;
-				}
-				#body .playlist .header .absolute {
-					position: absolute;
-					width: 100%;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					padding-bottom: .3em;
-					}
-					#body .playlist .header .absolute a {
-						font-weight: bold;
-						white-space: nowrap;
-						}
-					#body .playlist .header .absolute a:empty:after {
-						content: "New playlist";
-						font-style: italic;
-						}
-			#body .playlist .header .edit {
-				width: 1px;
-				}
-				#body .playlist .header .edit a {
+				#playlists .placeholder span {
 					display: inline-block;
-					width: 0px;
-					overflow: hidden;
-					-webkit-transition: width .1s ease-in;
-					   -moz-transition: width .1s ease-in;
-					    -ms-transition: width .1s ease-in;
+					margin-top: 1em;
 					}
-				#body .playlist      .header:hover .edit a,
-				#body .playlist.edit .header       .edit a {
-					width: 1em;
-					}
-			#body .playlist .header em:before { content: "("; }
-			#body .playlist .header em:after  { content: ")"; }
-			#body .playlist .header em {
-				width: 1px;
-				padding-left: .3em;
-				font-style: normal;
-				font-size: 12px;
-				opacity: .5;
+			#playlists .placeholder > * {
+				display: none;
 				}
-		#body .playlist .body {
-			position: relative;
-			width: 275px; /* 4*64=256 + 19 */
-			height: 192px; /* 4*48 */
-			overflow: hidden;
+			body.connection-0 #playlists .placeholder .connection {
+				display: block;
+				}
+			body.connection-1 #playlists.waiting .placeholder .waiting {
+				display: block;
+				font-size: 100px;
+				}
+			#playlists[class=""] .placeholder .no-playlist {
+				display: block;
+				}
+		#playlists .playlist {
+			float: left;
+			margin: 0 0 15px 15px;
+			padding: 5px;
+			color: #ddd;
+			border-radius: 2px;
+			background: #333;
 			}
-			#body .playlist .body > * {
-				position: absolute;
+			#playlists .playlist.hover {
+				box-shadow: 0 0 20px #000;
+				background: #444;
+				}
+			#playlists .playlist .header {
+				display: table;
 				width: 100%;
 				height: 100%;
+				font-size: 14px;
+				line-height: 14px;
 				}
-			#body .playlist .body .bg {
-				background-size: cover;
-				background-position: center;
-				}
-			#body .playlist .body .jqdnd-drop {
-				overflow-y: scroll;
-				background: rgba(255,255,255,.8);
-				}
-				#body .playlist.hover .body .jqdnd-drop {
-					background: rgba(255,255,255,.92);
+				#playlists .playlist .header > * {
+					display: table-cell;
+					height: 100%;
+					vertical-align: top; /* fx */
 					}
-			#body .playlist .body .waiting {
-				display: none;
-				width: auto;
-				height: auto;
-				left: 50%;
-				top: 50%;
-				margin: -.5em 0 0 -.5em;
-				font-size: 100px;
-				opacity: .2;
-				}
-				#body .playlist.waiting .body .waiting {
-					display: block;
+				#playlists .playlist .header .relative {
+					position: relative;
 					}
-			#body .playlist .body form {
-				opacity: 0;
-				bottom: 100%;
-				background: rgba(255,255,255,.95);
-				-webkit-transition: all .25s ease-out;
-				   -moz-transition: all .25s ease-out;
-				    -ms-transition: all .25s ease-out;
-				}
-				#body .playlist.edit .body form {
-					bottom: 0%;
-					opacity: 1;
+					#playlists .playlist .header .absolute {
+						position: absolute;
+						width: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						padding-bottom: .3em;
+						}
+						#playlists .playlist .header .absolute a {
+							font-weight: bold;
+							white-space: nowrap;
+							}
+							#playlists .playlist .header .absolute a:empty:after {
+								content: "New playlist";
+								font-style: italic;
+								}
+				#playlists .playlist .header .edit {
+					width: 1px;
 					}
+					#playlists .playlist .header .edit a {
+						display: inline-block;
+						width: 0px;
+						overflow: hidden;
+						-webkit-transition: width .1s ease-in;
+						   -moz-transition: width .1s ease-in;
+						    -ms-transition: width .1s ease-in;
+						}
+						#playlists .playlist      .header:hover .edit a,
+						#playlists .playlist.edit .header       .edit a {
+							width: 1em;
+							}
+				#playlists .playlist .header em {
+					width: 1px;
+					padding-left: .3em;
+					font-style: normal;
+					font-size: 12px;
+					opacity: .5;
+					}
+					#playlists .playlist .header em:before { content: "("; }
+					#playlists .playlist .header em:after  { content: ")"; }
+			#playlists .playlist .body {
+				position: relative;
+				width: 275px; /* 4*64=256 + 19 */
+				height: 192px; /* 4*48 */
+				overflow: hidden;
+				}
+				#playlists .playlist .body > * {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					}
+				#playlists .playlist .body .bg {
+					background-size: cover;
+					background-position: center;
+					}
+				#playlists .playlist .body .jqdnd-drop {
+					overflow-y: scroll;
+					background: rgba(0,0,0,.9);
+					}
+				#playlists .playlist .body .waiting {
+					display: none;
+					width: auto;
+					height: auto;
+					left: 50%;
+					top: 50%;
+					margin: -.5em 0 0 -.5em;
+					font-size: 100px;
+					opacity: .2;
+					}
+					#playlists .playlist.waiting .body .waiting {
+						display: block;
+						}
+				#playlists .playlist .body form {
+					opacity: 0;
+					bottom: 100%;
+					background: rgba(0,0,0,.9);
+					-webkit-transition: all .25s ease-out;
+					   -moz-transition: all .25s ease-out;
+					    -ms-transition: all .25s ease-out;
+					}
+					#playlists .playlist.edit .body form {
+						bottom: 0%;
+						opacity: 1;
+						}
 
 .jqdnd-drag,
 .jqdnd-dragHole {
@@ -212,12 +235,3 @@ a.fa:hover { text-decoration:none; }
 	background-size: cover;
 	cursor: pointer;
 	}
-
-/* ##### responsive ############### */
-@media (min-width: 1190px) { #header .table, #body { width: 1190px; } }
-@media (max-width: 1190px) { #header .table, #body { width:  895px; } }
-@media (max-width:  895px) { #header .table, #body { width:  600px; } }
-@media (max-width:  600px) { #header .table, #body { width:  305px; }
-	#header .title span { font-size: inherit; }
-	#header .title a[href*='youtube.com'] { width: 45px; }
-}

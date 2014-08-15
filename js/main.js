@@ -7,7 +7,7 @@ $(function() {
 });
 
 GoogleAPI(
-	$('#header .connection a')[0],
+	$('#header .login')[0],
 	function() {
 		lg('success');
 		ytplm.playlists.load();

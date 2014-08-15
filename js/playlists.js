@@ -40,6 +40,7 @@ ytplm.playlists = {
 	},
 	load: function() {
 		var self = this;
+		this.jq_scope.addClass('waiting');
 		ytplm.extractData(
 			gapi.client.youtube.playlists.list,
 			{
@@ -52,6 +53,7 @@ ytplm.playlists = {
 					self[i] = new ytplm.playlist(this);
 					self.jq_scope.append(self[i].jq_scope);
 				});
+				self.jq_scope.removeClass('waiting');
 			}
 		);
 	},

@@ -20,7 +20,7 @@
 	ga('send', 'pageview');*/
 </script>
 </head>
-<body>
+<body class="connection-0">
 
 <div id="fb-root"></div>
 <script>
@@ -33,21 +33,38 @@
 	}(document, 'script', 'facebook-jssdk'));*/
 </script>
 
-<div id="header" class="fixed">
-	<div class="table">
-		<div class="title">
-			<a href="https://youtube.com" class="fa fa-youtube-play"></a><span> ‒ playlists manager</span>
-			<a href="https://github.com/Mr21/YouTube-Playlists-Manager/">GitHub</a>
-			<div class="fb-like" data-href="https://mr21.github.io/YouTube-Playlists-Manager/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-		</div>
-		<div class="connection">
-			<a href="#"></a>
-		</div>
-	</div>
+<div id="header">
+	<a class="youtube fa fa-youtube" target="_blank" href="//youtube.com/"></a>
+	<hr/>
+	<a class="fa fa-github" target="_blank" href="//github.com/Mr21/YouTube-Playlists-Manager/"></a>
+	<a class="about fa fa-question-circle" href="#/about"></a>
+	<hr/>
+	<a class="login fa fa-sign-in" href="#"></a>
+	<a class="save fa fa-save" href="#/save"></a>
+	<a class="logout fa fa-power-off" href="#"></a>
+	<!-- <div class="fb-like" data-href="https://mr21.github.io/YouTube-Playlists-Manager/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div> -->
 </div>
 
-<div id="body">
-	<div id="playlists"></div>
+<div id="playlists">
+	<div class="placeholder">
+		<div class="connection">
+			<b>Oops…</b><br/>
+			<span>
+				It seem you're not connected.<br/>
+				Click on the <q><i class="fa fa-sign-in" href="#"></i> login</q> button.
+			</span>
+		</div>
+		<div class="waiting">
+			<i class="fa fa-refresh fa-spin"></i>
+		</div>
+		<div class="no-playlist">
+			<b>Whaaat&nbsp; O_o</b><br/>
+			<span>
+				Do you really haven't any playlists&nbsp;?<br/>
+				Oh boy… :(
+			</span>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
