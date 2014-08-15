@@ -29,22 +29,19 @@
 			#playlists .placeholder b {
 				font-size: 64px;
 				}
-				#playlists .placeholder span {
-					display: inline-block;
-					margin-top: 1em;
-					}
-			#playlists .placeholder > * {
+			#playlists .placeholder span {
+				display: inline-block;
+				margin-top: 1em;
+				}
+			#playlists .placeholder .waiting {
 				display: none;
-				}
-			body[connected="0"] #playlists .placeholder .connection {
-				display: block;
-				}
-			body[connected="1"] #playlists.waiting .placeholder .waiting {
-				display: block;
 				font-size: 100px;
 				}
-			#playlists[class=""] .placeholder .no-playlist {
+			#playlists.waiting .placeholder .waiting {
 				display: block;
+				}
+			#playlists.waiting .placeholder .no-playlist {
+				display: none;
 				}
 		#playlists .playlist {
 			float: left;

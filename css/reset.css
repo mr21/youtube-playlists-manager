@@ -27,3 +27,6 @@ q {
 	.placeholder:only-child {
 		display: block;
 		}
+
+body[connected="0"] .ifConnected    { display: none !important; }
+body[connected="1"] .ifDisconnected { display: none !important; }

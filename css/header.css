@@ -25,10 +25,3 @@
 		#header .youtube {
 			font-size: 48px;
 			}
-		body[connected="0"] #header a.save,
-		body[connected="0"] #header a.logout {
-			display: none;
-			}
-		body[connected="1"] #header a.login {
-			display: none;
-			}
