@@ -8,18 +8,20 @@ ytplm.connection = {
 	},
 	logout: function() {
 		gapi.auth.signOut();
-		bodyStatus(0);
+		ytplm.playlists.empty();
+		this.bodyStatus(0);
 	},
 	login: function(now) {
+		var self = this;
 		this.id.immediate = now;
 		gapi.auth.authorize(this.id, function(authResult) {
 			if (authResult.status.signed_in) {
 				gapi.client.load('youtube', 'v3', function() {
-					bodyStatus(1);
+					self.bodyStatus(1);
 					ytplm.playlists.load();
 				});
 			} else {
-				bodyStatus(0);
+				self.bodyStatus(0);
 				console.log('Connection failed... :(');
 			}
 		});

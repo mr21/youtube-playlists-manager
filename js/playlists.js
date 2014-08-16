@@ -1,6 +1,7 @@
 ytplm.playlists = {
 	init: function() {
 		this.jq_scope = $('#playlists');
+		this.jq_placeholder = this.jq_scope.find('.placeholder');
 		this.nl_nbVideos = this.jq_scope[0].getElementsByTagName('em');
 
 		var
@@ -37,6 +38,9 @@ ytplm.playlists = {
 	},
 	length: function() {
 		return this.nl_nbVideos.length;
+	},
+	empty: function() {
+		this.jq_placeholder.nextAll().remove();
 	},
 	load: function() {
 		var self = this;
