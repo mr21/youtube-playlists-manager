@@ -9,7 +9,10 @@ ytplm.video = function(p) {
 			' style="background-image:url(' + img + ')"' +
 			' title="' + p.title + '"' +
 		'></b>'
-	);
+	).click(function(e) {
+		if (e.button === 1)
+			window.open('//youtube.com/watch?v=' + p.resourceId.videoId + '&list=' + p.playlistId);
+	});
 };
 
 /*
