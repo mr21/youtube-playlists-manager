@@ -1,0 +1,110 @@
+.playlist {
+	float: left;
+	margin: 0 0 15px 15px;
+	padding: 5px;
+	color: #ddd;
+	border-radius: 2px;
+	background: #333;
+	}
+	.playlist.hover {
+		box-shadow: 0 0 20px #000;
+		background: #444;
+		}
+	.playlist .header {
+		display: table;
+		width: 100%;
+		height: 100%;
+		font-size: 14px;
+		line-height: 14px;
+		}
+		.playlist .header > * {
+			display: table-cell;
+			height: 100%;
+			vertical-align: top; /* fx */
+			}
+		.playlist .header .relative {
+			position: relative;
+			}
+			.playlist .header .absolute {
+				position: absolute;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding-bottom: .3em;
+				}
+				.playlist .header .absolute a {
+					font-weight: bold;
+					white-space: nowrap;
+					}
+					.playlist .header .absolute a:empty:after {
+						content: "New playlist";
+						font-style: italic;
+						}
+		.playlist .header .edit {
+			width: 1px;
+			}
+			.playlist .header .edit a {
+				display: inline-block;
+				width: 0px;
+				overflow: hidden;
+				-webkit-transition: width .1s ease-in;
+				   -moz-transition: width .1s ease-in;
+				    -ms-transition: width .1s ease-in;
+				}
+				.playlist      .header:hover .edit a,
+				.playlist.edit .header       .edit a {
+					width: 1em;
+					}
+		.playlist .header em {
+			width: 1px;
+			padding-left: .3em;
+			font-style: normal;
+			font-size: 12px;
+			opacity: .5;
+			}
+			.playlist .header em:before { content: "("; }
+			.playlist .header em:after  { content: ")"; }
+	.playlist .body {
+		position: relative;
+		width: 275px; /* 4*64=256 + 19 */
+		height: 192px; /* 4*48 */
+		overflow: hidden;
+		}
+		.playlist .body > * {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			}
+		.playlist .body .bg {
+			background-size: cover;
+			background-position: center;
+			}
+		.playlist .body .jqdnd-drop {
+			overflow-y: scroll;
+			background: rgba(0,0,0,.9);
+			}
+		.playlist .body .waiting {
+			display: none;
+			width: auto;
+			height: auto;
+			left: 50%;
+			top: 50%;
+			margin: -.5em 0 0 -.5em;
+			font-size: 100px;
+			opacity: .2;
+			}
+			.playlist.waiting .body .waiting {
+				display: block;
+				}
+		.playlist .body form {
+			opacity: 0;
+			bottom: 100%;
+			background: rgba(0,0,0,.9);
+			-webkit-transition: all .25s ease-out;
+			   -moz-transition: all .25s ease-out;
+			    -ms-transition: all .25s ease-out;
+			}
+			.playlist.edit .body form {
+				bottom: 0%;
+				opacity: 1;
+				}

@@ -1,0 +1,10 @@
+.jqdnd-drag {
+	width: 64px;
+	background: no-repeat left center;
+	background-size: cover;
+	cursor: pointer;
+	}
+.jqdnd-drag,
+.jqdnd-dragHole {
+	height: 48px;
+	}
