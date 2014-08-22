@@ -1,4 +1,6 @@
 ytplm.playlist = function(p) {
+	this.name =
+	this.originalName = p.snippet.title;
 	this.createDom(p);
 	this.attachEvents();
 	this.loadVideos(p.id);
@@ -47,6 +49,7 @@ ytplm.playlist.prototype = {
 
 		this.jq_bg = jq_scope.find('.bg');
 		this.jq_drop = jq_scope.find('.jqdnd-drop');
+		this.jq_name = jq_aName;
 
 		jq_aEdit.click(function() {
 			if (jq_scope.hasClass('edit')) {
@@ -80,8 +83,9 @@ ytplm.playlist.prototype = {
 				maxResults: 50
 			},
 			function(data) {
-				$.each(data, function() {
-					self.jq_drop.append((new ytplm.video(this)).jq_scope);
+				$.each(data, function(i) {
+					self[i] = new ytplm.video(this);
+					self.jq_drop.append(self[i].jq_scope);
 				});
 				self.jq_scope.removeClass('waiting');
 			}
