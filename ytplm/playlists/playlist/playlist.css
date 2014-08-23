@@ -19,9 +19,11 @@
 			width: 1px;
 			}
 		.playlist .header .privacy {
-			padding-right: .4em;
 			cursor: pointer;
 			}
+			.playlist .header .privacy * {
+				width: 16px;
+				}
 			.playlist .header .privacy[value="public"]   [value*="C"],
 			.playlist .header .privacy[value="private"]  [value*="B"],
 			.playlist .header .privacy[value="unlisted"] [value*="A"] {
