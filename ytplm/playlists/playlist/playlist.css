@@ -18,6 +18,18 @@
 			vertical-align: top;
 			width: 1px;
 			}
+		.playlist .header .privacy {
+			padding-right: .4em;
+			cursor: pointer;
+			}
+			.playlist .header .privacy[value="public"]   [value*="C"],
+			.playlist .header .privacy[value="private"]  [value*="B"],
+			.playlist .header .privacy[value="unlisted"] [value*="A"] {
+				display: none;
+				}
+			.playlist .header .privacy [value="AB"] {
+				color: rgba(0,0,0,.6);
+				}
 		.playlist .header > a {
 			padding-right: .25em;
 			}
