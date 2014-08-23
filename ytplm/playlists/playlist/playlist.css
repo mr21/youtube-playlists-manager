@@ -24,35 +24,11 @@
 		.playlist .header .name {
 			width: auto;
 			}
-			.playlist .header .absolute {
-				position: absolute;
+			.playlist .header .name input {
 				width: 100%;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				padding-bottom: .3em;
+				margin-top: -2px;
+				font-weight: bold;
 				}
-				.playlist .header .absolute b {
-					white-space: nowrap;
-					}
-					.playlist .header .absolute b:empty:after {
-						content: "New playlist";
-						font-style: italic;
-						}
-		.playlist .header .edit {
-			width: 1px;
-			}
-			.playlist .header .edit a {
-				display: inline-block;
-				width: 0px;
-				overflow: hidden;
-				-webkit-transition: width .1s ease-in;
-				   -moz-transition: width .1s ease-in;
-				    -ms-transition: width .1s ease-in;
-				}
-				.playlist      .header:hover .edit a,
-				.playlist.edit .header       .edit a {
-					width: 1em;
-					}
 		.playlist .header em {
 			width: 1px;
 			padding-left: .3em;

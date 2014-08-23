@@ -41,5 +41,14 @@ q {
 	position: relative;
 	}
 
+input.span {
+	color: inherit;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	background: none;
+	}
+
 body[connected="0"] .ifConnected    { display: none !important; }
 body[connected="1"] .ifDisconnected { display: none !important; }

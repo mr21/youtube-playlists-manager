@@ -14,14 +14,7 @@ ytplm.playlist.prototype = {
 				'<div class="table header">' +
 					'<a target="_blank" class="fa fa-external-link" href="//youtube.com/playlist?list=' + p.id + '"></a>' +
 					'<div class="name">' +
-						'<div class="relative">' +
-							'<div class="absolute">' +
-								'<b>' + p.snippet.title + '</b>' +
-							'</div>' +
-						'</div>' +
-					'</div>' +
-					'<div class="edit">' +
-						'<a href="#" class="fa fa-gear" title="Settings"></a>' +
+						'<input type="text" class="span" placeholder="New playlist" value="' + p.snippet.title + '"/>' +
 					'</div>' +
 					'<em class="nbVideos"></em>' +
 				'</div>' +
@@ -29,50 +22,13 @@ ytplm.playlist.prototype = {
 					'<div class="bg"></div>' +
 					'<div class="jqdnd-drop"></div>' +
 					'<i class="waiting fa fa-refresh fa-spin"></i>' +
-					'<form>' +
-						'<input type="text" value="" placeholder="Playlist\'s name"/><br/>' +
-						'<input type="button" value="Cancel" class="cancel"/>' +
-						'<input type="submit" value="Save"/><br/>' +
-						'<input type="button" value="Delete" class="delete"/>' +
-					'</form>' +
 				'</div>' +
 			'</div>'
 		);
 	},
 	attachEvents: function() {
-		var
-			jq_scope = this.jq_scope,
-			jq_aName = jq_scope.find('.name a'),
-			jq_aEdit = jq_scope.find('.edit a'),
-			jq_form = jq_scope.find('form'),
-			jq_btnCancel = jq_form.find('.cancel'),
-			jq_btnDelete = jq_form.find('.delete');
-
-		this.jq_bg = jq_scope.find('.bg');
-		this.jq_drop = jq_scope.find('.jqdnd-drop');
-		this.jq_name = jq_aName;
-
-		jq_aEdit.click(function() {
-			if (jq_scope.hasClass('edit')) {
-				jq_scope.removeClass('edit');
-			} else {
-				jq_form[0][0].value = jq_aName[0].textContent;
-				jq_scope.addClass('edit');
-			}
-			return false;
-		});
-
-		jq_btnCancel.click(function() {
-			jq_scope.removeClass('edit');
-		});
-
-		jq_btnDelete.click(function() {
-			;
-		});
-
-		jq_form.submit(function() {
-			return false;
-		});
+		this.jq_bg = this.jq_scope.find('.bg');
+		this.jq_drop = this.jq_scope.find('.jqdnd-drop');
 	},
 	loadVideos: function(id) {
 		var self = this;
@@ -92,7 +48,7 @@ ytplm.playlist.prototype = {
 			}
 		);
 	},
-	setBackground: function(imgUrl) {
-		this.jq_bg.css('background-image', 'url(' + imgUrl + ')');
+	setBackground: function(url) {
+		this.jq_bg.css('background-image', 'url("' + url + '")');
 	}
 };
