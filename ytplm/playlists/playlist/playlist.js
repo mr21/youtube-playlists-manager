@@ -11,11 +11,12 @@ ytplm.playlist.prototype = {
 	createDom: function(p) {
 		this.jq_scope = $(
 			'<div class="playlist waiting">' +
-				'<div class="header">' +
+				'<div class="table header">' +
+					'<a target="_blank" class="fa fa-external-link" href="//youtube.com/playlist?list=' + p.id + '"></a>' +
 					'<div class="name">' +
 						'<div class="relative">' +
 							'<div class="absolute">' +
-								'<a href="//youtube.com/playlist?list=' + p.id + '" target="_blank">' + p.snippet.title + '</a>' +
+								'<b>' + p.snippet.title + '</b>' +
 							'</div>' +
 						'</div>' +
 					'</div>' +

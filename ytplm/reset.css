@@ -28,5 +28,18 @@ q {
 		display: block;
 		}
 
+.table {
+	display: table;
+	width: 100%;
+	}
+	.table > * {
+		display: table-cell;
+		height: 100%;
+		vertical-align: middle;
+		}
+.relative {
+	position: relative;
+	}
+
 body[connected="0"] .ifConnected    { display: none !important; }
 body[connected="1"] .ifDisconnected { display: none !important; }
