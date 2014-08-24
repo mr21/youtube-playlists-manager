@@ -27,7 +27,7 @@ ytplm.playlist.prototype = {
 					'<div class="name">' +
 						'<input type="text" class="span" placeholder="New playlist" value="' + p.snippet.title + '"/>' +
 					'</div>' +
-					'<em class="nbVideos"></em>' +
+					'<div class="count"></div>' +
 				'</div>' +
 				'<div class="body">' +
 					'<div class="bg"></div>' +
@@ -39,6 +39,8 @@ ytplm.playlist.prototype = {
 		var self = this;
 		this.jq_bg = this.jq_scope.find('.bg');
 		this.jq_drop = this.jq_scope.find('.jqdnd-drop');
+		this.jq_drop[0]._playlist = this;
+		this.el_count = this.jq_scope.find('.count')[0];
 		this.jq_privacy =
 			this.jq_scope.find('.privacy')
 			.click(function() {
@@ -56,6 +58,9 @@ ytplm.playlist.prototype = {
 		else
 			return this.jq_privacy.attr('value');
 	},
+	recount: function() {
+		this.el_count.textContent = this.jq_drop[0].getElementsByTagName('b').length;
+	},
 	loadVideos: function(id) {
 		var self = this;
 		ytplm.extractData(
@@ -71,6 +76,7 @@ ytplm.playlist.prototype = {
 					self.jq_drop.append(self[i].jq_scope);
 				});
 				self.jq_scope.removeClass('waiting');
+				self.recount();
 			}
 		);
 	},

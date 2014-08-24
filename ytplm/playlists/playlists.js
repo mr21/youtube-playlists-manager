@@ -13,10 +13,14 @@ ytplm.playlists = {
 			.dragndrop({
 				duration: DURATION,
 				ondrag: function(drops, drags) {
-					self.updateAllNbVideos();
+					$.each(drops, function() {
+						this._playlist.recount();
+					});
 				},
-				ondrop: function(drop, drags) {
-					self.updateAllNbVideos();
+				ondrop: function(drops, drags) {
+					$.each(drops, function() {
+						this._playlist.recount();
+					});
 				},
 				ondragover: function(l, r) {
 					var $l = $(l),
@@ -60,11 +64,6 @@ ytplm.playlists = {
 				self.jq_scope.removeClass('waiting');
 			}
 		);
-	},
-	updateAllNbVideos: function() {
-		$.each(this.nl_nbVideos, function() {
-			this.textContent = this.parentNode.parentNode.getElementsByTagName('b').length;
-		});
 	}
 };
 

@@ -43,15 +43,14 @@
 				margin-top: -2px;
 				font-weight: bold;
 				}
-		.playlist .header em {
+		.playlist .header .count {
 			width: 1px;
 			padding-left: .3em;
-			font-style: normal;
 			font-size: 12px;
 			opacity: .5;
 			}
-			.playlist .header em:before { content: "("; }
-			.playlist .header em:after  { content: ")"; }
+			.playlist .header .count:before { content: "("; }
+			.playlist .header .count:after  { content: ")"; }
 	.playlist .body {
 		position: relative;
 		width: 275px; /* 4*64=256 + 19 */
