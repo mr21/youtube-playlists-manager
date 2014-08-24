@@ -4,11 +4,11 @@
 	padding: 5px;
 	color: #ddd;
 	border-radius: 2px;
-	background: #333;
+	background: #444;
 	}
 	.playlist.hover {
 		box-shadow: 0 0 20px #000;
-		background: #444;
+		background: #555;
 		}
 	.playlist .header {
 		font-size: 14px;
