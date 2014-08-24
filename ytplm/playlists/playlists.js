@@ -14,12 +14,12 @@ ytplm.playlists = {
 				duration: DURATION,
 				ondrag: function(drops, drags) {
 					$.each(drops, function() {
-						this._playlist.recount();
+						this._playlist.refresh();
 					});
 				},
 				ondrop: function(drops, drags) {
 					$.each(drops, function() {
-						this._playlist.recount();
+						this._playlist.refresh();
 					});
 				},
 				ondragover: function(l, r) {

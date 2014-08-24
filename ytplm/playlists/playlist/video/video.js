@@ -1,18 +1,19 @@
 ytplm.video = function(p) {
 	p = p.snippet;
-	var img = p.thumbnails
-		? p.thumbnails.default.url
-		: '//s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg';
+	var img = p.thumbnails || {};
+	this.imgDef = img.default && img.default.url;
+	this.imgMed = img.medium ? img.medium.url : this.imgDef;
 	this.jq_scope = $(
 		'<b' +
 			' class="jqdnd-drag"' +
-			' style="background-image:url(' + img + ')"' +
+			' style="background-image:url(' + (this.imgDef || '//s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg') + ')"' +
 			' title="' + p.title + '"' +
 		'></b>'
 	).click(function(e) {
 		if (e.button === 1)
 			window.open('//youtube.com/watch?v=' + p.resourceId.videoId + '&list=' + p.playlistId);
 	});
+	this.jq_scope[0]._video = this;
 };
 
 /*

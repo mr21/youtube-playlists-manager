@@ -1,7 +1,6 @@
 ytplm.playlist = function(p) {
 	this.createDom(p);
 	this.loadVideos(p.id);
-	this.setBackground(p.snippet.thumbnails.medium.url);
 	this.privacy(this.originalPrivacy);
 };
 
@@ -39,6 +38,7 @@ ytplm.playlist.prototype = {
 		var self = this;
 		this.jq_bg = this.jq_scope.find('.bg');
 		this.jq_drop = this.jq_scope.find('.jqdnd-drop');
+		this.nl_drags = this.jq_drop[0].getElementsByTagName('b');
 		this.jq_drop[0]._playlist = this;
 		this.el_count = this.jq_scope.find('.count')[0];
 		this.jq_privacy =
@@ -58,8 +58,12 @@ ytplm.playlist.prototype = {
 		else
 			return this.jq_privacy.attr('value');
 	},
+	refresh: function() {
+		this.recount();
+		this.findBackground();
+	},
 	recount: function() {
-		this.el_count.textContent = this.jq_drop[0].getElementsByTagName('b').length;
+		this.el_count.textContent = this.nl_drags.length;
 	},
 	loadVideos: function(id) {
 		var self = this;
@@ -76,11 +80,24 @@ ytplm.playlist.prototype = {
 					self.jq_drop.append(self[i].jq_scope);
 				});
 				self.jq_scope.removeClass('waiting');
-				self.recount();
+				self.refresh();
 			}
 		);
 	},
-	setBackground: function(url) {
-		this.jq_bg.css('background-image', 'url("' + url + '")');
+	findBackground: function() {
+		var	self = this,
+			changed = false;
+		function bg(url) {
+			self.jq_bg.css('background-image', url ? 'url("' + url + '")' : 'none');
+			return url;
+		}
+		$.each(this.nl_drags, function() {
+			if (bg(this._video.imgMed)) {
+				changed = true;
+				return false;
+			}
+		});
+		if (!changed)
+			bg();
 	}
 };
