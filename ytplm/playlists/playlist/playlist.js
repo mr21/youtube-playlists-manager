@@ -1,6 +1,6 @@
 ytplm.playlist = function(p) {
 	this.createDom(p);
-	this.loadVideos(p.id);
+	this.loadVideos(p.id, p.contentDetails.itemCount);
 	this.privacy(this.originalPrivacy);
 };
 
@@ -15,7 +15,7 @@ ytplm.playlist.prototype = {
 		this.originalName = p.snippet.title;
 		this.originalPrivacy = p.status.privacyStatus;
 		this.jq_scope = $(
-			'<div class="playlist waiting">' +
+			'<div class="playlist">' +
 				'<div class="table header">' +
 					'<div class="privacy">' +
 						'<i value="AB" title="Public"   class="fa fa-globe"></i>' +
@@ -59,30 +59,34 @@ ytplm.playlist.prototype = {
 			return this.jq_privacy.attr('value');
 	},
 	refresh: function() {
-		this.recount();
 		this.findBackground();
+		this.setNbVideos(this.nl_drags.length);
 	},
-	recount: function() {
-		this.el_count.textContent = this.nl_drags.length;
+	setNbVideos: function(nb) {
+		this.el_count.textContent = nb;
 	},
-	loadVideos: function(id) {
-		var self = this;
-		ytplm.extractData(
-			gapi.client.youtube.playlistItems.list,
-			{
-				playlistId: id,
-				part: 'snippet',
-				maxResults: 50
-			},
-			function(data) {
-				$.each(data, function(i) {
-					self[i] = new ytplm.video(this);
-					self.jq_drop.append(self[i].jq_scope);
-				});
-				self.jq_scope.removeClass('waiting');
-				self.refresh();
-			}
-		);
+	loadVideos: function(id, nbVideos) {
+		this.setNbVideos(nbVideos);
+		if (nbVideos > 0) {
+			var self = this;
+			this.jq_scope.addClass('waiting');
+			ytplm.extractData(
+				gapi.client.youtube.playlistItems.list,
+				{
+					playlistId: id,
+					part: 'snippet',
+					maxResults: 50
+				},
+				function(data) {
+					$.each(data, function(i) {
+						self[i] = new ytplm.video(this);
+						self.jq_drop.append(self[i].jq_scope);
+					});
+					self.jq_scope.removeClass('waiting');
+					self.findBackground();
+				}
+			);
+		}
 	},
 	findBackground: function() {
 		var	self = this,

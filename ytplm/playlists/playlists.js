@@ -52,7 +52,7 @@ ytplm.playlists = {
 		ytplm.extractData(
 			gapi.client.youtube.playlists.list,
 			{
-				part: 'snippet,status',
+				part: 'snippet,status,contentDetails',
 				maxResults: 50,
 				mine: true
 			},
