@@ -5,7 +5,7 @@ ytplm.video = function(p) {
 	this.imgMed = img.medium ? img.medium.url : this.imgDef;
 	this.jq_scope = $(
 		'<b' +
-			' class="jqdnd-drag"' +
+			' class="jqselection-selectable"' +
 			' style="background-image:url(' + (this.imgDef || '//s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg') + ')"' +
 			' title="' + p.title + '"' +
 		'></b>'

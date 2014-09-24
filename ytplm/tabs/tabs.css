@@ -1,0 +1,128 @@
+.jqtabs > .header {
+	position: relative;
+	background: #3c3c3c;
+	}
+	.jqtabs > .header:before {
+		content: "";
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 4px;
+		background: rgba(0,0,0,.15);
+		}
+	.jqtabs > .header .about {
+		float: left;
+		width: 90px;
+		}
+	.jqtabs > .header a {
+		margin: 6px 0 0 15px;
+		font-size: 22px;
+		color: rgba(255,255,255,.3);
+		}
+		.jqtabs > .header a:hover {
+			color: rgba(255,255,255,.75);
+			}
+	.jqtabs-tabs {
+		margin-left: 90px;
+		}
+		.jqtabs-tabs,
+		.jqtabs-tab,
+		.jqtabs-tabHole {
+			min-height: 32px;
+			}
+			.jqtabs-tab div {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				padding: 9px 9px 0;
+				cursor: pointer;
+				background: #555;
+				-webkit-transition: all .2s ease;
+				   -moz-transition: all .2s ease;
+				    -ms-transition: all .2s ease;
+				}
+				.jqtabs-tabHoverL div,
+				.jqtabs-tabHoverR div,
+				.jqtabs-tab:hover div {
+					background: #333;
+					}
+				.jqtabs-tabActive div {
+					background: #222 !important;
+					}
+				.jqtabs-tabHoverL div { right: 20%; }
+				.jqtabs-tabHoverR div { left:  40%; }
+				.jqtabs-btnCloseTab {
+					margin: 0 !important;
+					font-size: 14px !important;
+					position: absolute;
+					top: 9px;
+					right: 7px;
+					}
+				.jqtabs-tab span {
+					display: block;
+					color: #bbb;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					}
+					.jqtabs-tab span:empty:after {
+						content: "New channel";
+						font-style: italic;
+						}
+					.jqtabs-tabActive span {
+						color: #ddd;
+						text-shadow: 0 0 5px rgba(255,255,255,.2);
+						}
+		.jqtabs-tab.logged {
+			font-weight: bold;
+			}
+			.jqtabs-tab.logged span:before {
+				content: "(you) ";
+				font-style: italic;
+				opacity: .5;
+				}
+	.jqtabs-contents {
+		position: absolute;
+		width: 100%;
+		top: 32px;
+		bottom: 0;
+		background: #222;
+		}
+		.jqtabs-contents .newTab {
+			display: none;
+			position: absolute;
+			z-index: 1;
+			margin: 20px 0 0 20px;
+			font-size: 14px;
+			line-height: 2em;
+			}
+			.jqtabs-contents .newTab.show {
+				display: block;
+				}
+			.jqtabs-contents .newTab b,
+			.jqtabs-contents .newTab input[type="text"] {
+				font-family: monospace;
+				}
+			.jqtabs-contents .newTab input,
+			.jqtabs-contents .newTab button {
+				margin-left:.2em;
+				padding: .2em;
+				color: #111;
+				font-size: inherit;
+				border: none;
+				border-radius: 2px;
+				background: rgba(255,255,255,.4);
+				font-weight: bold;
+				}
+			.jqtabs-contents .newTab input[type="text"] {
+				width: 125px;
+				color: #aaa;
+				background: rgba(255,255,255,.05);
+				}
+				.jqtabs-contents .newTab span {
+					display: inline-block;
+					}

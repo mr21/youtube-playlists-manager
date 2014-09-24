@@ -10,7 +10,7 @@ Todolist
   - [X] <s>Styliser les **scrollbars**.</s>
   - [X] <s>Faire en sorte que le **bg des PL** corresponde toujours à sa **première vidéo**.</s>
   - [ ] Améliorer le **loading initial**: un seul chargement avec un **%**.
-  - [ ] Organisation par **onglets**.
+  - [X] <s>Organisation par **onglets**.</s>
   - [ ] Styliser les **infobulles**.
 - [ ] Features
   - [ ] **Multi-Channels**: pouvoir afficher plusieurs channels différents (en read-only).

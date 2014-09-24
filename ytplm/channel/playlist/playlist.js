@@ -30,14 +30,14 @@ ytplm.playlist.prototype = {
 				'</div>' +
 				'<div class="body">' +
 					'<div class="bg"></div>' +
-					'<div class="jqdnd-drop"></div>' +
+					'<div class="jqdragndrop-drop"></div>' +
 					'<i class="waiting fa fa-refresh fa-spin"></i>' +
 				'</div>' +
 			'</div>'
 		);
 		var self = this;
 		this.jq_bg = this.jq_scope.find('.bg');
-		this.jq_drop = this.jq_scope.find('.jqdnd-drop');
+		this.jq_drop = this.jq_scope.find('.jqdragndrop-drop');
 		this.nl_drags = this.jq_drop[0].getElementsByTagName('b');
 		this.jq_drop[0]._playlist = this;
 		this.el_count = this.jq_scope.find('.count')[0];

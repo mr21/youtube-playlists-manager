@@ -1,0 +1,15 @@
+.jqselection-selectable {
+	width: 64px;
+	cursor: pointer;
+	background: no-repeat left center;
+	background-size: cover;
+	-webkit-transition: background .2s ease;
+	   -moz-transition: background .2s ease;
+	    -ms-transition: background .2s ease;
+	}
+.jqselection-selectable,
+.jqdnd-dragHole {
+	height: 48px;
+	}
+	.jqselection-selectableHoverL { background-position: -6px; }
+	.jqselection-selectableHoverR { background-position: 32px; }

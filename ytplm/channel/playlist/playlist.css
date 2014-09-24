@@ -1,6 +1,6 @@
 .playlist {
 	float: left;
-	margin: 0 0 15px 15px;
+	margin: 15px 0 0 15px;
 	padding: 5px;
 	color: #ddd;
 	border-radius: 2px;
@@ -66,7 +66,9 @@
 			background-size: cover;
 			background-position: center;
 			}
-		.playlist .body .jqdnd-drop {
+		.playlist .body .jqdragndrop-drop {
+			margin: 0 !important; /* besoin de nettoyer jquery-dragndrop.css */
+			border-radius: 0 !important; /* besoin de nettoyer jquery-dragndrop.css */
 			overflow-y: scroll;
 			background: rgba(0,0,0,.9);
 			}

@@ -10,7 +10,6 @@ window.gapi_onload = function() {
 };
 
 $(function() {
-	ytplm.header.init();
-	ytplm.playlists.init();
+	ytplm.tabs.init();
 });
 

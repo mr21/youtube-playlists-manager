@@ -8,17 +8,16 @@ ytplm.connection = {
 	},
 	logout: function() {
 		gapi.auth.signOut();
-		ytplm.playlists.empty();
 		this.bodyStatus(0);
 	},
-	login: function(now) {
+	login: function(callback) {
 		var self = this;
-		this.id.immediate = now;
 		gapi.auth.authorize(this.id, function(authResult) {
 			if (authResult.status.signed_in) {
 				gapi.client.load('youtube', 'v3', function() {
 					self.bodyStatus(1);
-					ytplm.playlists.load();
+					if (callback)
+						callback();
 				});
 			} else {
 				self.bodyStatus(0);
@@ -27,11 +26,6 @@ ytplm.connection = {
 		});
 	},
 	gapiOnload: function() {
-		var self = this;
-		gapi.auth.init(function() {
-			setTimeout(function() {
-				self.login(true);
-			}, 1);
-		});
+		gapi.auth.init();
 	}
 };
