@@ -1,0 +1,28 @@
+/*
+	jQuery - selection - 1.1
+	https://github.com/Mr21/jquery-selection
+*/
+
+.jqselection-selectable {
+	position: relative;
+	}
+	.jqselection-selected:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(255,255,255,.3);
+		}
+		.jqselection-number {
+			position: absolute;
+			z-index: 1;
+			top: 4px;
+			right: 4px;
+			color: #fff;
+			font: bold 12px sans-serif;
+			padding: .15em .5em;
+			border-radius: .4em;
+			background: rgba(0,0,0,.85);
+			}

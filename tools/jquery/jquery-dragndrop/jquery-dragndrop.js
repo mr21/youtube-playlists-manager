@@ -1,64 +1,77 @@
 /*
-	jQuery - drag 'n' drop - 1.4
+	jQuery - drag 'n' drop - 2.5
 	https://github.com/Mr21/jquery-dragndrop
 */
 
-$.fn.dragndrop = function(arg) {
-	return new $.fn.dragndrop.obj(this, arg);
+$.plugin_dragndrop = function(parent, options) {
+	return new $.plugin_dragndrop.obj(
+		parent.jquery
+			? parent.eq(0)
+			: $(parent),
+		options || {}
+	);
 };
 
-$.fn.dragndrop.obj = function($parent, arg) {
-	var self = this;
-	this.arg = arg;
-	this.duration = arg.duration || 200;
-	this.$parent = $parent;
-	this.$drops = null;
-	this.$drags = null;
-	this.dragsParents = [];
-	this.$dragHoles = null;
-	this.elemsSelected = [];
-	this.elemsDetached = [];
+$.plugin_dragndrop.obj = function(jq_parent, options) {
+	this.dropClass     = options.dropClass     || 'jqdragndrop-drop';
+	this.dragClass     = options.dragClass     || 'jqselection-selectable';
+	this.dragHoleClass = options.dragHoleClass || 'jqdragndrop-hole';
+	this.jq_parent = jq_parent;
+	this.jq_drops = null;
+	this.jq_drags = null;
+	this.el_dragsParents = [];
+	this.jq_dragHoles = null;
+	this.el_detached = [];
+	this.el_dropOver = null;
+	this.el_dragOverA = null;
+	this.el_dragOverB = null;
 	this.dragW = 0;
 	this.dragH = 0;
-	this.keyCtrl = false;
-	this.keyShift = false;
 	this.mouseLeft = false;
 	this.mouseDrag = false;
 	this.mouseX = 0;
 	this.mouseY = 0;
 	this.mouseIncX = 0;
 	this.mouseIncY = 0;
-	this.dropOver = null;
-	this.dragOverA = null;
-	this.dragOverB = null;
+	this.ms = options.duration === undefined ? 200 : options.duration;
+	this.app = window;
+
+	if (!$.plugin_selection || options.noSelection) {
+		this.el_selected = [];
+	} else {
+		this.plugin_selection =
+			$.plugin_selection(jq_parent, {
+				selectableClass : this.dragClass,
+				selectedClass : options.dragSelectedClass,
+				numberClass : options.dragSelectedClass
+			});
+		this.el_selected = this.plugin_selection.getArraySelection();
+	}
+
+	var self = this;
 
 	this.nodeEvents(true, true);
-	$parent
+	jq_parent
 		.on('DOMNodeInserted', function(e) {
 			var $e = $(e.target),
-				drop = $e.hasClass('jqdnd-drop') || $e.find('.jqdnd-drop').length,
-				drag = !e.target._jqdnd_known && $e.hasClass('jqdnd-drag');
+				drop = $e.hasClass(self.dropClass) || $e.find('.' + self.dropClass).length,
+				drag = !e.target._jqdragndrop_ready && $e.hasClass(self.dragClass);
 			if (!drag)
-				drag = $e.find('.jqdnd-drag').length;
+				drag = $e.find('.' + self.dragClass).length;
 			if (drop || drag)
 				self.nodeEvents(drop, drag);
 		});
 
 	$(window)
 		.blur(function() {
-			self.keyCtrl = false;
-			self.keyShift = false;
 			self.mouseLeft = false;
 			self.dragStop();
 		});
 
 	$(document)
 		.mouseup(function() {
-			if (self.mouseDrag) {
+			if (self.mouseDrag)
 				self.dragStop();
-			} else if (!self.keyCtrl && !self.keyShift) {
-				self.unselectAll();
-			}
 			self.mouseLeft = false;
 		})
 		.mousemove(function(e) {
@@ -67,42 +80,79 @@ $.fn.dragndrop.obj = function($parent, arg) {
 			self.mouseX = e.pageX;
 			self.mouseY = e.pageY;
 			self.mousemove();
-		})
-		.keydown(function(e) {
-			switch (e.keyCode) {
-				case 224: case 91: case 93:
-				case 17: self.keyCtrl = true; break;
-				case 16: self.keyShift = true; break;
-			}
-		})
-		.keyup(function(e) {
-			switch (e.keyCode) {
-				case 224: case 91: case 93:
-				case 17: self.keyCtrl = false; break;
-				case 16: self.keyShift = false; break;
-			}
 		});
 };
 
-// Methodes
-$.fn.dragndrop.obj.prototype = {
-	dragDimension: function() {
-		var $drag = $('.jqdnd-drag:first', this.$parent);
-		this.dragW = $drag.width();
-		this.dragH = $drag.height();
+$.plugin_dragndrop.obj.prototype = {
+	// public ********************
+	selection: function() { return this.plugin_selection; },
+	applyThis: function(app) {
+		if (app !== undefined)
+			return this.app = app, this;
+		return this.app;
+	},
+	duration: function(ms) {
+		if (ms !== undefined)
+			return this.ms = ms, this;
+		return this.ms;
+	},
+	// events
+	onDrag:     function(f) { this.cbDrag     = f; return this; },
+	onDrop:     function(f) { this.cbDrop     = f; return this; },
+	onDragOver: function(f) { this.cbDragOver = f; return this; },
+	onDragOut:  function(f) { this.cbDragOut  = f; return this; },
+	onDropOver: function(f) { this.cbDropOver = f; return this; },
+	onDropOut:  function(f) { this.cbDropOut  = f; return this; },
+
+	// private ********************
+	ev_onDrag: function() {
+		if (this.cbDrag)
+			this.cbDrag.call(this.app, $(this.el_dragsParents), $(this.el_detached));
+	},
+	ev_onDrop: function(par) {
+		if (this.cbDrop)
+			this.cbDrop.call(this.app, $(par), $(this.el_selected));
+	},
+	ev_onDragOver: function(l, r) {
+		l = $(l).addClass(this.dragClass + 'HoverL');
+		r = $(r).addClass(this.dragClass + 'HoverR');
+		if (this.cbDragOver)
+			this.cbDragOver.call(this.app, l, r);
+	},
+	ev_onDragOut:  function(l, r) {
+		l = $(l).removeClass(this.dragClass + 'HoverL');
+		r = $(r).removeClass(this.dragClass + 'HoverR');
+		if (this.cbDragOut)
+			this.cbDragOut.call(this.app, l, r);
+	},
+	ev_onDropOver: function(d) {
+		d = $(d).addClass(this.dropClass + 'Hover');
+		if (this.cbDropOver)
+			this.cbDropOver.call(this.app, d);
+	},
+	ev_onDropOut:  function(d) {
+		d = $(d).removeClass(this.dropClass + 'Hover');
+		if (this.cbDropOut)
+			this.cbDropOut.call(this.app, d);
+	},
+
+	dragDimension: function(jq_drag) {
+		this.dragW = jq_drag.width();
+		this.dragH = jq_drag.height();
 	},
 
 	nodeEvents: function(drop, drag) {
 		if (drop)
-			this.$drops = this.$parent.find('.jqdnd-drop');
+			this.jq_drops = this.jq_parent.find('.' + this.dropClass);
 		if (drag) {
 			var self = this;
-			this.$drags = this.$parent
-				.find('.jqdnd-drag')
+			this.jq_drags = this.jq_parent
+				.find('.' + this.dragClass)
 				.each(function() {
-					if (!this._jqdnd_known) {
-						this._jqdnd_known = true;
-						$(this)
+					if (!this._jqdragndrop_ready) {
+						this._jqdragndrop_ready = true;
+						var $this = $(this);
+						$this
 							.mouseup(function(e) {
 								if (!self.mouseDrag)
 									e.stopPropagation();
@@ -110,50 +160,18 @@ $.fn.dragndrop.obj.prototype = {
 							})
 							.mouseleave(function(e) {
 								if (self.mouseLeft && !self.mouseDrag) {
-									self.dragDimension();
+									if (!self.plugin_selection)
+										self.el_selected.push(this);
+									self.dragDimension($this);
 									self.regroup(e);
 									self.mouseDrag = true;
 								}
 							})
 							.mousedown(function(e) {
 								e.preventDefault();
-								if (e.button === 0) {
-									var $this = $(this),
-										elems = [],
-										selected = $this.hasClass('selected');
-									if ($this.css('position') !== 'absolute') {
-										self.mouseLeft = true;
-										self.stopAnimations();
-									}
-									if (!selected && !self.keyCtrl) {
-										if (self.keyShift && self.elemsSelected.length)
-											elems.push(self.elemsSelected[self.elemsSelected.length - 1]);
-										self.unselectAll();
-									}
-									if (!selected || self.keyShift) {
-										if (self.keyShift) {
-											var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
-											if (elemA !== this) {
-												var	$drags = $('.jqdnd-drag', self.$parent),
-													AInd = $.inArray(elemA, $drags),
-													BInd = $.inArray(this, $drags),
-													incr = AInd < BInd ? 1 : -1,
-													i = AInd + incr;
-												for (; i !== BInd; i += incr)
-													if (!$drags.eq(i).hasClass('selected'))
-														elems.push($drags[i]);
-											}
-										}
-										if (!selected)
-											elems.push(this);
-										self.select(elems);
-									} else if (selected && self.keyCtrl) {
-										self.elemsSelected.splice(self.elemsSelected.indexOf(this), 1);
-										self.unselect($this);
-										$(self.elemsSelected)
-											.children('.jqdnd-dragNumber')
-											.html(function(i) { return i + 1; });
-									}
+								if (e.button === 0 && $this.css('position') !== 'absolute') {
+									self.mouseLeft = true;
+									self.stopAnimations();
 								}
 							});
 					}
@@ -161,83 +179,57 @@ $.fn.dragndrop.obj.prototype = {
 		}
 	},
 
-	select: function(elems) {
-		var a = this.elemsSelected;
-		$(elems)
-			.addClass('selected')
-			.append(function() {
-				return '<span class="jqdnd-dragNumber">'+ a.push(this) +'</span>';
-			});
-	},
-
-	unselect: function(elems) {
-		$(elems)
-			.removeClass('selected')
-			.children('.jqdnd-dragNumber')
-				.remove();
-	},
-
-	unselectAll: function() {
-		this.unselect(this.elemsSelected);
-		this.elemsSelected.length = 0;
-	},
-
 	detach: function() {
 		var self = this;
-		this.dragsParents.length = 0;
-		this.$dragHoles = $('<i class="jqdnd-dragHole">').insertBefore(this.elemsSelected);
-		$.each(this.elemsSelected, function() {
+		this.el_dragsParents.length = 0;
+		this.jq_dragHoles = $('<div>').addClass(this.dragHoleClass).insertBefore(this.el_selected);
+		$.each(this.el_selected, function() {
 			var $this = $(this);
-			self.dragsParents.push(this._pl = this.parentNode);
+			self.el_dragsParents.push(this._pl = this.parentNode);
 			this._$prev = $this.prev();
 			this._pos = $this.offset();
 		});
-		$.each(this.elemsSelected, function(i) {
-			self.elemsDetached.push(this);
+		$.each(this.el_selected, function(i) {
+			self.el_detached.push(this);
 			$(this)
 				.prependTo(document.body) // we have to make 2 foreach because this detach...
 				.css('top',  this._pos.top  + 'px')
 				.css('left', this._pos.left + 'px');
 		});
-		this.$dragHoles
+		this.jq_dragHoles
 			.css('width', this.dragW + 'px')
-			.animate({width: '0px'}, this.duration, 'swing');
-		$.unique(this.dragsParents);
-		// Events:ondrag
-		if (this.arg.ondrag)
-			this.arg.ondrag(
-				this.dragsParents,
-				this.elemsDetached.slice()
-			);
+			.animate({width: '0px'}, this.ms, 'swing');
+		$.unique(this.el_dragsParents);
+		this.ev_onDrag();
 	},
 
 	attach: function(dropWell) {
 		var self = this,
 			parents = dropWell
-				? [this.elemsSelected[0]._$prev.parent()[0]]
-				: this.dragsParents,
-			nbElems = this.elemsSelected.length,
+				? [this.el_selected[0]._$prev.parent()[0]]
+				: this.el_dragsParents,
+			nbElems = this.el_selected.length,
 			i = 0;
-		this.$dragHoles.stop().animate({width: this.dragW + 'px'}, this.duration, 'swing');
-		$.each(this.elemsSelected, function() {
+		this.jq_dragHoles.stop().animate({width: this.dragW + 'px'}, this.ms, 'swing');
+		$.each(this.el_selected, function() {
 			$(this).stop(true).animate({
 				left : this._pos.left + 'px',
 				top  : this._pos.top  + 'px',
 				marginLeft : '0px',
 				marginTop  : '0px'
-			}, self.duration, 'swing', function() {
+			}, self.ms, 'swing', function() {
 				$(this)
 					.css({left:'0px', top:'0px'})
 					.insertAfter(this._$prev);
 				this._$prev.remove();
 				if (++i === nbElems) {
-					// Events:ondrop
-					if (self.arg.ondrop)
-						self.arg.ondrop(parents, self.elemsSelected.slice());
-					self.elemsDetached.length = 0;
-					self.dropOver =
-					self.dragOverA =
-					self.dragOverB = null;
+					self.ev_onDrop(parents);
+					self.el_detached.length = 0;
+					self.el_dropOver =
+					self.el_dragOverA =
+					self.el_dragOverB = null;
+					if (!self.plugin_selection)
+						self.el_selected.length = 0;
 				}
 			})
 		});
@@ -247,11 +239,11 @@ $.fn.dragndrop.obj.prototype = {
 		var self = this,
 			x = e.pageX - this.dragW / 2,
 			y = e.pageY - this.dragH / 2,
-			decay = 5 + 30 / this.elemsSelected.length,
-			opt = {duration: this.duration, easing: 'swing'};
+			decay = 5 + 30 / this.el_selected.length,
+			opt = {duration: this.ms, easing: 'swing'};
 		this.detach();
-		$.each(this.elemsSelected, function(i) {
-			if (i === self.elemsSelected.length - 1)
+		$.each(this.el_selected, function(i) {
+			if (i === self.el_selected.length - 1)
 				opt.complete = function() { self.mouseHover(); };
 			$(this).animate({
 				left : (x + i * decay) + 'px',
@@ -262,7 +254,7 @@ $.fn.dragndrop.obj.prototype = {
 
 	mousemove: function() {
 		if (this.mouseDrag) {
-			$(this.elemsSelected)
+			$(this.el_selected)
 				.css('marginLeft', '+=' + this.mouseIncX + 'px')
 				.css('marginTop',  '+=' + this.mouseIncY + 'px');
 			this.mouseHover();
@@ -279,16 +271,16 @@ $.fn.dragndrop.obj.prototype = {
 			return p.left <= self.mouseX && self.mouseX < p.left + w &&
 			       p.top  <= self.mouseY && self.mouseY < p.top  + h;
 		}
-		this.$drops.each(function() {
+		this.jq_drops.each(function() {
 			var $this = $(this);
 			if (mouseIn($this.offset(), $this.width(), $this.height())) {
 				drop = this;
-				dragA = $this.find('.jqdnd-drag:last')[0];
+				dragA = $this.find('.' + self.dragClass + ':last')[0];
 				return false;
 			}
 		});
 		if (drop) {
-			this.$drags.each(function() {
+			this.jq_drags.each(function() {
 				if (this.parentNode === drop) {
 					$this = $(this);
 					var pos = $this.offset();
@@ -297,19 +289,19 @@ $.fn.dragndrop.obj.prototype = {
 						$this.css('position') !== 'absolute')
 					{
 						side = self.mouseX < pos.left + self.dragW / 2;
-						dragA = ( side ? $this.prevAll('.jqdnd-drag').first() : $this)[0];
-						dragB = (!side ? $this.nextAll('.jqdnd-drag').first() : $this)[0];
+						dragA = ( side ? $this.prevAll('.' + self.dragClass).first() : $this)[0];
+						dragB = (!side ? $this.nextAll('.' + self.dragClass).first() : $this)[0];
 						return false;
 					}
 				}
 			});
 			if (side === undefined)
-				this.$parent.find('.jqdnd-dragHole').each(function() {
+				this.jq_parent.find('.' + this.dragHoleClass).each(function() {
 					if (this.parentNode === drop) {
 						$this = $(this);
 						if (mouseIn($this.offset(), $this.width(), self.dragH)) {
-							dragA = $this.prevAll('.jqdnd-drag').first()[0];
-							dragB = $this.nextAll('.jqdnd-drag').first()[0];
+							dragA = $this.prevAll('.' + self.dragClass).first()[0];
+							dragB = $this.nextAll('.' + self.dragClass).first()[0];
 							return side = false;
 						}
 					}
@@ -318,28 +310,26 @@ $.fn.dragndrop.obj.prototype = {
 				drop = (dragA && dragA.parentNode) || (dragB && dragB.parentNode);
 		}
 		// Events:ondragover/out, ondropover/out
-		if (this.arg.ondropout  && this.dropOver && drop !== this.dropOver)
-			this.arg.ondropout(this.dropOver);
-		if (this.arg.ondropover && drop          && drop !== this.dropOver)
-			this.arg.ondropover(drop);
-		if (this.arg.ondragout && (
-			(this.dragOverA && dragA !== this.dragOverA) ||
-			(this.dragOverB && dragB !== this.dragOverB)))
-				this.arg.ondragout(this.dragOverA, this.dragOverB);
-		if (this.arg.ondragover && (
-			(dragA && dragA !== this.dragOverA) ||
-			(dragB && dragB !== this.dragOverB)))
-				this.arg.ondragover(dragA, dragB);
+		if (this.el_dropOver && drop !== this.el_dropOver)
+			this.ev_onDropOut(this.el_dropOver);
+		if (drop && drop !== this.el_dropOver)
+			this.ev_onDropOver(drop);
+		if ((this.el_dragOverA && dragA !== this.el_dragOverA) ||
+			(this.el_dragOverB && dragB !== this.el_dragOverB))
+			this.ev_onDragOut(this.el_dragOverA, this.el_dragOverB);
+		if ((dragA && dragA !== this.el_dragOverA) ||
+			(dragB && dragB !== this.el_dragOverB))
+			this.ev_onDragOver(dragA, dragB);
 		// save the values
-		this.dropOver = drop;
-		this.dragOverA = dragA;
-		this.dragOverB = dragB;
+		this.el_dropOver = drop;
+		this.el_dragOverA = dragA;
+		this.el_dragOverB = dragB;
 	},
 
 	stopAnimations: function() {
-		if (this.elemsDetached.length > 0) {
-			$(this.elemsDetached).finish();
-			this.$dragHoles.finish();
+		if (this.el_detached.length > 0) {
+			$(this.el_detached).finish();
+			this.jq_dragHoles.finish();
 		}
 	},
 
@@ -347,7 +337,7 @@ $.fn.dragndrop.obj.prototype = {
 		if (!this.mouseDrag)
 			return;
 		this.mouseDrag = false;
-		var dropWell = this.dropOver || this.dragOverA || this.dragOverB;
+		var dropWell = this.el_dropOver || this.el_dragOverA || this.el_dragOverB;
 		if (dropWell) {
 			var self = this,
 				insertFn,
@@ -355,24 +345,26 @@ $.fn.dragndrop.obj.prototype = {
 				rankVid = 0;
 			function calcRank($e) {
 				for (; $e[0]; $e = $e.prev())
-					if ($e.hasClass('jqdnd-drag'))
+					if ($e.hasClass(self.dragClass))
 						++rankVid;
 			}
-			if (this.dragOverB) {
+			if (this.el_dragOverB) {
 				insertFn = 'insertBefore';
-				elem = this.dragOverB;
+				elem = this.el_dragOverB;
 				calcRank($(elem).prev());
+				parent = elem.parentNode;
+			} else if (this.el_dragOverA) {
+				insertFn = 'insertAfter';
+				elem = this.el_dragOverA;
+				calcRank($(elem));
 				parent = elem.parentNode;
 			} else {
 				insertFn = 'appendTo';
-				elem = this.dragOverA;
-				calcRank($(elem));
-				if (this.dropOver)
-					elem = this.dropOver;
+				elem = this.el_dropOver;
 				parent = elem;
 			}
 			var nbVidsW = parseInt(parent.offsetWidth / this.dragW),
-				pos = this.$dragHoles
+				pos = this.jq_dragHoles
 					.stop(true)
 					.css('width', '0px')
 					.detach()
@@ -382,8 +374,8 @@ $.fn.dragndrop.obj.prototype = {
 				pos.left -= nbVidsW * this.dragW;
 				pos.top += this.dragH;
 			}
-			this.$dragHoles.each(function(i) {
-				var	v = self.elemsSelected[i],
+			this.jq_dragHoles.each(function(i) {
+				var	v = self.el_selected[i],
 					$this = $(this);
 				v._pl = null;
 				v._$prev = $this;
@@ -397,11 +389,11 @@ $.fn.dragndrop.obj.prototype = {
 				}
 			});
 		}
-		this.attach(dropWell);
 		// Events:ondropout, ondragout
-		if (this.arg.ondropout && this.dropOver)
-			this.arg.ondropout(this.dropOver);
-		if (this.arg.ondragout && (this.dragOverA || this.dragOverB))
-			this.arg.ondragout(this.dragOverA, this.dragOverB);
+		if (this.el_dropOver)
+			this.ev_onDropOut(this.el_dropOver);
+		if (this.el_dragOverA || this.el_dragOverB)
+			this.ev_onDragOut(this.el_dragOverA, this.el_dragOverB);
+		this.attach(dropWell);
 	}
 };
