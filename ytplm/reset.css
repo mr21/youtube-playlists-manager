@@ -53,6 +53,3 @@ input.span {
 	outline: 0;
 	background: none;
 	}
-
-body[connected="0"] .ifConnected    { display: none !important; }
-body[connected="1"] .ifDisconnected { display: none !important; }
