@@ -79,12 +79,8 @@
 						}
 		.jqtabs-tab.logged {
 			font-weight: bold;
+			font-style: italic;
 			}
-			.jqtabs-tab.logged span:before {
-				content: "(you) ";
-				font-style: italic;
-				opacity: .5;
-				}
 	.jqtabs-contents {
 		position: absolute;
 		width: 100%;

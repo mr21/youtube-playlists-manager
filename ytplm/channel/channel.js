@@ -10,11 +10,15 @@
 </div>
 */
 
-ytplm.channel = function(jq_tab, jq_content, mine) {
+ytplm.channel = function(name, jq_tab, jq_content) {
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
-	this.load();
-	if (mine) {
+	this.load(name);
+	if (name) {
+		jq_tab.find('span').text(name);
+	} else {
+		jq_tab.addClass('logged')
+			.find('span').html('<i class="fa fa-star"></i> Mine');
 		this.dragndropInit();
 	}
 };
@@ -41,42 +45,30 @@ ytplm.channel.prototype = {
 				jq_drop.parent().parent().removeClass('hover');
 			});
 	},
-	load: function() {
-		var self = this;
-		this.jq_scope.addClass('waiting');
-		ytplm.tabs.hideForm();
+	load: function(name) {
+		var	self = this,
+			queryParams = {
+				part: 'snippet,status,contentDetails',
+				maxResults: 50
+			};
+		if (name)
+			queryParams.channelId = name;
+		else
+			queryParams.mine = true;
 		ytplm.extractData(
 			gapi.client.youtube.playlists.list,
-			{
-				part: 'snippet,status,contentDetails',
-				maxResults: 50,
-				mine: true
-			},
+			queryParams,
 			function(data) {
-				$.each(data, function(i) {
-					self[i] = new ytplm.playlist(this);
-					self.jq_scope.append(self[i].jq_scope);
-				});
-				self.jq_scope.removeClass('waiting');
+				if (data) {
+					self.jq_scope.addClass('waiting');
+					ytplm.tabs.hideForm();
+					$.each(data, function(i) {
+						self[i] = new ytplm.playlist(this);
+						self.jq_scope.append(self[i].jq_scope);
+					});
+					self.jq_scope.removeClass('waiting');
+				}
 			}
 		);
 	}
 };
-
-/*
-	// La methode .delete qui se trouvait dans le plugin au debut:
-	// case 46: self.delete(); break;
-	delete: function() {
-		var self = this,
-			$drags = $(this.elemsSelected),
-			i = 0;
-		$drags
-			.css('backgroundPosition', 'right')
-			.animate({width: '0px'}, this.duration, 'swing', function() {
-				if (++i === self.elemsSelected.length) {
-					$drags.remove();
-					self.elemsSelected.length = 0;
-				}
-			});
-	},
-*/

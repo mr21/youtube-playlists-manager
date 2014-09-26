@@ -6,10 +6,8 @@ if (location.protocol === 'http:')
 var ytplm = {};
 
 window.gapi_onload = function() {
-	ytplm.connection.gapiOnload();
+	// gapi.client.setApiKey('rtVInr4eHiZ1NPvnF08dmo5t');
+	gapi.client.load('youtube', 'v3', function() {
+		ytplm.tabs.init();
+	});
 };
-
-$(function() {
-	ytplm.tabs.init();
-});
-
