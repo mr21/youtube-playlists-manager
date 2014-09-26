@@ -1,5 +1,5 @@
 /*
-	jQuery - tabs - 1.3
+	jQuery - tabs - 1.4
 	https://github.com/Mr21/jquery-tabs
 */
 
@@ -33,6 +33,8 @@ $.plugin_tabs.obj = function(jq_parent, options) {
 	this.duration(options.duration === undefined ? 200 : options.duration);
 	this.onChange(options.onChange);
 	this.onNewTab(options.onNewTab);
+	this.onBeforeRemoveTab(options.onBeforeRemoveTab);
+	this.onAfterRemoveTab(options.onAfterRemoveTab);
 	this._watchDom();
 	this._initContainer(jq_parent);
 };
@@ -54,6 +56,8 @@ $.plugin_tabs.obj.prototype = {
 	},
 	onChange: function(f) { this.cbChange = f; return this; },
 	onNewTab: function(f) { this.cbNewTab = f; return this; },
+	onBeforeRemoveTab: function(f) { this.cbBeforeRemoveTab = f; return this; },
+	onAfterRemoveTab:  function(f) { this.cbAfterRemoveTab  = f; return this; },
 	// private:
 	_initContainer: function(jq_elem) {
 		var self = this;
@@ -157,6 +161,7 @@ $.plugin_tabs.container.prototype = {
 		var self = this,
 			jq_content = jq_tab[0]._jqtabs_jqContent;
 		function f() {
+			self._callEvents('cbAfterRemoveTab', jq_tab);
 			if (jq_tab[0] === self.jq_activeTab[0]) {
 				var jq_next = jq_tab.nextAll('.' + self.plugin_jqtabs.class_tab + ':first');
 				if (!jq_next[0])
@@ -172,18 +177,28 @@ $.plugin_tabs.container.prototype = {
 					self.jq_activeTab = null;
 			}
 		}
-		if (delay === undefined)
-			delay = this.plugin_jqtabs.ms;
-		if (!delay) {
-			f();
-		} else {
-			jq_tab.addClass(this.plugin_jqtabs.class_tabClosing);
-			jq_content.addClass(this.plugin_jqtabs.class_contentClosing);
-			setTimeout(f, delay);
+		if (this._callEvents('cbBeforeRemoveTab', jq_tab) !== false) {
+			if (delay === undefined)
+				delay = this.plugin_jqtabs.ms;
+			if (!delay) {
+				f();
+			} else {
+				jq_tab.addClass(this.plugin_jqtabs.class_tabClosing);
+				jq_content.addClass(this.plugin_jqtabs.class_contentClosing);
+				setTimeout(f, delay);
+			}
 		}
 		return this;
 	},
 	// private:
+	_callEvents: function(f, jq_tab, jq_content) {
+		if (f = this.plugin_jqtabs[f])
+			return f.call(this.plugin_jqtabs.app,
+				jq_tab,
+				jq_content || jq_tab[0]._jqtabs_jqContent,
+				jq_tab[0]._jqtabs_container
+			);
+	},
 	_findTabs: function() {
 		this.jq_arrayTabs = this.jq_tabs.children('.' + this.plugin_jqtabs.class_tab);
 	},
@@ -196,8 +211,7 @@ $.plugin_tabs.container.prototype = {
 				.addClass(this.plugin_jqtabs.class_content)
 				.appendTo(this.jq_contents);
 		this._findTabs();
-		if (this.plugin_jqtabs.cbNewTab)
-			this.plugin_jqtabs.cbNewTab.call(this.plugin_jqtabs.app, jq_tab, jq_content);
+		this._callEvents('cbNewTab', jq_tab, jq_content);
 		this._initTab(jq_tab, jq_content);
 		this._clickTab(jq_tab);
 	},
@@ -235,8 +249,7 @@ $.plugin_tabs.container.prototype = {
 	_activeTab: function(jq_tab) {
 		this.jq_activeTab = jq_tab.addClass(this.plugin_jqtabs.class_tabActive);
 		jq_tab[0]._jqtabs_jqContent.addClass(this.plugin_jqtabs.class_contentActive);
-		if (this.plugin_jqtabs.cbChange)
-			this.plugin_jqtabs.cbChange(jq_tab, jq_tab[0]._jqtabs_jqContent);
+		this._callEvents('cbChange', jq_tab);
 	},
 	_desactiveTab: function() {
 		if (this.jq_activeTab[0]) {
