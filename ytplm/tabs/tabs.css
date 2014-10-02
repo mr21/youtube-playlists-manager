@@ -32,6 +32,16 @@
 		.jqtabs-tabHole {
 			min-height: 32px;
 			}
+		.jqtabs-tab {
+			-webkit-transition: width .2s ease;
+			   -moz-transition: width .2s ease;
+			    -ms-transition: width .2s ease;
+			     -o-transition: width .2s ease;
+			        transition: width .2s ease;
+			}
+		.jqtabs-tabClosing {
+			width: 0;
+			}
 			.jqtabs-tab div {
 				position: absolute;
 				left: 0;
