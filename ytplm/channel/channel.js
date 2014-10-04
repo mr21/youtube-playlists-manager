@@ -18,10 +18,12 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 		this.loadByName(channelName);
 	} else {
 		this.load();
-		jq_tab.addClass('logged');
+		jq_tab.addClass('mine');
+		jq_content.addClass('mine');
 		this.setTitle('Mine');
 		this.dragndropInit();
 	}
+	this.readOnly = !!channelName;
 };
 
 ytplm.channel.prototype = {
@@ -85,7 +87,7 @@ ytplm.channel.prototype = {
 					self.jq_scope.addClass('waiting');
 					ytplm.tabs.hideForm();
 					$.each(data, function(i) {
-						self[i] = new ytplm.playlist(this);
+						self[i] = new ytplm.playlist(this, self.readOnly);
 						self.jq_scope.append(self[i].jq_scope);
 					});
 					self.jq_scope.removeClass('waiting');

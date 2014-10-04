@@ -39,7 +39,7 @@
 			     -o-transition: width .2s ease;
 			        transition: width .2s ease;
 			}
-			.jqtabs-tab.logged {
+			.jqtabs-tab.mine {
 				font-weight: bold;
 				font-style: italic;
 				}
@@ -87,7 +87,7 @@
 						content: "New channel";
 						font-style: italic;
 						}
-						.jqtabs-tab.logged span:before {
+						.jqtabs-tab.mine span:before {
 							content: "\f005";
 							font-family: "FontAwesome";
 							font-style: normal;

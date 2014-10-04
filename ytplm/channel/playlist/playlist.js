@@ -1,5 +1,5 @@
-ytplm.playlist = function(p) {
-	this.createDom(p);
+ytplm.playlist = function(p, readOnly) {
+	this.createDom(p, readOnly);
 	this.loadVideos(p.id, p.contentDetails.itemCount);
 	this.privacy(this.originalPrivacy);
 };
@@ -11,7 +11,7 @@ ytplm.playlist.privacyValues = [
 ];
 
 ytplm.playlist.prototype = {
-	createDom: function(p) {
+	createDom: function(p, readOnly) {
 		this.originalName = p.snippet.title;
 		this.originalPrivacy = p.status.privacyStatus;
 		this.jq_scope = $(
@@ -24,7 +24,7 @@ ytplm.playlist.prototype = {
 					'</div>' +
 					'<a target="_blank" class="fa fa-external-link" href="//youtube.com/playlist?list=' + p.id + '"></a>' +
 					'<div class="name">' +
-						'<input type="text" class="span" placeholder="New playlist" value="' + p.snippet.title + '"/>' +
+						'<input '+ (readOnly ? 'readonly ' : '') +'type="text" class="span" placeholder="New playlist" value="' + p.snippet.title + '"/>' +
 					'</div>' +
 					'<div class="count"></div>' +
 				'</div>' +
