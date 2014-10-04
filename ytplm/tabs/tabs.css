@@ -39,9 +39,13 @@
 			     -o-transition: width .2s ease;
 			        transition: width .2s ease;
 			}
-		.jqtabs-tabClosing {
-			width: 0;
-			}
+			.jqtabs-tab.logged {
+				font-weight: bold;
+				font-style: italic;
+				}
+			.jqtabs-tabClosing {
+				width: 0;
+				}
 			.jqtabs-tab div {
 				position: absolute;
 				left: 0;
@@ -83,14 +87,17 @@
 						content: "New channel";
 						font-style: italic;
 						}
+						.jqtabs-tab.logged span:before {
+							content: "\f005";
+							font-family: "FontAwesome";
+							font-style: normal;
+							font-weight: normal;
+							margin-right: .5em;
+							}
 					.jqtabs-tabActive span {
 						color: #ddd;
 						text-shadow: 0 0 5px rgba(255,255,255,.2);
 						}
-		.jqtabs-tab.logged {
-			font-weight: bold;
-			font-style: italic;
-			}
 	.jqtabs-contents {
 		position: absolute;
 		width: 100%;

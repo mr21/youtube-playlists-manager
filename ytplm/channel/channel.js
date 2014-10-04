@@ -13,13 +13,13 @@
 ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
+	this.el_tabTitle = jq_tab.find('span')[0];
 	if (channelName) {
 		this.loadByName(channelName);
-		jq_tab.find('span').text(channelName);
 	} else {
 		this.load();
-		jq_tab.addClass('logged')
-			.find('span').html('<i class="fa fa-star"></i> Mine');
+		jq_tab.addClass('logged');
+		this.setTitle('Mine');
 		this.dragndropInit();
 	}
 };
@@ -46,6 +46,9 @@ ytplm.channel.prototype = {
 				jq_drop.parent().parent().removeClass('hover');
 			});
 	},
+	setTitle: function(name) {
+		this.el_tabTitle.textContent = name;
+	},
 	loadByName: function(name) {
 		var self = this;
 		ytplm.extractData(
@@ -56,8 +59,10 @@ ytplm.channel.prototype = {
 				q: name
 			},
 			function(data) {
-				if (data)
+				if (data) {
 					self.load(data[0].id.channelId);
+					self.setTitle(data[0].snippet.channelTitle);
+				}
 			},
 			"singlePage"
 		);
