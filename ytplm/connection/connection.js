@@ -3,7 +3,7 @@ ytplm.connection = {
 		client_id: '514381834459-gr3dgmesev8jflg5364piutqb6alb35b.apps.googleusercontent.com',
 		scope: ['https://www.googleapis.com/auth/youtube']
 	},
-	apiKey: 'rtVInr4eHiZ1NPvnF08dmo5t',
+	apiKey: 'AIzaSyBreHdBg1r-CTMmCqNVTIgPB17mzc1AAk0',
 	logout: function() {
 		gapi.auth.signOut();
 	},

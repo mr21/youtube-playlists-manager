@@ -6,7 +6,7 @@ if (location.protocol === 'http:')
 var ytplm = {};
 
 window.gapi_onload = function() {
-	// gapi.client.setApiKey('rtVInr4eHiZ1NPvnF08dmo5t');
+	gapi.client.setApiKey(ytplm.connection.apiKey);
 	gapi.client.load('youtube', 'v3', function() {
 		ytplm.tabs.init();
 	});
