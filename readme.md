@@ -1,7 +1,7 @@
 Todolist
 --------
 
-- [X] <s>Forcer le **https:**.</s>
+- [X] <s>Forcer le **https**.</s>
 - [X] <s>Lancer la vidéo quand on **click milieu** dessus.</s>
 - [X] <s>Mettre un **lien externe** pour accéder à la **PL** au lieu du nom.</s>
 - [X] <s>Pouvoir **éditer le nom de la PL** en cliquant dessus.</s>
@@ -10,10 +10,12 @@ Todolist
 - [X] <s>Faire en sorte que le **bg des PL** corresponde toujours à sa **première vidéo**.</s>
 - [ ] Améliorer le **loading initial**: un seul chargement avec un **%**.
 - [ ] Styliser les **infobulles**.
+- [ ] Tout selectionner quand on clique sur le titre d'une PL (pour l'edition).
 - [ ] **Multi-Channels**
   - [X] <s>Organisation par **onglets**.</s>
   - [X] <s>Pouvoir charger plusieurs **channels** différents.</s>
-  - [ ] Mettre les channels autre que _Mine_ en total read-only.
+  - [ ] Mettre les channels autre que _Mine_ en total **read-only**.
+  - [ ] Afficher le vrai nom du channel dans l'onglet **channelTitle**.
 - [ ] **DOMdiff**
   - [X] <s>**Stocker** les infos: name, status, vidéos pour chaque PL.</s>
   - [ ] Donner la possibilité d'**annuler** toutes les modifications.

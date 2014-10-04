@@ -56,7 +56,7 @@ ytplm.channel.prototype = {
 				q: name
 			},
 			function(data) {
-				if (data[0])
+				if (data)
 					self.load(data[0].id.channelId);
 			},
 			"singlePage"
