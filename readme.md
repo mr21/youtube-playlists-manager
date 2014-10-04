@@ -11,10 +11,10 @@ Todolist
 - [ ] Améliorer le **loading initial**: un seul chargement avec un **%**.
 - [ ] Styliser les **infobulles**.
 - [X] <s>Faire comprendre que le **titre des PL** peut etre edite lors du `focus`.</s>
-- [ ] **Multi-Channels**
+- [X] <s>**Multi-Channels**</s>
   - [X] <s>Organisation par **onglets**.</s>
   - [X] <s>Pouvoir charger plusieurs **channels** différents.</s>
-  - [ ] Mettre les channels autre que `Mine` en total **read-only**.
+  - [X] <s>Mettre les channels autre que `Mine` en total **read-only**.</s>
   - [x] <s>Afficher le vrai nom du channel dans l'onglet `channelTitle`.</s>
 - [ ] **DOMdiff**
   - [X] <s>**Stocker** les infos: `name`, `status`, `videos` pour chaque PL.</s>

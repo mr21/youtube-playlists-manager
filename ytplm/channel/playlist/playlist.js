@@ -41,9 +41,9 @@ ytplm.playlist.prototype = {
 		this.nl_drags = this.jq_drop[0].getElementsByTagName('b');
 		this.jq_drop[0]._playlist = this;
 		this.el_count = this.jq_scope.find('.count')[0];
-		this.jq_privacy =
-			this.jq_scope.find('.privacy')
-			.click(function() {
+		this.jq_privacy = this.jq_scope.find('.privacy');
+		if (!readOnly)
+			this.jq_privacy.click(function() {
 				self.privacy(
 					ytplm.playlist.privacyValues[
 						(1 + $.inArray(self.privacy(), ytplm.playlist.privacyValues))

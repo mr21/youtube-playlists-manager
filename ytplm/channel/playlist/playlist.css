@@ -18,7 +18,7 @@
 			vertical-align: top;
 			width: 1px;
 			}
-		.playlist .header .privacy {
+		.channel.mine .playlist .header .privacy {
 			cursor: pointer;
 			}
 			.playlist .header .privacy * {
