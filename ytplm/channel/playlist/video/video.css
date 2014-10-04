@@ -8,7 +8,7 @@
 	    -ms-transition: background .2s ease;
 	}
 .jqselection-selectable,
-.jqdnd-dragHole {
+.jqdragndrop-hole {
 	height: 48px;
 	}
 	.jqselection-selectableHoverL { background-position: -6px; }
