@@ -43,6 +43,10 @@
 				margin-top: -2px;
 				font-weight: bold;
 				}
+				.playlist .header .name input:focus {
+					background: #ddd;
+					color: #444;
+					}
 		.playlist .header .count {
 			width: 1px;
 			padding-left: .3em;

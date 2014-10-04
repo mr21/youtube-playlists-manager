@@ -10,7 +10,7 @@ Todolist
 - [X] <s>Faire en sorte que le **bg des PL** corresponde toujours à sa **première vidéo**.</s>
 - [ ] Améliorer le **loading initial**: un seul chargement avec un **%**.
 - [ ] Styliser les **infobulles**.
-- [ ] Tout selectionner quand on clique sur le titre d'une PL (pour l'edition).
+- [X] <s>Faire comprendre que le titre des PL peut etre edite lors du focus</s>
 - [ ] **Multi-Channels**
   - [X] <s>Organisation par **onglets**.</s>
   - [X] <s>Pouvoir charger plusieurs **channels** différents.</s>
