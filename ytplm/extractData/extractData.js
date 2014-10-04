@@ -1,11 +1,12 @@
-ytplm.extractData = function(ytFn, ytOpt, callback) {
+ytplm.extractData = function(ytFn, ytOpt, callback, singlePage) {
 	var arr = [];
 	function query(page) {
 		if (page)
 			ytOpt.pageToken = page;
 		ytFn(ytOpt).execute(function(data) {
+			lg(data)
 			arr = arr.concat(data.items);
-			if (data.nextPageToken)
+			if (data.nextPageToken && !singlePage)
 				query(data.nextPageToken);
 			else
 				callback(arr);

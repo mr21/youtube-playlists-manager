@@ -10,13 +10,14 @@
 </div>
 */
 
-ytplm.channel = function(name, jq_tab, jq_content) {
+ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
-	this.load(name);
-	if (name) {
-		jq_tab.find('span').text(name);
+	if (channelName) {
+		this.loadByName(channelName);
+		jq_tab.find('span').text(channelName);
 	} else {
+		this.load();
 		jq_tab.addClass('logged')
 			.find('span').html('<i class="fa fa-star"></i> Mine');
 		this.dragndropInit();
@@ -45,14 +46,30 @@ ytplm.channel.prototype = {
 				jq_drop.parent().parent().removeClass('hover');
 			});
 	},
-	load: function(name) {
+	loadByName: function(name) {
+		var self = this;
+		ytplm.extractData(
+			gapi.client.youtube.search.list,
+			{
+				type: 'channel',
+				part: 'snippet',
+				q: name
+			},
+			function(data) {
+				if (data[0])
+					self.load(data[0].id.channelId);
+			},
+			"singlePage"
+		);
+	},
+	load: function(channelId) {
 		var	self = this,
 			queryParams = {
 				part: 'snippet,status,contentDetails',
 				maxResults: 50
 			};
-		if (name)
-			queryParams.channelId = name;
+		if (channelId)
+			queryParams.channelId = channelId;
 		else
 			queryParams.mine = true;
 		ytplm.extractData(
