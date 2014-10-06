@@ -19,9 +19,11 @@
 	.jqtabs > .header a {
 		margin: 6px 0 0 15px;
 		font-size: 22px;
+		}
+	.header-link {
 		color: rgba(255,255,255,.3);
 		}
-		.jqtabs > .header a:hover {
+		.header-link:hover {
 			color: rgba(255,255,255,.75);
 			}
 	.jqtabs-tabs {
@@ -88,11 +90,21 @@
 						font-style: italic;
 						}
 						.jqtabs-tab.mine span:before {
-							content: "\f005";
+							content: "\f058"; /* fa-check-circle */
 							font-family: "FontAwesome";
 							font-style: normal;
 							font-weight: normal;
 							margin-right: .5em;
+							}
+					.jqtabs-tab.mine .edit {
+						display: none;
+						margin: 0 0 0 .66em;
+						font-size: 14px;
+						text-shadow: none;
+						vertical-align: middle;
+						}
+						.jqtabs-tabActive.mine .edit {
+							display: inline;
 							}
 					.jqtabs-tabActive span {
 						color: #ddd;

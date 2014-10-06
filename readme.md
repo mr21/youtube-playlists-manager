@@ -18,7 +18,7 @@ Todolist
   - [x] <s>Afficher le vrai nom du channel dans l'onglet `channelTitle`.</s>
 - [ ] **DOMdiff**
   - [X] <s>**Stocker** les infos: `name`, `status`, `videos` pour chaque PL.</s>
-  - [ ] Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.
+  - [X] <s>Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.</s>
   - [ ] Donner la possibilité d'**annuler** toutes les modifications.
   - [ ] Coder le **DOMdiff**.
   - [ ] Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.

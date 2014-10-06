@@ -15,7 +15,7 @@ ytplm.tabs = {
 					jq_tab.html(
 						'<div>'+
 							'<span></span>'+
-							'<a title="Close tab" class="jqtabs-btnCloseTab fa fa-times-circle"></a>'+
+							'<a title="Close tab" class="jqtabs-btnCloseTab header-link fa fa-times-circle"></a>'+
 						'</div>'
 					);
 					jq_content.addClass('channel');

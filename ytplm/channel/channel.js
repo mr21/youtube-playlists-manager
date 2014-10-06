@@ -13,15 +13,19 @@
 ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
-	this.el_tabTitle = jq_tab.find('span')[0];
+	this.jq_tabTitle = jq_tab.find('span');
 	if (channelName) {
 		this.loadByName(channelName);
 	} else {
 		this.load();
-		jq_tab.addClass('mine');
 		jq_content.addClass('mine');
+		jq_tab.addClass('mine');
 		this.setTitle('Mine');
 		this.dragndropInit();
+		this.jq_tabTitle.append(
+			'<a class="edit header-link fa fa-reply" title="Cancel all the modifications"></a>'+
+			'<a class="edit header-link fa fa-save"  title="Save all the modifications"></a>'
+		);
 	}
 	this.readOnly = !!channelName;
 };
@@ -49,7 +53,7 @@ ytplm.channel.prototype = {
 			});
 	},
 	setTitle: function(name) {
-		this.el_tabTitle.textContent = name;
+		this.jq_tabTitle[0].textContent = name;
 	},
 	loadByName: function(name) {
 		var self = this;
