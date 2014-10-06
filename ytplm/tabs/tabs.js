@@ -3,22 +3,39 @@ ytplm.tabs = {
 		var
 			self = this,
 			jq_scope = $('.jqtabs'),
-			jq_formNewTab = jq_scope.find('.jqtabs-contents .newTab'),
 			plugin_tabs = $.plugin_tabs(jq_scope, {
 				onChange: function(jq_tab, jq_content) {
-					if (jq_content.is(':empty'))
-						self.showForm();
-					else
-						self.hideForm();
 				},
 				onNewTab: function(jq_tab, jq_content) {
-					jq_tab.html(
-						'<div>'+
-							'<span></span>'+
-							'<a title="Close tab" class="jqtabs-btnCloseTab header-link fa fa-times-circle"></a>'+
-						'</div>'
-					);
-					jq_content.addClass('channel');
+					jq_tab
+						.html(
+							'<div>'+
+								'<span></span>'+
+								'<a title="Close tab" class="jqtabs-btnCloseTab header-link fa fa-times-circle"></a>'+
+							'</div>'
+						);
+					jq_content
+						.addClass('channel')
+						.html(
+							'<form class="newTab">'+
+								'Enter a YouTube channel below to easely browse through its videos&nbsp;:<br/>'+
+								'<b>youtube.com/</b><input type="text" placeholder="ex: vsauce"/>'+
+								'<input type="submit" value="Load"/>'+
+								'<br/><br/>'+
+								'Or log yourself to manage your personal playlists directly here by clicking this&nbsp;:<br/>'+
+								'<button class="login"><i class="fa fa-sign-in"></i> Login with Google</button>'+
+							'</form>'
+						)
+						.children('form')
+							.submit(function() {
+								self.loadTab(this[0].value);
+								return false;
+							})
+							.find('.login')
+								.click(function() {
+									self.loadTab();
+									return false;
+								});
 				},
 				onAfterRemoveTab: function() {
 					if (1 === self.tabsContainer.getTabs().length)
@@ -27,25 +44,8 @@ ytplm.tabs = {
 			});
 
 		this.tabsContainer = plugin_tabs.container[0];
-		this.jq_formNewTab = jq_formNewTab;
 		this.channels = [];
-
-		jq_formNewTab
-			.submit(function() {
-				self.loadTab(jq_formNewTab[0][0].value);
-				return false;
-			})
-			.find('.login').click(function() {
-				self.loadTab();
-				return false;
-			});
 		this.tabsContainer.newTabAppend();
-	},
-	showForm: function() {
-		this.jq_formNewTab.show();
-	},
-	hideForm: function() {
-		this.jq_formNewTab.hide();
 	},
 	loadTab: function(name) {
 		var	self = this,

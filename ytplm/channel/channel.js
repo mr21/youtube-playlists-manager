@@ -88,8 +88,9 @@ ytplm.channel.prototype = {
 			queryParams,
 			function(data) {
 				if (data) {
-					self.jq_scope.addClass('waiting');
-					ytplm.tabs.hideForm();
+					self.jq_scope
+						.addClass('waiting')
+						.empty();
 					$.each(data, function(i) {
 						self[i] = new ytplm.playlist(this, self.readOnly);
 						self.jq_scope.append(self[i].jq_scope);

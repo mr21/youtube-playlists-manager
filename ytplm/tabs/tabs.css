@@ -118,16 +118,12 @@
 		background: #222;
 		}
 		.jqtabs-contents .newTab {
-			display: none;
 			position: absolute;
 			z-index: 1;
 			margin: 20px 0 0 20px;
 			font-size: 14px;
 			line-height: 2em;
 			}
-			.jqtabs-contents .newTab.show {
-				display: block;
-				}
 			.jqtabs-contents .newTab b,
 			.jqtabs-contents .newTab input[type="text"] {
 				font-family: monospace;
