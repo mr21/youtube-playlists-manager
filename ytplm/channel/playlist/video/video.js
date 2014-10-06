@@ -7,7 +7,7 @@ ytplm.video = function(p) {
 		'<b' +
 			' class="jqselection-selectable"' +
 			' style="background-image:url(' + (this.imgDef || '//s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg') + ')"' +
-			' title="' + p.title + '"' +
+			' title="' + p.title.replace(/"/g, '&quot;') + '"' +
 		'></b>'
 	).click(function(e) {
 		if (e.button === 1)
