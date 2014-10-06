@@ -22,7 +22,7 @@ ytplm.playlist.prototype = {
 						'<i value="AC" title="Private"  class="fa fa-lock"></i>' +
 						'<i value="BC" title="Unlisted" class="fa fa-unlock-alt"></i>' +
 					'</div>' +
-					'<a target="_blank" class="fa fa-external-link" href="//youtube.com/playlist?list=' + p.id + '"></a>' +
+					'<a target="_blank" title="Open this playlist in YouTube" class="fa fa-external-link" href="//youtube.com/playlist?list=' + p.id + '"></a>' +
 					'<div class="name">' +
 						'<input '+ (readOnly ? 'readonly ' : '') +'type="text" class="span" placeholder="New playlist" value="' + p.snippet.title + '"/>' +
 					'</div>' +
