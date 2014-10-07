@@ -16,6 +16,7 @@ Todolist
   - [X] <s>Pouvoir charger plusieurs **channels** différents.</s>
   - [X] <s>Mettre les channels autre que `Mine` en total **read-only**.</s>
   - [x] <s>Afficher le vrai nom du channel dans l'onglet `channelTitle`.</s>
+  - [X] <s>Écrire en dessous du champs `channelName` si aucun channel n'a été trouvé OU si le channel est vide.</s>
 - [ ] **DOMdiff**
   - [X] <s>**Stocker** les infos: `name`, `status`, `videos` pour chaque PL.</s>
   - [X] <s>Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.</s>

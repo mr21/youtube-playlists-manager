@@ -147,3 +147,14 @@
 				.jqtabs-contents .newTab span {
 					display: inline-block;
 					}
+			.jqtabs-contents .newTab .error {
+				display: none;
+				font-weight: bold;
+				color: #ff3232;
+				}
+				.jqtabs-contents .newTab .error:before {
+					content: "\f071"; /* fa-warning */
+					font-family: "FontAwesome";
+					font-weight: normal;
+					margin-right: .5em;
+					}

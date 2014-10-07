@@ -1,19 +1,8 @@
-/*
-<div class="placeholder">
-	<div class="ifConnected waiting">
-		<i class="fa fa-refresh fa-spin"></i>
-	</div>
-	<div class="ifConnected no-playlist">
-		<h2>Whaaat O_o</h2>
-		<span>This channel hasn't any public playlists to show us…</span>
-	</div>
-</div>
-*/
-
 ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
 	this.jq_tabTitle = jq_tab.find('span');
+	this.readOnly = !!channelName;
 	if (channelName) {
 		this.loadByName(channelName);
 	} else {
@@ -27,7 +16,6 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 			'<a class="edit header-link fa fa-save"  title="Save all the modifications"></a>'
 		);
 	}
-	this.readOnly = !!channelName;
 };
 
 ytplm.channel.prototype = {
@@ -65,7 +53,9 @@ ytplm.channel.prototype = {
 				q: name
 			},
 			function(data) {
-				if (data) {
+				if (!data) {
+					ytplm.tabs.writeError('Channel not found...');
+				} else {
 					self.load(data[0].id.channelId);
 					self.setTitle(data[0].snippet.channelTitle);
 				}
@@ -87,7 +77,9 @@ ytplm.channel.prototype = {
 			gapi.client.youtube.playlists.list,
 			queryParams,
 			function(data) {
-				if (data) {
+				if (!data) {
+					ytplm.tabs.writeError('This channel has not yet public playlist :(');
+				} else {
 					self.jq_scope
 						.addClass('waiting')
 						.empty();
