@@ -21,7 +21,8 @@ Todolist
   - [X] <s>**Stocker** les infos: `name`, `status`, `videos` pour chaque PL.</s>
   - [X] <s>Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.</s>
   - [ ] Donner la possibilité d'**annuler** toutes les modifications.
-  - [ ] Coder le **DOMdiff**.
+  - [X] <s>Coder une fonction `diff` generique.</s>
+  - [ ] Coder le **DOMdiff** qui utilisera la fonction `diff`.
   - [ ] Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.
 - [ ] **YouTube**
   - [ ] Mettre un bouton pour partager l'écran en deux pour y mettre une **iframe vers YouTube**.
