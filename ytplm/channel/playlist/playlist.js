@@ -9,30 +9,31 @@ ytplm.playlist.privacyValues = [
 	'private',
 	'unlisted'
 ];
+ytplm.playlist.privacyClasses = {
+	public:   ['Public',   'fa fa-globe'],
+	private:  ['Private',  'fa fa-lock'],
+	unlisted: ['Unlisted', 'fa fa-unlock-alt']
+};
 
 ytplm.playlist.prototype = {
 	createDom: function(p, readOnly) {
 		this.originalName = p.snippet.title;
 		this.originalPrivacy = p.status.privacyStatus;
 		this.jq_scope = $(
-			'<div class="playlist">' +
-				'<div class="table header">' +
-					'<div class="privacy">' +
-						'<i value="AB" title="Public"   class="fa fa-globe"></i>' +
-						'<i value="AC" title="Private"  class="fa fa-lock"></i>' +
-						'<i value="BC" title="Unlisted" class="fa fa-unlock-alt"></i>' +
-					'</div>' +
-					'<a target="_blank" title="Open this playlist in YouTube" class="fa fa-external-link" href="//youtube.com/playlist?list=' + p.id + '"></a>' +
-					'<div class="name">' +
-						'<input '+ (readOnly ? 'readonly ' : '') +'type="text" class="span" placeholder="New playlist" value="' + p.snippet.title + '"/>' +
-					'</div>' +
-					'<div class="count"></div>' +
-				'</div>' +
-				'<div class="body">' +
-					'<div class="bg"></div>' +
-					'<div class="jqdragndrop-drop"></div>' +
-					'<i class="waiting fa fa-refresh fa-spin"></i>' +
-				'</div>' +
+			'<div class="playlist">'+
+				'<div class="table header">'+
+					'<a class="privacy"'+(readOnly ? '' : ' href="#"')+'></a>'+
+					'<a target="_blank" title="Open this playlist in YouTube" class="fa fa-external-link" href="//youtube.com/playlist?list='+p.id+'"></a>'+
+					'<div class="name">'+
+						'<input '+(readOnly ? 'readonly ' : '')+'type="text" class="span" placeholder="New playlist" value="'+p.snippet.title+'"/>'+
+					'</div>'+
+					'<div class="count"></div>'+
+				'</div>'+
+				'<div class="body">'+
+					'<div class="bg"></div>'+
+					'<div class="jqdragndrop-drop"></div>'+
+					'<i class="waiting fa fa-refresh fa-spin"></i>'+
+				'</div>'+
 			'</div>'
 		);
 		var self = this;
@@ -50,13 +51,16 @@ ytplm.playlist.prototype = {
 						% ytplm.playlist.privacyValues.length
 					]
 				);
+				return false;
 			});
 	},
 	privacy: function(status) {
-		if (status)
-			this.jq_privacy.attr('value', status);
-		else
-			return this.jq_privacy.attr('value');
+		var el = this.jq_privacy[0];
+		if (!status)
+			return el.getAttribute('value');
+		el.setAttribute('value', status);
+		el.className = 'privacy ' + ytplm.playlist.privacyClasses[status][1];
+		el.title = ytplm.playlist.privacyClasses[status][0];
 	},
 	refresh: function() {
 		this.findBackground();
