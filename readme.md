@@ -24,6 +24,10 @@ Todolist
   - [X] <s>Coder une fonction `diff` generique.</s>
   - [ ] Coder le **DOMdiff** qui utilisera la fonction `diff`.
   - [ ] Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.
+- [ ] **Suppression** d'une **playlist** via leur futur bouton `fa-trash`.
+- [ ] **Suppression** des **vidéos** selectionnées avec la touche `delete`.
+- [ ] **Ajout** d'une nouvelle **playlist** en cliquant sur un placeholder `fa-plus`.
+- [ ] **Ajout** d'une nouvelle **video** dans une playlist en saisissant son `URL`.
 - [ ] **YouTube**
   - [ ] Mettre un bouton pour partager l'écran en deux pour y mettre une **iframe vers YouTube**.
   - [ ] Permettre de **drag n drop** des vidéos d'une iframe vers l'autre (`HTML5`?).
