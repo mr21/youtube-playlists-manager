@@ -1,11 +1,11 @@
 .jqselection-selectable {
 	width: 64px;
 	cursor: pointer;
-	background: no-repeat left center;
-	background-size: cover;
-	-webkit-transition: background .2s ease;
-	   -moz-transition: background .2s ease;
-	    -ms-transition: background .2s ease;
+	background: no-repeat center;
+	background-size: 100%;
+	-webkit-transition: background-size .2s ease;
+	   -moz-transition: background-size .2s ease;
+	    -ms-transition: background-size .2s ease;
 	}
 .jqselection-selectable,
 .jqdragndrop-hole {
@@ -13,3 +13,6 @@
 	}
 	.jqselection-selectableHoverL { background-position: -6px; }
 	.jqselection-selectableHoverR { background-position: 32px; }
+.jqselection-selected {
+	background-size: 150%;
+	}
