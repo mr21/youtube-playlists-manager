@@ -1,4 +1,5 @@
 ytplm.channel = function(channelName, jq_tab, jq_content) {
+	var self = this;
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
 	this.jq_tabTitle = jq_tab.find('span');
@@ -11,10 +12,12 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 		jq_tab.addClass('mine');
 		this.setTitle('Mine');
 		this.dragndropInit();
-		this.jq_tabTitle.append(
-			'<a class="edit header-link fa fa-reply" title="Cancel all the modifications"></a>'+
-			'<a class="edit header-link fa fa-save"  title="Save all the modifications"></a>'
-		);
+		$('<a class="edit header-link fa fa-reply" title="Cancel all the modifications"></a>')
+		.appendTo(this.jq_tabTitle)
+		.click(function() { self.diffCancel(); return false; });
+		$('<a class="edit header-link fa fa-save" title="Save all the modifications"></a>')
+		.appendTo(this.jq_tabTitle)
+		.click(function() { self.diffSave(); return false; });
 	}
 };
 
@@ -42,6 +45,23 @@ ytplm.channel.prototype = {
 	},
 	setTitle: function(name) {
 		this.jq_tabTitle[0].textContent = name;
+	},
+	diffInit: function() {
+		this.jq_diff = $(
+			'<div class="diff">'+
+				//
+			'</div>'
+		).appendTo(this.jq_scope);
+	},
+	diffShow: function() { this.jq_diff.addClass('show'); },
+	diffHide: function() { this.jq_diff.addClass('hide'); },
+	diffCancel: function() {
+		lg('channel::diffCancel()')
+		this.diffShow();
+	},
+	diffSave: function() {
+		lg('channel::diffSave()')
+		this.diffShow();
 	},
 	loadByName: function(name) {
 		var self = this;
@@ -83,6 +103,7 @@ ytplm.channel.prototype = {
 					self.jq_scope
 						.addClass('waiting')
 						.empty();
+					self.diffInit();
 					$.each(data, function(i) {
 						self[i] = new ytplm.playlist(this, self.readOnly);
 						self.jq_scope.append(self[i].jq_scope);
