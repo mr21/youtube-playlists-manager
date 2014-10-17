@@ -36,7 +36,7 @@
 			.channel.waiting .placeholder .no-playlist {
 				display: none;
 				}
-.jqtabs-contents .diff {
+.channel .diff {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -48,7 +48,15 @@
 	   -moz-transition: all .2s linear;
 	    -ms-transition: all .2s linear;
 	}
-	.jqtabs-contents .diff.show {
+	.channel .diff.show {
 		visibility: visible;
 		opacity: 1;
+		}
+	.channel .diff .close {
+		float: right;
+		font-size: 32px;
+		margin: 10px;
+		}
+	.channel .diff ul {
+		
 		}

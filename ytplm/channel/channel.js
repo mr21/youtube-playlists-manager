@@ -47,14 +47,27 @@ ytplm.channel.prototype = {
 		this.jq_tabTitle[0].textContent = name;
 	},
 	diffInit: function() {
-		this.jq_diff = $(
-			'<div class="diff">'+
-				//
-			'</div>'
-		).appendTo(this.jq_scope);
+		var self = this;
+		this.jq_diff =
+			$('<div class="diff"></div>')
+				.appendTo(this.jq_scope);
+		$('<a class="close fa fa-close header-link" title="Close this window" href="#"></a>')
+			.appendTo(this.jq_diff)
+			.click(function() {
+				self.diffHide();
+				return false;
+			});
+		$(document)
+			.keydown(function(e) {
+				if (e.keyCode === 27) // escape
+					self.diffHide();
+			})
+		this.jq_diffList =
+			$('<ul></ul>')
+				.appendTo(this.jq_diff);
 	},
 	diffShow: function() { this.jq_diff.addClass('show'); },
-	diffHide: function() { this.jq_diff.addClass('hide'); },
+	diffHide: function() { this.jq_diff.removeClass('show'); },
 	diffCancel: function() {
 		lg('channel::diffCancel()')
 		this.diffShow();
