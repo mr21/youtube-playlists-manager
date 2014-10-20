@@ -77,11 +77,11 @@ ytplm.playlist.prototype = {
 			privacy = this.originalPrivacy,
 			newPrivacy = this.privacy(),
 			isDiff = false,
+			diffTab = diff(this, this.nl_drags),
 			df = {
 				name: name
 			};
-		//var d = diff(this, this.nl_drags);
-		//lg(d);
+		lg(diffTab)
 		if (name !== newName) {
 			df.newName = newName;
 			isDiff = true;
@@ -91,15 +91,6 @@ ytplm.playlist.prototype = {
 			df.newPrivacy = newPrivacy;
 			isDiff = true;
 		}
-		/*
-		videos: [
-			{
-				status: 'add',
-				img: 'https://i.ytimg.com/vi/Sr_Q2EoOJT4/default.jpg',
-				name: 'Mozart - Requiem in D minor K626 (ed. Beyer) - Introit Requiem aeternam'
-			}
-		]
-		*/
 		return isDiff ? df : null;
 	},
 	loadVideos: function(id, nbVideos) {
@@ -115,9 +106,10 @@ ytplm.playlist.prototype = {
 					maxResults: 50
 				},
 				function(data) {
+					self.length = data.length;
 					$.each(data, function(i) {
-						self[i] = new ytplm.video(this);
-						self.jq_drop.append(self[i].jq_scope);
+						self[i] = (new ytplm.video(this)).jq_scope[0];
+						self.jq_drop.append(self[i]);
 					});
 					self.jq_scope.removeClass('waiting');
 					self.findBackground();
