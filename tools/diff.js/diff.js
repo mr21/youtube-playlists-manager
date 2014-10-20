@@ -1,5 +1,5 @@
 /*
-	Mr21 - 1.0
+	Mr21 - 1.1
 	https://github.com/Mr21/diff.js
 */
 
@@ -20,7 +20,7 @@ function diff(a, b) {
 				? 1 + tab[i-1][j-1]
 				: Math.max(tab[i-1][j], tab[i][j-1]);
 	// backtrack
-	var seqTmp = [];
+	var seq = [];
 	i = a.length;
 	j = b.length;
 	for (; i > 0; --i) {
@@ -28,13 +28,8 @@ function diff(a, b) {
 		while (j > 0 && tab[i][j-1] === v)
 			--j;
 		if (tab[i-1][j] < tab[i][j])
-			seqTmp.push(a[i-1]);
+			seq[tab[i][j] - 1] = a[i-1];
 	}
-	// reverse backtrack
-	var seq = [];
-	for (i = seqTmp.length - 1; i >= 0; --i)
-		seq.push(seqTmp[i]);
-	lg(seq);
 	// write the diff
 	var iA = 0, iB = 0, iX = 0,
 	    arr = [];
