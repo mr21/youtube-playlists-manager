@@ -93,19 +93,22 @@ ytplm.playlist.prototype = {
 		}
 	},
 	findBackground: function() {
-		var	self = this,
-			changed = false;
+		var	self = this;
 		function bg(url) {
 			self.jq_bg.css('background-image', url ? 'url("' + url + '")' : 'none');
 			return url;
 		}
-		$.each(this.nl_drags, function() {
-			if (bg(this._video.imgMed)) {
-				changed = true;
-				return false;
-			}
-		});
-		if (!changed)
-			bg();
+		if (this.el_videoBackground !== this.nl_drags[0]) {
+			var changed = false;
+			$.each(this.nl_drags, function() {
+				if (bg(this._video.imgMed)) {
+					changed = true;
+					self.el_videoBackground = this;
+					return false;
+				}
+			});
+			if (!changed)
+				bg();
+		}
 	}
 };
