@@ -1,46 +1,20 @@
 .channel {
 	position: relative;
-	box-sizing: border-box;
 	height: 100%;
-	overflow: auto;
 	}
-	.channel.diff {
-		overflow: hidden;
+	.channel .playlists {
+		height: 100%;
+		overflow: auto;
 		}
-	.channel:after {
-		display: block;
-		content: "";
-		clear: both;
-		height: 50px;
-		}
-	.channel:empty {
-		padding: 50px 0;
-		text-align: center;
-		font-weight: bold;
-		color: #333;
-		text-shadow: 0 1px 0 #fff;
-		}
-		.channel .placeholder {
-			position: absolute;
-			width: 100%;
-			top: 50%;
-			margin-top: -175px;
-			text-align: center;
-			font-size: 18px;
-			line-height: 2em;
+		.channel .playlists:after {
+			display: block;
+			content: "";
+			clear: both;
+			height: 50px;
 			}
-			.channel .placeholder .waiting {
-				display: none;
-				font-size: 100px;
-				}
-			.channel.waiting .placeholder .waiting {
-				display: block;
-				}
-			.channel.waiting .placeholder .no-playlist {
-				display: none;
-				}
 .channel .diff {
 	position: absolute;
+	top: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 1;

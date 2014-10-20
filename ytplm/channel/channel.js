@@ -3,6 +3,7 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_scope = jq_content;
 	this.jq_tab = jq_tab;
 	this.jq_tabTitle = jq_tab.find('span');
+	this.jq_playlists = jq_content.find('.playlists');
 	this.readOnly = !!channelName;
 	if (channelName) {
 		this.loadByName(channelName);
@@ -12,6 +13,7 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 		jq_tab.addClass('mine');
 		this.setTitle('Mine');
 		this.dragndropInit();
+		this.diffInit();
 		$('<a class="edit header-link fa fa-reply" title="Cancel all the modifications"></a>')
 		.appendTo(this.jq_tabTitle)
 		.click(function() { self.diffCancel(); return false; });
@@ -66,45 +68,28 @@ ytplm.channel.prototype = {
 			$('<div class="list">')
 				.appendTo(this.jq_diff);
 	},
-	diffShow: function() { this.jq_scope.addClass('diff'); },
-	diffHide: function() { this.jq_scope.removeClass('diff'); },
+	diffShow: function() {
+		var df, diffs = [];
+		for (var i = 0, pl; pl = this[i]; ++i)
+			if (df = pl.domDiff())
+				diffs.push(df);
+		this.diffWrite(diffs);
+		this.jq_scope.addClass('diff');
+	},
+	diffHide: function() {
+		this.jq_scope.removeClass('diff');
+	},
 	diffCancel: function() {
 		this.diffShow();
 	},
 	diffSave: function() {
 		this.diffShow();
-		// TEMPORAIRE
-		this.diffWrite(
-			[{
-				name: 'Heavy Bass',
-				newName: 'Super Heavy Bass',
-				privacy: 'unlisted',
-				newPrivacy: 'public',
-				videos: [{
-					status: 'add',
-					img: 'https://i.ytimg.com/vi/Sr_Q2EoOJT4/default.jpg',
-					name: 'Mozart - Requiem in D minor K626 (ed. Beyer) - Introit Requiem aeternam'
-				}, {
-					status: 'del',
-					img: 'https://i.ytimg.com/vi/Zi8vJ_lMxQI/default.jpg',
-					name: 'Mozart - Requiem'
-				}, {
-					status: 'up',
-					img: 'https://i.ytimg.com/vi/haseluAw20M/default.jpg',
-					name: 'Beethoven Symphonie 7 Deuxième mouvement- Allegretto'
-				}, {
-					status: 'down',
-					img: 'https://i.ytimg.com/vi/lF_C7BvAf_A/default.jpg',
-					name: 'Danger Mouse, Daniele Luppi - Two Against One ft. Jack White'
-				}]
-			}]
-		);
-		// TEMPORAIRE
 	},
 	diffWrite: function(df) {
-		var self = this;
+		lg(df)
+		var html = '';
 		$.each(df, function() {
-			var html =
+			html +=
 				'<div>'+
 					'<div class="title">'+
 						'<span>'+this.name+'</span>';
@@ -131,8 +116,8 @@ ytplm.channel.prototype = {
 				html += '</div>';
 			}
 			html += '</div>';
-			self.jq_diffList.append(html);
 		});
+		this.jq_diffList.html(html);
 	},
 	loadByName: function(name) {
 		var self = this;
@@ -171,15 +156,14 @@ ytplm.channel.prototype = {
 				if (!data) {
 					ytplm.tabs.writeError('This channel has not yet public playlist :(');
 				} else {
-					self.jq_scope
+					self.jq_playlists
 						.addClass('waiting')
 						.empty();
-					self.diffInit();
 					$.each(data, function(i) {
 						self[i] = new ytplm.playlist(this, self.readOnly);
-						self.jq_scope.append(self[i].jq_scope);
+						self.jq_playlists.append(self[i].jq_scope);
 					});
-					self.jq_scope.removeClass('waiting');
+					self.jq_playlists.removeClass('waiting');
 				}
 			}
 		);

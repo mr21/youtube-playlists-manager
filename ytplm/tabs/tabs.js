@@ -27,17 +27,19 @@ ytplm.tabs = {
 		jq_content
 			.addClass('channel')
 			.html(
-				'<form class="newTab">'+
-					'Enter a YouTube channel below to easely browse through its videos&nbsp;:<br/>'+
-					'<b>youtube.com/</b><input type="text" placeholder="ex: vsauce"/>'+
-					'<input type="submit" value="Load"/><br/>'+
-					'<span class="error"></span>'+
-					'<br/>'+
-					'Or log yourself to manage your personal playlists directly here by clicking this&nbsp;:<br/>'+
-					'<button class="login"><i class="fa fa-sign-in"></i> Login with Google</button>'+
-				'</form>'
+				'<div class="playlists">'+
+					'<form class="newTab">'+
+						'Enter a YouTube channel below to easely browse through its videos&nbsp;:<br/>'+
+						'<b>youtube.com/</b><input type="text" placeholder="ex: vsauce"/>'+
+						'<input type="submit" value="Load"/><br/>'+
+						'<span class="error"></span>'+
+						'<br/>'+
+						'Or log yourself to manage your personal playlists directly here by clicking this&nbsp;:<br/>'+
+						'<button class="login"><i class="fa fa-sign-in"></i> Login with Google</button>'+
+					'</form>'+
+				'</div>'
 			)
-			.children('form')
+			.find('form')
 				.submit(function() {
 					self.loadTab(this[0].value);
 					return false;
