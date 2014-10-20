@@ -3,9 +3,9 @@
 	cursor: pointer;
 	background: no-repeat center;
 	background-size: 100%;
-	-webkit-transition: background-size .2s ease;
-	   -moz-transition: background-size .2s ease;
-	    -ms-transition: background-size .2s ease;
+	-webkit-transition: background .2s ease;
+	   -moz-transition: background .2s ease;
+	    -ms-transition: background .2s ease;
 	}
 .jqselection-selectable,
 .jqdragndrop-hole {
