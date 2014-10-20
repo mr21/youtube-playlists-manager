@@ -63,18 +63,76 @@ ytplm.channel.prototype = {
 					self.diffHide();
 			})
 		this.jq_diffList =
-			$('<ul></ul>')
+			$('<div class="list">')
 				.appendTo(this.jq_diff);
 	},
-	diffShow: function() { this.jq_diff.addClass('show'); },
-	diffHide: function() { this.jq_diff.removeClass('show'); },
+	diffShow: function() { this.jq_scope.addClass('diff'); },
+	diffHide: function() { this.jq_scope.removeClass('diff'); },
 	diffCancel: function() {
-		lg('channel::diffCancel()')
 		this.diffShow();
 	},
 	diffSave: function() {
-		lg('channel::diffSave()')
 		this.diffShow();
+		// TEMPORAIRE
+		this.diffWrite(
+			[{
+				name: 'Heavy Bass',
+				newName: 'Super Heavy Bass',
+				privacy: 'unlisted',
+				newPrivacy: 'public',
+				videos: [{
+					status: 'add',
+					img: 'https://i.ytimg.com/vi/Sr_Q2EoOJT4/default.jpg',
+					name: 'Mozart - Requiem in D minor K626 (ed. Beyer) - Introit Requiem aeternam'
+				}, {
+					status: 'del',
+					img: 'https://i.ytimg.com/vi/Zi8vJ_lMxQI/default.jpg',
+					name: 'Mozart - Requiem'
+				}, {
+					status: 'up',
+					img: 'https://i.ytimg.com/vi/haseluAw20M/default.jpg',
+					name: 'Beethoven Symphonie 7 Deuxième mouvement- Allegretto'
+				}, {
+					status: 'down',
+					img: 'https://i.ytimg.com/vi/lF_C7BvAf_A/default.jpg',
+					name: 'Danger Mouse, Daniele Luppi - Two Against One ft. Jack White'
+				}]
+			}]
+		);
+		// TEMPORAIRE
+	},
+	diffWrite: function(df) {
+		var self = this;
+		$.each(df, function() {
+			var html =
+				'<div>'+
+					'<div class="title">'+
+						'<span>'+this.name+'</span>';
+			if (this.newName)
+				html += '<span class="new">'+this.newName+'</span>';
+			html += '</div>';
+			if (this.privacy) {
+				var prv = ytplm.playlist.privacyClasses;
+				html +=
+					'<div class="privacy">'+
+						'<span><i title="'+prv[this.privacy][0]+'" class="privacy '+prv[this.privacy][1]+'"></i></span>'+
+						'<span class="new"><i title="'+prv[this.newPrivacy][0]+'" class="privacy '+prv[this.newPrivacy][1]+'"></i></span>'+
+					'</div>';
+			}
+			if (this.videos) {
+				html += '<div class="videos">';
+				$.each(this.videos, function() {
+					html +=
+						'<div class="'+this.status+'">'+
+							'<img src="'+this.img+'"/>'+
+							'<span class="name">'+this.name+'</span>'+
+						'</div>';
+				});
+				html += '</div>';
+			}
+			html += '</div>';
+			self.jq_diffList.append(html);
+		});
 	},
 	loadByName: function(name) {
 		var self = this;

@@ -4,6 +4,9 @@
 	height: 100%;
 	overflow: auto;
 	}
+	.channel.diff {
+		overflow: hidden;
+		}
 	.channel:after {
 		display: block;
 		content: "";
@@ -37,26 +40,74 @@
 				display: none;
 				}
 .channel .diff {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	z-index: 1;
-	background: rgba(0,0,0,.9);
+	background: rgba(0,0,0,.95);
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: all .2s linear;
 	   -moz-transition: all .2s linear;
 	    -ms-transition: all .2s linear;
 	}
-	.channel .diff.show {
+	.channel.diff .diff {
 		visibility: visible;
 		opacity: 1;
 		}
 	.channel .diff .close {
-		float: right;
+		position: absolute;
+		right: 25px;
+		top: 7px;
 		font-size: 32px;
-		margin: 10px;
 		}
-	.channel .diff ul {
-		
+	.channel .diff .list {
+		height: 100%;
+		overflow: auto;
 		}
+		.channel .diff .list > * {
+			padding: 20px 0 0 20px;
+			}
+			.channel .diff .list > *:last-child {
+				padding-bottom: 20px;
+				}
+			.channel .diff .title {
+				font-weight: bold;
+				font-size: 16px;
+				color: #ddd;
+				}
+				.channel .diff .new:before {
+					content: "\f178"; /* fa-long-arrow-right */
+					margin: 0 1em;
+					font: normal 1em "FontAwesome";
+					opacity: .7;
+					}
+			.channel .diff .privacy {
+				margin-top: .2em;
+				font-size: 16px;
+				}
+			.channel .diff .videos {
+				margin: .5em 0 0 1em;
+				}
+				.channel .diff .videos .up   { color: rgb(150,200,150); }
+				.channel .diff .videos .down { color: rgb(200,150,150); }
+				.channel .diff .videos .add  { color: rgb( 60,200, 60); }
+				.channel .diff .videos .del  { color: rgb(200, 60, 60); }
+				.channel .diff .videos > *:before {
+					font-family: "FontAwesome";
+					vertical-align: middle;
+				}
+				.channel .diff .videos .up:before   { content: "\f0aa"; /* fa-arrow-circle-up */ }
+				.channel .diff .videos .down:before { content: "\f0ab"; /* fa-arrow-circle-down */ }
+				.channel .diff .videos .add:before  { content: "\f0fe"; /* fa-plus-square */ }
+				.channel .diff .videos .del:before  { content: "\f146"; /* fa-minus-square */ }
+				.channel .diff .videos > * > * {
+					vertical-align: middle;
+					}
+				.channel .diff .videos img {
+					height: 25px;
+					margin: 0 .5em;
+					}
+				.channel .diff .videos .name {
+					font: bold 12px sans-serif;
+					}
