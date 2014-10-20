@@ -38,6 +38,7 @@ ytplm.playlist.prototype = {
 		);
 		var self = this;
 		this.jq_bg = this.jq_scope.find('.bg');
+		this.el_inputName = this.jq_scope.find('.name input')[0];
 		this.jq_drop = this.jq_scope.find('.jqdragndrop-drop');
 		this.nl_drags = this.jq_drop[0].getElementsByTagName('b');
 		this.jq_drop[0]._playlist = this;
@@ -68,6 +69,38 @@ ytplm.playlist.prototype = {
 	},
 	setNbVideos: function(nb) {
 		this.el_count.textContent = nb;
+	},
+	domDiff: function() {
+		var
+			name = this.originalName,
+			newName = this.el_inputName.value,
+			privacy = this.originalPrivacy,
+			newPrivacy = this.privacy(),
+			isDiff = false,
+			df = {
+				name: name
+			};
+		//var d = diff(this, this.nl_drags);
+		//lg(d);
+		if (name !== newName) {
+			df.newName = newName;
+			isDiff = true;
+		}
+		if (privacy !== newPrivacy) {
+			df.privacy = privacy;
+			df.newPrivacy = newPrivacy;
+			isDiff = true;
+		}
+		/*
+		videos: [
+			{
+				status: 'add',
+				img: 'https://i.ytimg.com/vi/Sr_Q2EoOJT4/default.jpg',
+				name: 'Mozart - Requiem in D minor K626 (ed. Beyer) - Introit Requiem aeternam'
+			}
+		]
+		*/
+		return isDiff ? df : null;
 	},
 	loadVideos: function(id, nbVideos) {
 		this.setNbVideos(nbVideos);
