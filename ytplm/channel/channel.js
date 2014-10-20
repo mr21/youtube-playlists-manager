@@ -53,7 +53,7 @@ ytplm.channel.prototype = {
 		this.jq_diff =
 			$('<div class="diff"></div>')
 				.appendTo(this.jq_scope);
-		$('<a class="close fa fa-close header-link" title="Close this window" href="#"></a>')
+		$('<a class="close fa fa-close header-link" title="Close this window or press Escape" href="#"></a>')
 			.appendTo(this.jq_diff)
 			.click(function() {
 				self.diffHide();
