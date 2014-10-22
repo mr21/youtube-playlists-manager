@@ -72,16 +72,17 @@ ytplm.playlist.prototype = {
 	},
 	domDiff: function() {
 		var
+			self = this,
 			name = this.originalName,
 			newName = this.el_inputName.value,
 			privacy = this.originalPrivacy,
 			newPrivacy = this.privacy(),
 			isDiff = false,
 			diffTab = diff(this, this.nl_drags),
+			videos = [],
 			df = {
 				name: name
 			};
-		lg(diffTab)
 		if (name !== newName) {
 			df.newName = newName;
 			isDiff = true;
@@ -89,6 +90,32 @@ ytplm.playlist.prototype = {
 		if (privacy !== newPrivacy) {
 			df.privacy = privacy;
 			df.newPrivacy = newPrivacy;
+			isDiff = true;
+		}
+		$.each(diffTab, function(i) {
+			if (this[0]) {
+				var	video = this[1]._video,
+					status = this[0] > 0 ? 'add' : 'del';
+				$.each(diffTab, function(j) {
+					if (i !== j && !this.seen && video.id === this[1]._video.id) {
+						status = status === 'add'
+							? (i < j ? 'up' : 'down')
+							: (i > j ? 'up' : 'down');
+						this.seen = true;
+						return false;
+					}
+				});
+				if (!this.seen)
+					videos.push({
+						status: status,
+						name: video.title,
+						img: video.imgDef,
+						pos: 0
+					});
+			}
+		});
+		if (videos.length > 0) {
+			df.videos = videos;
 			isDiff = true;
 		}
 		return isDiff ? df : null;
