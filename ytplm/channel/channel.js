@@ -86,7 +86,6 @@ ytplm.channel.prototype = {
 		this.diffShow();
 	},
 	diffWrite: function(df) {
-		lg(df)
 		var html = '';
 		$.each(df, function() {
 			html +=

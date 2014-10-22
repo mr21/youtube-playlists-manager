@@ -1,6 +1,7 @@
 Todolist
 --------
 
+**V1**
 - [X] <s>Forcer le **https**.</s>
 - [X] <s>Lancer la vidéo quand on **click milieu** dessus.</s>
 - [X] <s>Mettre un **lien externe** pour accéder à la **PL** au lieu du nom.</s>
@@ -8,8 +9,7 @@ Todolist
 - [X] <s>Pouvoir modifier le `status.privacyStatus` d'une PL.</s>
 - [X] <s>Styliser les **scrollbars**.</s>
 - [X] <s>Faire en sorte que le **bg des PL** corresponde toujours à sa **première vidéo**.</s>
-- [ ] Améliorer le **loading initial**: un seul chargement avec un **%**.
-- [ ] Styliser les **infobulles**.
+- [ ] Réparer le **loading** des playlists.
 - [X] <s>Faire comprendre que le **titre des PL** peut etre edite lors du `focus`.</s>
 - [X] <s>**Multi-Channels**</s>
   - [X] <s>Organisation par **onglets**.</s>
@@ -22,13 +22,16 @@ Todolist
   - [X] <s>Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.</s>
   - [ ] Donner la possibilité d'**annuler** toutes les modifications.
   - [X] <s>Coder une fonction `diff` generique.</s>
-  - [ ] Coder le **DOMdiff** qui utilisera la fonction `diff`.
+  - [X] <s>Coder le **DOMdiff** qui utilisera la fonction `diff`.</s>
   - [ ] Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.
+- [ ] Rédiger la section **About**.
+
+**V2**
+- [ ] Styliser les **infobulles**.
 - [ ] **Suppression** d'une **playlist** via leur futur bouton `fa-trash`.
 - [ ] **Suppression** des **vidéos** selectionnées avec la touche `delete`.
 - [ ] **Ajout** d'une nouvelle **playlist** en cliquant sur un placeholder `fa-plus`.
 - [ ] **Ajout** d'une nouvelle **video** dans une playlist en saisissant son `URL`.
-- [ ] **YouTube**
+- [ ] **YouTube** (cool idee de _Misty_ <3)
   - [ ] Mettre un bouton pour partager l'écran en deux pour y mettre une **iframe vers YouTube**.
   - [ ] Permettre de **drag n drop** des vidéos d'une iframe vers l'autre (`HTML5`?).
-- [ ] Rédiger la section **About**.

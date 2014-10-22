@@ -4,7 +4,6 @@ ytplm.extractData = function(ytFn, ytOpt, callback, singlePage) {
 		if (page)
 			ytOpt.pageToken = page;
 		ytFn(ytOpt).execute(function(data) {
-			lg(data);
 			if (data.items)
 				arr = !arr
 					? data.items
