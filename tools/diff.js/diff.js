@@ -1,5 +1,5 @@
 /*
-	Mr21 - 1.1
+	Mr21 - 1.2
 	https://github.com/Mr21/diff.js
 */
 
@@ -33,16 +33,15 @@ function diff(a, b) {
 	// write the diff
 	var iA = 0, iB = 0, iX = 0,
 	    arr = [];
-	while (iA < a.length || iB < b.length) {
+	while (iA < a.length || iB < b.length)
 		if (a[iA] !== seq[iX])
-			arr.push(['-', a[iA++]]);
-		if (b[iB] !== seq[iX])
-			arr.push(['+', b[iB++]]);
+			arr.push([-1, a[iA++]]);
+		else if (b[iB] !== seq[iX])
+			arr.push([+1, b[iB++]]);
 		else if (a[iA] === b[iB]) {
-			arr.push([' ', a[iA++]]);
+			arr.push([ 0, a[iA++]]);
 			++iB;
 			++iX;
 		}
-	}
 	return arr;
 }
