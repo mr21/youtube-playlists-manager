@@ -79,8 +79,8 @@
 				}
 				.channel .diff .videos .up:before   { content: "\f0aa"; /* fa-arrow-circle-up */ }
 				.channel .diff .videos .down:before { content: "\f0ab"; /* fa-arrow-circle-down */ }
-				.channel .diff .videos .add:before  { content: "\f0fe"; /* fa-plus-square */ }
-				.channel .diff .videos .del:before  { content: "\f146"; /* fa-minus-square */ }
+				.channel .diff .videos .add:before  { content: "\f055"; /* fa-plus-square */ }
+				.channel .diff .videos .del:before  { content: "\f056"; /* fa-minus-square */ }
 				.channel .diff .videos > * > * {
 					vertical-align: middle;
 					}
