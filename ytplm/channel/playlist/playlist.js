@@ -145,22 +145,21 @@ ytplm.playlist.prototype = {
 		}
 	},
 	findBackground: function() {
-		var	self = this;
-		function bg(url) {
-			self.jq_bg.css('background-image', url ? 'url("' + url + '")' : 'none');
-			return url;
-		}
 		if (this.el_videoBackground !== this.nl_drags[0]) {
-			var changed = false;
+			var	self = this,
+				changed = false;
 			$.each(this.nl_drags, function() {
-				if (bg(this._video.imgMed)) {
-					changed = true;
+				if (!this._video.img404) {
+					self.jq_bg.css('background-image', 'url("'+this._video.imgMed+'")');
 					self.el_videoBackground = this;
+					changed = true;
 					return false;
 				}
 			});
-			if (!changed)
-				bg();
+			if (!changed) {
+				this.jq_bg.css('background-image', 'none');
+				this.el_videoBackground = null;
+			}
 		}
 	}
 };
