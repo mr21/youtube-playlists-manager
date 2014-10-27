@@ -55,6 +55,12 @@ ytplm.playlist.prototype = {
 				return false;
 			});
 	},
+	name: function(n) {
+		if (n !== undefined)
+			this.el_inputName.value = n;
+		else
+			return this.el_inputName.value;
+	},
 	privacy: function(status) {
 		var el = this.jq_privacy[0];
 		if (!status)
@@ -67,6 +73,14 @@ ytplm.playlist.prototype = {
 		this.findBackground();
 		this.setNbVideos(this.nl_drags.length);
 	},
+	reset: function() {
+		this.name(this.originalName);
+		this.privacy(this.originalPrivacy);
+		$(this.nl_drags).detach();
+		for (var i = 0; i < this.length; ++i)
+			this.jq_drop.append(this[i]);
+		this.refresh();
+	},
 	setNbVideos: function(nb) {
 		this.el_count.textContent = nb;
 	},
@@ -74,13 +88,14 @@ ytplm.playlist.prototype = {
 		var
 			self = this,
 			name = this.originalName,
-			newName = this.el_inputName.value,
 			privacy = this.originalPrivacy,
+			newName = this.name(),
 			newPrivacy = this.privacy(),
 			isDiff = false,
 			diffTab = diff(this, this.nl_drags),
 			videos = [],
 			df = {
+				self: this,
 				name: name
 			};
 		if (name !== newName) {

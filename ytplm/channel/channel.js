@@ -4,6 +4,7 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_tab = jq_tab;
 	this.jq_tabTitle = jq_tab.find('span');
 	this.jq_playlists = jq_content.find('.playlists');
+	this.diffData = [];
 	this.readOnly = !!channelName;
 	if (channelName)
 		this.loadByName(channelName);
@@ -51,7 +52,10 @@ ytplm.channel.prototype = {
 		lg('saveChanges')
 	},
 	cancelChanges: function() {
-		lg('cancelChanges')
+		$.each(this.diffData, function() {
+			this.self.reset();
+		});
+		this.diffHide();
 	},
 	diffInit: function() {
 		var self = this;
@@ -89,11 +93,12 @@ ytplm.channel.prototype = {
 				.appendTo(this.jq_diff);
 	},
 	diffShow: function() {
-		var df, diffs = [];
+		var df;
+		this.diffData.length = 0;
 		for (var i = 0, pl; pl = this[i]; ++i)
 			if (df = pl.domDiff())
-				diffs.push(df);
-		this.diffWrite(diffs);
+				this.diffData.push(df);
+		this.diffWrite();
 		this.jq_scope.addClass('diff');
 	},
 	diffHide: function() {
@@ -101,7 +106,7 @@ ytplm.channel.prototype = {
 	},
 	diffWrite: function(df) {
 		var html = '';
-		$.each(df, function() {
+		$.each(this.diffData, function() {
 			html +=
 				'<div>'+
 					'<div class="title">'+

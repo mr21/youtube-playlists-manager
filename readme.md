@@ -20,7 +20,7 @@ Todolist
 - [ ] **DOMdiff**
   - [X] <s>**Stocker** les infos: `name`, `status`, `videos` pour chaque PL.</s>
   - [X] <s>Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.</s>
-  - [ ] Donner la possibilité d'**annuler** toutes les modifications.
+  - [X] <s>Donner la possibilité d'**annuler** toutes les modifications.</s>
   - [X] <s>Coder une fonction `diff` generique.</s>
   - [X] <s>Coder le **DOMdiff** qui utilisera la fonction `diff`.</s>
   - [ ] Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.
