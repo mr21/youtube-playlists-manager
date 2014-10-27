@@ -35,12 +35,18 @@
 		visibility: visible;
 		opacity: 1;
 		}
-	.channel .diff .close {
+	.channel .diff .menu {
 		position: absolute;
 		right: 25px;
 		top: 7px;
 		font-size: 32px;
 		}
+		.channel .diff .menu a {
+			display: block;
+			}
+		.channel .diff .menu a:first-child {
+			margin-bottom: .8em;
+			}
 	.channel .diff .list {
 		height: 100%;
 		overflow: auto;

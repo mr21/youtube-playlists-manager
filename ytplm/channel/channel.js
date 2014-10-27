@@ -50,15 +50,36 @@ ytplm.channel.prototype = {
 	setTitle: function(name) {
 		this.jq_tabTitle[0].textContent = name;
 	},
+	saveChanges: function() {
+		lg('saveChanges')
+	},
+	cancelChanges: function() {
+		lg('cancelChanges')
+	},
 	diffInit: function() {
 		var self = this;
 		this.jq_diff =
 			$('<div class="diff"></div>')
 				.appendTo(this.jq_scope);
-		$('<a class="close fa fa-close header-link" title="Close this window or press Escape" href="#"></a>')
-			.appendTo(this.jq_diff)
+		var jq_menu =
+			$('<div class="menu"></div>')
+				.appendTo(this.jq_diff);
+		$('<a class="fa fa-close header-link" title="Close this window or press Escape" href="#"></a>')
+			.appendTo(jq_menu)
 			.click(function() {
 				self.diffHide();
+				return false;
+			});
+		$('<a class="fa fa-save header-link" title="Apply all these changes on your YouTube account" href="#"></a>')
+			.appendTo(jq_menu)
+			.click(function() {
+				self.saveChanges();
+				return false;
+			});
+		$('<a class="fa fa-trash-o header-link" title="Cancel all these changes" href="#"></a>')
+			.appendTo(jq_menu)
+			.click(function() {
+				self.cancelChanges();
 				return false;
 			});
 		$(document)
