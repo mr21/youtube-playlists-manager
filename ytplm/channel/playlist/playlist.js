@@ -122,6 +122,7 @@ ytplm.playlist.prototype = {
 	},
 	loadVideos: function(id, nbVideos) {
 		this.setNbVideos(nbVideos);
+		this.length = 0;
 		if (nbVideos > 0) {
 			var self = this;
 			this.jq_scope.addClass('waiting');
