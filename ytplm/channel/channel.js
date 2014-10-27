@@ -5,25 +5,27 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_tabTitle = jq_tab.find('span');
 	this.jq_playlists = jq_content.find('.playlists');
 	this.readOnly = !!channelName;
-	if (channelName) {
+	if (channelName)
 		this.loadByName(channelName);
-	} else {
+	else
 		this.load();
-		jq_content.addClass('mine');
-		jq_tab.addClass('mine');
+};
+
+ytplm.channel.prototype = {
+	readWrite: function() {
+		var self = this;
+		this.jq_scope.addClass('mine');
+		this.jq_tab.addClass('mine');
 		this.setTitle('Mine');
 		this.dragndropInit();
 		this.diffInit();
 		$('<a class="edit header-link fa fa-reply" title="Cancel all the modifications"></a>')
-		.appendTo(this.jq_tabTitle)
-		.click(function() { self.diffCancel(); return false; });
+			.appendTo(this.jq_tabTitle)
+			.click(function() { self.diffCancel(); return false; });
 		$('<a class="edit header-link fa fa-save" title="Save all the modifications"></a>')
-		.appendTo(this.jq_tabTitle)
-		.click(function() { self.diffSave(); return false; });
-	}
-};
-
-ytplm.channel.prototype = {
+			.appendTo(this.jq_tabTitle)
+			.click(function() { self.diffSave(); return false; });
+	},
 	dragndropInit: function() {
 		this.plugin_dragndrop =
 		$.plugin_dragndrop(this.jq_scope)
@@ -155,6 +157,8 @@ ytplm.channel.prototype = {
 				if (!data) {
 					ytplm.tabs.writeError('This channel has not yet public playlist :(');
 				} else {
+					if (!channelId)
+						self.readWrite();
 					self.jq_playlists
 						.addClass('waiting')
 						.empty();
