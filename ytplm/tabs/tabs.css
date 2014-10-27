@@ -12,7 +12,7 @@
 		height: 4px;
 		background: rgba(0,0,0,.15);
 		}
-	.jqtabs > .header .about {
+	.jqtabs > .header .links {
 		float: left;
 		width: 90px;
 		}
@@ -110,12 +110,15 @@
 						color: #ddd;
 						text-shadow: 0 0 5px rgba(255,255,255,.2);
 						}
+	.jqtabs-contents,
+	.about {
+		background: #222;
+		}
 	.jqtabs-contents {
 		position: absolute;
 		width: 100%;
 		top: 32px;
 		bottom: 0;
-		background: #222;
 		}
 		.jqtabs-contents .newTab {
 			position: absolute;

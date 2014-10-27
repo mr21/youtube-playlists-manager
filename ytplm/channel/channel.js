@@ -63,7 +63,7 @@ ytplm.channel.prototype = {
 			.keydown(function(e) {
 				if (e.keyCode === 27) // escape
 					self.diffHide();
-			})
+			});
 		this.jq_diffList =
 			$('<div class="list">')
 				.appendTo(this.jq_diff);

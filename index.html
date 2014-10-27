@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>YouTube - playlists manager</title>
+<title>YouTube - playlists manager - 1.0</title>
 <meta charset="utf-8"/>
 <!-- Facebook -->
 <meta property="og:title"       content="YouTube - playlists manager"/>
@@ -13,6 +13,7 @@
 <link type="text/css" rel="stylesheet" href="tools/jquery/jquery-dragndrop/jquery-dragndrop.css"/>
 <link type="text/css" rel="stylesheet" href="tools/jquery/jquery-tabs/jquery-tabs.css"/>
 <link type="text/css" rel="stylesheet" href="ytplm/reset.css"/>
+<link type="text/css" rel="stylesheet" href="ytplm/about.css"/>
 <link type="text/css" rel="stylesheet" href="ytplm/tabs/tabs.css"/>
 <link type="text/css" rel="stylesheet" href="ytplm/channel/channel.css"/>
 <link type="text/css" rel="stylesheet" href="ytplm/channel/playlist/playlist.css"/>
@@ -23,19 +24,99 @@
 
 <div id="fb-root"></div>
 <!--<script>(function(d,s,i){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(i))return;js=d.createElement(s);js.id=i;js.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>-->
-<!--<div style="display:none" class="fb-like" data-href="https://mr21.github.io/YouTube-Playlists-Manager/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>-->
 
 <div class="jqtabs">
 	<div class="header">
-		<div class="about">
-			<a target="_blank" class="header-link fa fa-youtube-play" title="Go to YouTube" href="//youtube.com/"></a>
-			<a target="_blank" class="header-link fa fa-github" title="Go to the repo on GitHub" href="//github.com/Mr21/YouTube-Playlists-Manager/"></a>
+		<div class="links">
+			<a class="header-link fa fa-youtube-play" title="Open to YouTube" target="_blank" href="//youtube.com/"></a>
+			<a class="header-link fa fa-question-circle link-about" title="About this project" href="#"></a>
 		</div>
 		<div class="jqtabs-tabs">
 			<a title="New channel" class="jqtabs-btnNewTab header-link fa fa-plus-square" href="#"></a>
 		</div>
 	</div>
 	<div class="jqtabs-contents"></div>
+</div>
+
+<div class="about">
+	<a class="close fa fa-close header-link" title="Close this window or press Escape" href="#"></a>
+	<div class="container">
+		<div class="content">
+			<h1><i class="fa fa-youtube-play"></i> YouTube - playlists manager - 1.0</h1>
+			<h2><i class="fa fa-info-circle"></i> About</h2>
+			<p>
+				I'm a guy who fully uses <b>YouTube's playlists</b> and I'm also passionate about <b>UX</b> (<b>U</b>ser e<b>X</b>perience).
+				Currently it's relatively complex to perform certain actions with the actual system on youtube.com,
+				such as move a video from a playlist to another or to move several items at the same time.
+				Some other actions requires too many clicks like changing the privacy or the name of the playlist.
+			</p>
+			<p>
+				So I have decided to make something different, a web application to simplify everything.
+				Now you can <b>edit all</b> your playlists and videos <b>in some few clicks</b>.
+				And even if you don't need to edit anything you can <b>have an eye on all your playlists and their videos</b>.
+				It's really enjoyable to play some music by clicking easily where you want :)
+			</p>
+			<p>
+				If you like this project feel free to <i>star</i> it on <i class="fa fa-github"></i> GitHub here&nbsp;:
+				<a target="_blank" href="https://github.com/Mr21/YouTube-Playlists-Manager">Mr21/YouTube-Playlists-Manager</a>.<br/>
+				Or you can like this page on <i class="fa fa-facebook-square"></i> Facebook by clicking this&nbsp;:
+				<div class="fb-like" data-href="https://mr21.github.io/YouTube-Playlists-Manager/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+			</p>
+			<h2><i class="fa fa-medkit"></i> How it's work&nbsp;?</h2>
+			<p>
+				If you click this button&nbsp;: <b><i class="fa fa-sign-in"></i> Login with Google</b>
+				a Google's popup will appear to connect you to your personnal YouTube account directly.
+				After that you will be able to manage your own playlists by rename it and reorder the videos etc.
+				Once you have completed your changes, you will be able to summarize all changes with a diff viewing
+				by clicking this button&nbsp;:&nbsp;<i class="fa fa-save"></i>&nbsp;.
+				When the new page appear you have the choice to cancel all these changes or save it.
+				On this <i>diff page</i> you will see different icons like&nbsp;:
+				<i class="fa fa-plus-circle"></i> new video, 
+				<i class="fa fa-minus-circle"></i> deleted video, 
+				<i class="fa fa-arrow-circle-up"></i> video moved up, 
+				<i class="fa fa-arrow-circle-down"></i> video moved down.
+			</p>
+			<h2><i class="fa fa-newspaper-o"></i> What's new&nbsp;?</h2>
+			<ul>
+				<li>
+					<b class="colored">1.0</b>
+					<ul>
+						<li>Editing of the name and the privacy of your playlists.</li>
+						<li>Reordering of all the videos by drag and drop.</li>
+						<li>Multi-channels with tabs.</li>
+					</ul>
+				</li>
+			</ul>
+			<h2><i class="fa fa-code"></i> Development</h2>
+			<p>
+				This application use the <b>Google's API</b> with the <b>JavaScript <i>gapi</i> client</b>.
+				In other way, the development of this project required several other JavaScript
+				sub-projects including <b>three jQuery plugins</b>&nbsp;:
+			</p>
+			<ul>
+				<li><a target="_blank" href="http://mr21.fr/jquery-selection">jQuery-selection</a> to enable <b>select multiple items</b> simultaneously with the <b>Ctrl</b> and <b>Shift</b> keys on the keyboard.</li>
+				<li><a target="_blank" href="http://mr21.fr/jquery-dragndrop">jQuery-dragndrop</a> to manage the <b>drag and drop</b> of the videos.</li>
+				<li><a target="_blank" href="http://mr21.fr/jquery-tabs">jQuery-tabs</a> to have some <b>movable tabs</b>.</li>
+				<li><a target="_blank" href="http://github.com/mr21/diff.js">diff.js</a> to make a <b>diff</b> between <b>two arrays</b>, I wrote this to know what has changed.</li>
+			</ul>
+			<p>
+				These three plugins can function independently of each other but
+				once combined it increases their functionality&nbsp;!
+				For example, it's possible to use <i>jQuery-dragndrop</i> without <i>jQuery-selection</i>,
+				except it will be impossible to move several items at the same time
+				because the selection with the Ctrl/Shift keys will be not loaded.
+				In the same way <i>jQuery-tabs</i> can function alone.
+				However without <i>jQuery-dragndrop</i> it will be impossible to reorganize the tabs with the mouse.
+			</p>
+			<h2><i class="fa fa-heart"></i> Special thanks</h2>
+			<p>
+				I really want to thank
+				<a target="_blank" href="http://jeremiemarais.eu/"><b>Jérémie Marais</b></a> and
+				<a target="_blank" href="http://melanieducani.com/"><b>Mélanie Ducani</b> aka <b>Misty</b></a>
+				for bringing some ideas at this project, helping me to debug and also… being awesome.
+			</p>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="tools/jquery/jquery-1.11.0.min.js"></script>
