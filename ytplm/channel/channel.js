@@ -19,12 +19,9 @@ ytplm.channel.prototype = {
 		this.setTitle('Mine');
 		this.dragndropInit();
 		this.diffInit();
-		$('<a class="edit header-link fa fa-reply" title="Cancel all the modifications"></a>')
-			.appendTo(this.jq_tabTitle)
-			.click(function() { self.diffCancel(); return false; });
 		$('<a class="edit header-link fa fa-save" title="Save all the modifications"></a>')
 			.appendTo(this.jq_tabTitle)
-			.click(function() { self.diffSave(); return false; });
+			.click(function() { self.diffShow(); return false; });
 	},
 	dragndropInit: function() {
 		this.plugin_dragndrop =
@@ -101,12 +98,6 @@ ytplm.channel.prototype = {
 	},
 	diffHide: function() {
 		this.jq_scope.removeClass('diff');
-	},
-	diffCancel: function() {
-		this.diffShow();
-	},
-	diffSave: function() {
-		this.diffShow();
 	},
 	diffWrite: function(df) {
 		var html = '';
