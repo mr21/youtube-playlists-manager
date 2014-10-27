@@ -9,7 +9,6 @@ Todolist
 - [X] <s>Pouvoir modifier le `status.privacyStatus` d'une PL.</s>
 - [X] <s>Styliser les **scrollbars**.</s>
 - [X] <s>Faire en sorte que le **bg des PL** corresponde toujours à sa **première vidéo**.</s>
-- [ ] Réparer le **loading** des playlists.
 - [X] <s>Faire comprendre que le **titre des PL** peut etre edite lors du `focus`.</s>
 - [X] <s>**Multi-Channels**</s>
   - [X] <s>Organisation par **onglets**.</s>

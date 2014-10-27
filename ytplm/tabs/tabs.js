@@ -51,6 +51,7 @@ ytplm.tabs = {
 			.addClass('channel')
 			.html(
 				'<div class="playlists">'+
+					'<i class="waiting fa fa-refresh fa-spin"></i>'+
 					'<form class="newTab">'+
 						'Enter a YouTube channel below to easely browse through its videos&nbsp;:<br/>'+
 						'<b>youtube.com/</b><input type="text" placeholder="ex: vsauce"/>'+

@@ -10,6 +10,21 @@
 		   -moz-transition: opacity .2s linear;
 		    -ms-transition: opacity .2s linear;
 		}
+		.channel .playlists > i.waiting {
+			display: none;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -.5em 0 0 -.5em;
+			width: 1em;
+			height: 1em;
+			font-size: 160px;
+			text-align: center;
+			opacity: .2;
+			}
+			.channel .playlists.waiting > i.waiting {
+				display: block;
+				}
 		.channel .playlists:after {
 			display: block;
 			content: "";

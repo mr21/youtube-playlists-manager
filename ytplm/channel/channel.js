@@ -4,6 +4,7 @@ ytplm.channel = function(channelName, jq_tab, jq_content) {
 	this.jq_tab = jq_tab;
 	this.jq_tabTitle = jq_tab.find('span');
 	this.jq_playlists = jq_content.find('.playlists');
+	this.jq_form = jq_content.find('form');
 	this.diffData = [];
 	this.readOnly = !!channelName;
 	if (channelName)
@@ -167,6 +168,7 @@ ytplm.channel.prototype = {
 			queryParams.channelId = channelId;
 		else
 			queryParams.mine = true;
+		this.jq_playlists.addClass('waiting');
 		ytplm.extractData(
 			gapi.client.youtube.playlists.list,
 			queryParams,
@@ -176,15 +178,13 @@ ytplm.channel.prototype = {
 				} else {
 					if (!channelId)
 						self.readWrite();
-					self.jq_playlists
-						.addClass('waiting')
-						.empty();
+					self.jq_form.remove();
 					$.each(data, function(i) {
 						self[i] = new ytplm.playlist(this, self.readOnly);
 						self.jq_playlists.append(self[i].jq_scope);
 					});
-					self.jq_playlists.removeClass('waiting');
 				}
+				self.jq_playlists.removeClass('waiting');
 			}
 		);
 	}
