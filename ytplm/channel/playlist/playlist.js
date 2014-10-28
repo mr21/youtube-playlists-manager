@@ -149,11 +149,13 @@ ytplm.playlist.prototype = {
 					maxResults: 50
 				},
 				function(data) {
-					self.length = data.length;
-					$.each(data, function(i) {
-						self[i] = (new ytplm.video(this)).jq_scope[0];
-						self.jq_drop.append(self[i]);
-					});
+					if (data) {
+						self.length = data.length;
+						$.each(data, function(i) {
+							self[i] = (new ytplm.video(this)).jq_scope[0];
+							self.jq_drop.append(self[i]);
+						});
+					}
 					self.jq_scope.removeClass('waiting');
 					self.findBackground();
 				}
