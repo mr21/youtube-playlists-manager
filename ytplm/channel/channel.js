@@ -50,7 +50,10 @@ ytplm.channel.prototype = {
 		this.jq_tabTitle[0].textContent = name;
 	},
 	saveChanges: function() {
-		lg('saveChanges')
+		$.each(this.diffData, function() {
+			if (this.newName)
+				this.newName;
+		});
 	},
 	cancelChanges: function() {
 		$.each(this.diffData, function() {
@@ -140,7 +143,7 @@ ytplm.channel.prototype = {
 	},
 	loadByName: function(name) {
 		var self = this;
-		ytplm.extractData(
+		ytplm.getData(
 			gapi.client.youtube.search.list,
 			{
 				type: 'channel',
@@ -169,7 +172,7 @@ ytplm.channel.prototype = {
 		else
 			queryParams.mine = true;
 		this.jq_playlists.addClass('waiting');
-		ytplm.extractData(
+		ytplm.getData(
 			gapi.client.youtube.playlists.list,
 			queryParams,
 			function(data) {

@@ -144,7 +144,7 @@ ytplm.playlist.prototype = {
 		if (nbVideos > 0) {
 			var self = this;
 			this.jq_scope.addClass('waiting');
-			ytplm.extractData(
+			ytplm.getData(
 				gapi.client.youtube.playlistItems.list,
 				{
 					playlistId: id,

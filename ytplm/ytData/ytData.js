@@ -1,4 +1,4 @@
-ytplm.extractData = function(ytFn, ytOpt, callback, singlePage) {
+ytplm.getData = function(ytFn, ytOpt, callback, singlePage) {
 	var arr = [];
 	function query(page) {
 		if (page)
@@ -13,4 +13,11 @@ ytplm.extractData = function(ytFn, ytOpt, callback, singlePage) {
 		});
 	}
 	query();
+}
+
+ytplm.setData = function(ytFn, ytData, callback) {
+	ytFn(ytData).execute(function(data) {
+		lg(data)
+		callback(data);
+	});
 }
