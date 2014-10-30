@@ -12,7 +12,6 @@ ytplm.tabs = {
 				}
 			});
 		this.tabsContainer = plugin_tabs.container[0];
-		this.channels = [];
 		this.tabsContainer.newTabAppend();
 		this.jq_about =
 			$('body > .about')
@@ -83,7 +82,7 @@ ytplm.tabs = {
 			jq_tab = this.tabsContainer.getActiveTab(),
 			jq_content = this.tabsContainer.getActiveContent();
 		function cb() {
-			self.channels.push(new ytplm.channel(name, jq_tab, jq_content));
+			new ytplm.channel(name, jq_tab, jq_content);
 		}
 		if (name)
 			cb();
