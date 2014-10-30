@@ -148,7 +148,7 @@ ytplm.channel.prototype = {
 				q: name
 			},
 			function(data) {
-				if (!data) {
+				if (!data[0]) {
 					ytplm.tabs.writeError('Channel not found...');
 				} else {
 					self.load(data[0].id.channelId);
@@ -173,7 +173,7 @@ ytplm.channel.prototype = {
 			gapi.client.youtube.playlists.list,
 			queryParams,
 			function(data) {
-				if (!data) {
+				if (!data[0]) {
 					ytplm.tabs.writeError('This channel has not yet public playlist :(');
 				} else {
 					if (!channelId)
