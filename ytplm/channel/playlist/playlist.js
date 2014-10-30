@@ -137,8 +137,8 @@ ytplm.playlist.prototype = {
 				if (!this.seen)
 					videos.push({
 						status: status,
-						posA: posA,
-						posB: posB,
+						posA: posA + 1,
+						posB: posB + 1,
 						video: video
 					});
 			}
