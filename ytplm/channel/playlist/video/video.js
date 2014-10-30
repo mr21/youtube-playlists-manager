@@ -1,4 +1,4 @@
-ytplm.video = function(p) {
+ytplm.video = function(p, readOnly) {
 	var	self = this,
 		snip = p.snippet,
 		img = snip.thumbnails || {};
@@ -20,7 +20,7 @@ ytplm.video = function(p) {
 			' title="'+this.title+'"'+
 		'></b>'
 	).click(function(e) {
-		if (e.button === 1)
+		if (readOnly || e.button === 1)
 			window.open('//youtube.com/watch?v='+self.videoId+'&list='+self.playlistId);
 	});
 	this.jq_scope[0]._video = this;
