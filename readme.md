@@ -31,6 +31,7 @@ Todolist
 - [ ] **Suppression** des **vidéos** selectionnées avec la touche `delete`.
 - [ ] **Ajout** d'une nouvelle **playlist** en cliquant sur un placeholder `fa-plus`.
 - [ ] **Ajout** d'une nouvelle **video** dans une playlist en saisissant son `URL`.
+- [ ] Pouvoir ouvrir son propre channel meme s'il est vide pour permettre de creer des playlists.
 - [ ] **YouTube** (cool idee de _Misty_ <3)
   - [ ] Mettre un bouton pour partager l'écran en deux pour y mettre une **iframe vers YouTube**.
   - [ ] Permettre de **drag n drop** des vidéos d'une iframe vers l'autre (`HTML5`?).
