@@ -117,13 +117,19 @@ ytplm.playlist.prototype = {
 		}
 		$.each(diffTab, function(i) {
 			if (this[0]) {
-				var	video = this[1]._video,
-					status = this[0] > 0 ? 'add' : 'del';
+				var	video = this[3]._video,
+					status = this[0] > 0 ? 'add' : 'del',
+					posA = this[1],
+					posB = this[2];
 				$.each(diffTab, function(j) {
-					if (i !== j && !this.seen && video.id === this[1]._video.id) {
+					if (i !== j && !this.seen && video.id === this[3]._video.id) {
 						status = status === 'add'
 							? (i < j ? 'up' : 'down')
 							: (i > j ? 'up' : 'down');
+						if (status === 'up')
+							posA = this[1];
+						else if (status === 'down')
+							posB = this[2];
 						this.seen = true;
 						return false;
 					}
@@ -131,9 +137,9 @@ ytplm.playlist.prototype = {
 				if (!this.seen)
 					videos.push({
 						status: status,
-						name: video.title,
-						img: video.imgDef,
-						pos: 0
+						posA: posA,
+						posB: posB,
+						video: video
 					});
 			}
 		});

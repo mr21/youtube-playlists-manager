@@ -161,10 +161,18 @@ ytplm.channel.prototype = {
 			if (this.videos) {
 				html += '<div class="videos">';
 				$.each(this.videos, function() {
+					var pos;
+					switch (this.status) {
+						case 'add' : pos = this.posB; break;
+						case 'del' : pos = this.posA; break;
+						case 'up'  :
+						case 'down': pos = this.posA + '<i class="new"></i>' + this.posB; break;
+					}
 					html +=
 						'<div class="'+this.status+'">'+
-							'<img src="'+this.img+'"/>'+
-							'<span class="name">'+this.name+'</span>'+
+							'<img src="'+this.video.imgDef+'"/>'+
+							'<span class="pos">'+pos+'</span>'+
+							'<span class="name">'+this.video.title+'</span>'+
 						'</div>';
 				});
 				html += '</div>';

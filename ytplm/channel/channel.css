@@ -123,6 +123,15 @@
 					height: 25px;
 					margin: 0 .5em;
 					}
+				.channel .diff .videos .pos {
+					border: 1px solid;
+					border-radius: 2px;
+					padding: .1em .5em;
+					background: rgba(0,0,0,.4);
+					font-family: monospace;
+					font-weight: bold;
+					margin-right: .5em;
+				}
 				.channel .diff .videos .name {
 					font: bold 12px sans-serif;
 					}
