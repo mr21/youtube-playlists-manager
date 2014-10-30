@@ -63,6 +63,13 @@
 		.channel .diff .menu a:first-child {
 			margin-bottom: .8em;
 			}
+		.channel .diff        .menu .saving,
+		.channel .diff.saving .menu .savelink {
+			display: none;
+			}
+		.channel .diff.saving .menu .saving {
+			display: block;
+			}
 	.channel .diff .list {
 		height: 100%;
 		overflow: auto;

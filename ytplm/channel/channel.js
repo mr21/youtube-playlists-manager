@@ -55,6 +55,7 @@ ytplm.channel.prototype = {
 			plToRewrite = [],
 			queries = [],
 			delQueries = [];
+		this.jq_diff.addClass('saving');
 		$.each(this.diffData, function() {
 			if (this.newName || this.newPrivacy || this.videos) {
 				var	pl = this.self,
@@ -132,6 +133,7 @@ ytplm.channel.prototype = {
 					this.rewriteData();
 				})
 				self.diffShow();
+				self.jq_diff.removeClass('saving');
 			}
 		}
 		launchQ(0);
@@ -156,7 +158,9 @@ ytplm.channel.prototype = {
 				self.diffHide();
 				return false;
 			});
-		$('<a class="fa fa-save header-link" title="Apply all these changes on your YouTube account" href="#"></a>')
+		$('<i class="fa fa-refresh fa-spin saving" title="Please wait, it\'s sending few queries."></i>')
+			.appendTo(jq_menu);
+		$('<a class="fa fa-save header-link savelink" title="Apply all these changes on your YouTube account" href="#"></a>')
 			.appendTo(jq_menu)
 			.click(function() {
 				self.saveChanges();
