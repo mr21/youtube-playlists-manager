@@ -52,6 +52,7 @@
 		}
 	.channel .diff .menu {
 		position: absolute;
+		z-index: 1;
 		right: 25px;
 		top: 7px;
 		font-size: 32px;
@@ -66,6 +67,19 @@
 		height: 100%;
 		overflow: auto;
 		}
+		.channel .diff .list:empty:before {
+			position: absolute;
+			width: 100%;
+			top: 50%;
+			margin-top: -.5em;
+			content: "Nothing to save...";
+			text-align: center;
+			font-size: 56px;
+			font-weight: bold;
+			font-style: italic;
+			color: #000;
+			opacity: .4;
+			}
 		.channel .diff .list > * {
 			padding: 20px 0 0 20px;
 			}
