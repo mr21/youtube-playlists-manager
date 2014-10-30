@@ -19,6 +19,7 @@ ytplm.playlist.prototype = {
 	createDom: function(p, readOnly) {
 		this.originalName = p.snippet.title;
 		this.originalPrivacy = p.status.privacyStatus;
+		this.id = p.id;
 		this.jq_scope = $(
 			'<div class="playlist">'+
 				'<div class="table header">'+

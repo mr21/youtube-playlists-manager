@@ -51,15 +51,13 @@ ytplm.channel.prototype = {
 	},
 	saveChanges: function() {
 		$.each(this.diffData, function() {
-			if (this.newName)
-				this.newName;
 		});
 	},
 	cancelChanges: function() {
 		$.each(this.diffData, function() {
 			this.self.reset();
 		});
-		this.diffHide();
+		this.jq_diffList.empty();
 	},
 	diffInit: function() {
 		var self = this;
@@ -108,7 +106,7 @@ ytplm.channel.prototype = {
 	diffHide: function() {
 		this.jq_scope.removeClass('diff');
 	},
-	diffWrite: function(df) {
+	diffWrite: function() {
 		var html = '';
 		$.each(this.diffData, function() {
 			html +=

@@ -17,7 +17,6 @@ ytplm.getData = function(ytFn, ytOpt, callback, singlePage) {
 
 ytplm.setData = function(ytFn, ytData, callback) {
 	ytFn(ytData).execute(function(data) {
-		lg(data)
 		callback(data);
 	});
 }
