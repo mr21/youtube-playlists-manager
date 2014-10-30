@@ -1,7 +1,7 @@
 YouTube - playlist manager
 ==========================
 
-![thumbnail](blob/gh-pages/thumbnail.jpg)
+![thumbnail](https://github.com/Mr21/YouTube-Playlists-Manager/blob/gh-pages/thumbnail.jpg)
 
 **V1**
 - [X] <s>Forcer le **https**.</s>
