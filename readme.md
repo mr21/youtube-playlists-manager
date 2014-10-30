@@ -1,5 +1,7 @@
-Todolist
---------
+YouTube - playlist manager
+==========================
+
+![thumbnail](blob/gh-pages/thumbnail.jpg)
 
 **V1**
 - [X] <s>Forcer le **https**.</s>
@@ -16,14 +18,14 @@ Todolist
   - [X] <s>Mettre les channels autre que `Mine` en total **read-only**.</s>
   - [x] <s>Afficher le vrai nom du channel dans l'onglet `channelTitle`.</s>
   - [X] <s>Écrire en dessous du champs `channelName` si aucun channel n'a été trouvé OU si le channel est vide.</s>
-- [ ] **DOMdiff**
+- [X] **DOMdiff**
   - [X] <s>**Stocker** les infos: `name`, `status`, `videos` pour chaque PL.</s>
   - [X] <s>Mettre les boutons: **Cancel** et **Save** dans l'onglet `Mine`.</s>
   - [X] <s>Donner la possibilité d'**annuler** toutes les modifications.</s>
   - [X] <s>Coder une fonction `diff` generique.</s>
   - [X] <s>Coder le **DOMdiff** qui utilisera la fonction `diff`.</s>
   - [X] <s>Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.</s>
-  - [ ] Mettre un **spinneur** d'attente lors du **save**.
+  - [X] Mettre un **spinneur** d'attente lors du **save**.
 - [X] <s>Rédiger la section **About**.</s>
 
 **V2**
