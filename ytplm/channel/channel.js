@@ -142,6 +142,7 @@ ytplm.channel.prototype = {
 		$.each(this.diffData, function() {
 			this.self.resetData();
 		});
+		this.diffData.length = 0;
 		this.jq_diffList.empty();
 	},
 	diffInit: function() {
