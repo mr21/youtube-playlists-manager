@@ -40,7 +40,7 @@ ytplm.playlist.prototype = {
 		this.jq_bg = this.jq_scope.find('.bg');
 		this.el_inputName = this.jq_scope.find('.name input')[0];
 		this.jq_drop = this.jq_scope.find('.jqdragndrop-drop');
-		this.nl_drags = this.jq_drop[0].getElementsByTagName('b');
+		// this.nl_drags = this.jq_drop[0].getElementsByTagName('b');
 		this.jq_drop[0]._playlist = this;
 		this.el_count = this.jq_scope.find('.count')[0];
 		this.jq_privacy = this.jq_scope.find('.privacy');
@@ -54,6 +54,9 @@ ytplm.playlist.prototype = {
 				);
 				return false;
 			});
+	},
+	getNLVideos: function() {
+		return this.jq_drop[0].getElementsByTagName('b');
 	},
 	name: function(n) {
 		if (n !== undefined)
@@ -71,12 +74,12 @@ ytplm.playlist.prototype = {
 	},
 	refresh: function() {
 		this.findBackground();
-		this.setNbVideos(this.nl_drags.length);
+		this.setNbVideos(this.getNLVideos().length);
 	},
 	reset: function() {
 		this.name(this.originalName);
 		this.privacy(this.originalPrivacy);
-		$(this.nl_drags).detach();
+		$(this.getNLVideos()).detach();
 		for (var i = 0; i < this.length; ++i)
 			this.jq_drop.append(this[i]);
 		this.refresh();
@@ -92,7 +95,7 @@ ytplm.playlist.prototype = {
 			newName = this.name(),
 			newPrivacy = this.privacy(),
 			isDiff = false,
-			diffTab = diff(this, this.nl_drags),
+			diffTab = diff(this, this.getNLVideos()),
 			videos = [],
 			df = {
 				self: this,
@@ -163,10 +166,11 @@ ytplm.playlist.prototype = {
 		}
 	},
 	findBackground: function() {
-		if (this.el_videoBackground !== this.nl_drags[0]) {
+		var videos = this.getNLVideos();
+		if (this.el_videoBackground !== videos[0]) {
 			var	self = this,
 				changed = false;
-			$.each(this.nl_drags, function() {
+			$.each(videos, function() {
 				if (!this._video.img404) {
 					self.jq_bg.css('background-image', 'url("'+this._video.imgMed+'")');
 					self.el_videoBackground = this;
