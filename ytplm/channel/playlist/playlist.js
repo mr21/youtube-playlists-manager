@@ -77,7 +77,11 @@ ytplm.playlist.prototype = {
 		this.findBackground();
 		this.setNbVideos(this.getNLVideos().length);
 	},
-	reset: function() {
+	rewriteData: function() {
+		this.originalName = this.name();
+		this.originalPrivacy = this.privacy();
+	},
+	resetData: function() {
 		this.name(this.originalName);
 		this.privacy(this.originalPrivacy);
 		$(this.getNLVideos()).detach();

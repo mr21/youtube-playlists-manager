@@ -50,12 +50,46 @@ ytplm.channel.prototype = {
 		this.jq_tabTitle[0].textContent = name;
 	},
 	saveChanges: function() {
+		var	self = this,
+			nbCalls = 0;
 		$.each(this.diffData, function() {
+			if (this.newName || this.newPrivacy)
+				++nbCalls;
+		});
+		$.each(this.diffData, function() {
+			if (this.newName || this.newPrivacy) {
+				var	pl = this.self,
+					body = {
+						part: 'snippet',
+						resource: {
+							id: pl.id,
+							snippet: {
+								title: this.newName ? this.newName : this.name
+							}
+						}
+					};
+				if (this.newPrivacy) {
+					body.part += ',status';
+					body.resource.status = {
+						privacyStatus: this.newPrivacy
+					}
+				}
+				ytplm.setData(
+					gapi.client.youtube.playlists.update,
+					body,
+					function(data) {
+						if (data.result)
+							pl.rewriteData();
+						if (!--nbCalls)
+							self.diffShow();
+					}
+				);
+			}
 		});
 	},
 	cancelChanges: function() {
 		$.each(this.diffData, function() {
-			this.self.reset();
+			this.self.resetData();
 		});
 		this.jq_diffList.empty();
 	},
