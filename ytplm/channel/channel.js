@@ -51,13 +51,12 @@ ytplm.channel.prototype = {
 	},
 	saveChanges: function() {
 		var	self = this,
-			nbCalls = 0;
+			nbCalls = 0,
+			plToRewrite = [],
+			queries = [],
+			delQueries = [];
 		$.each(this.diffData, function() {
-			if (this.newName || this.newPrivacy)
-				++nbCalls;
-		});
-		$.each(this.diffData, function() {
-			if (this.newName || this.newPrivacy) {
+			if (this.newName || this.newPrivacy || this.videos) {
 				var	pl = this.self,
 					body = {
 						part: 'snippet',
@@ -68,24 +67,74 @@ ytplm.channel.prototype = {
 							}
 						}
 					};
+				plToRewrite.push(pl);
 				if (this.newPrivacy) {
 					body.part += ',status';
 					body.resource.status = {
 						privacyStatus: this.newPrivacy
-					}
+					};
 				}
-				ytplm.setData(
-					gapi.client.youtube.playlists.update,
-					body,
-					function(data) {
-						if (data.result)
-							pl.rewriteData();
-						if (!--nbCalls)
-							self.diffShow();
-					}
-				);
+				if (this.newName || this.newPrivacy)
+					queries.push([
+						gapi.client.youtube.playlists.update,
+						body,
+						pl
+					]);
+				if (this.videos) {
+					$.each(this.videos, function() {
+						var	body = {},
+							type = this.status === 'del'
+								? 'delete'
+								: this.status === 'add'
+									? 'insert'
+									: 'update';
+						if (type !== 'delete') {
+							body.part = 'snippet';
+							body.snippet = {
+								playlistId: pl.id,
+								position: this.posB - 1,
+								resourceId: {
+									kind: this.video.kind,
+									videoId: this.video.videoId
+								},
+							};
+						}
+						if (type !== 'insert')
+							body.id = this.video.id;
+						body = [
+							gapi.client.youtube.playlistItems[type],
+							body,
+							this.video
+						];
+						if (type === 'delete')
+							delQueries.push(body);
+						else
+							queries.push(body);
+					});
+				}
 			}
 		});
+		queries = queries.concat(delQueries);
+		nbCalls = queries.length;
+		function launchQ(i) {
+			if (i < nbCalls) {
+				ytplm.setData(
+					queries[i][0],
+					queries[i][1],
+					function(data) {
+						if (data.id)
+							queries[i][2].id = data.id;
+						launchQ(++i);
+					}
+				);
+			} else {
+				$.each(plToRewrite, function() {
+					this.rewriteData();
+				})
+				self.diffShow();
+			}
+		}
+		launchQ(0);
 	},
 	cancelChanges: function() {
 		$.each(this.diffData, function() {

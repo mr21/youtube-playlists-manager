@@ -80,6 +80,10 @@ ytplm.playlist.prototype = {
 	rewriteData: function() {
 		this.originalName = this.name();
 		this.originalPrivacy = this.privacy();
+		var nl = this.getNLVideos();
+		this.length = nl.length;
+		for (var i = 0; i < nl.length; ++i)
+			this[i] = nl[i];
 	},
 	resetData: function() {
 		this.name(this.originalName);
@@ -122,7 +126,7 @@ ytplm.playlist.prototype = {
 					posA = this[1],
 					posB = this[2];
 				$.each(diffTab, function(j) {
-					if (i !== j && !this.seen && video.id === this[3]._video.id) {
+					if (i !== j && !this.seen && video.videoId === this[3]._video.videoId) {
 						status = status === 'add'
 							? (i < j ? 'up' : 'down')
 							: (i > j ? 'up' : 'down');

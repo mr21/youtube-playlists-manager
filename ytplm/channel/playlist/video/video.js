@@ -8,7 +8,10 @@ ytplm.video = function(p) {
 		this.imgDef = '//s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg';
 	}
 	this.imgMed = img.medium ? img.medium.url : this.imgDef;
-	this.id = snip.resourceId.videoId;
+	this.id = p.id;
+	this.playlistId = snip.playlistId;
+	this.kind = snip.resourceId.kind;
+	this.videoId = snip.resourceId.videoId;
 	this.title = snip.title.replace(/"/g, '&quot;');
 	this.jq_scope = $(
 		'<b'+
@@ -18,7 +21,7 @@ ytplm.video = function(p) {
 		'></b>'
 	).click(function(e) {
 		if (e.button === 1)
-			window.open('//youtube.com/watch?v='+self.id+'&list='+snip.playlistId);
+			window.open('//youtube.com/watch?v='+self.videoId+'&list='+self.playlistId);
 	});
 	this.jq_scope[0]._video = this;
 };
