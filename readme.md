@@ -25,7 +25,7 @@ YouTube - playlist manager
   - [X] <s>Coder une fonction `diff` generique.</s>
   - [X] <s>Coder le **DOMdiff** qui utilisera la fonction `diff`.</s>
   - [X] <s>Lancer les **requêtes** en prenant soin de **ré-écrire** les infos stockées dans chaque PL.</s>
-  - [X] Mettre un **spinneur** d'attente lors du **save**.
+  - [X] <s>Mettre un **spinneur** d'attente lors du **save**.</s>
 - [X] <s>Rédiger la section **About**.</s>
 
 **V2**
