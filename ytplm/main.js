@@ -1,7 +1,8 @@
 function lg(s) { console.log(s); }
 
-if (location.protocol === 'http:')
-	location = 'https' + location.href.substr(4);
+if (top.location === self.location ||
+	location.protocol === 'http:')
+	location = 'http://mr21.fr/YouTube-playlists-manager';
 
 var ytplm = {};
 
