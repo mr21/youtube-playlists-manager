@@ -1,4 +1,4 @@
-YouTube - playlist manager
+[YouTube - playlist manager](http://mr21.fr/youtube-playlists-manager/)
 ==========================
 
 ![thumbnail](https://github.com/Mr21/YouTube-Playlists-Manager/blob/gh-pages/thumbnail.jpg)
