@@ -12,10 +12,6 @@
 		height: 4px;
 		background: rgba(0,0,0,.15);
 		}
-	.jqtabs > .header .links {
-		float: left;
-		width: 90px;
-		}
 	.jqtabs > .header a {
 		margin: 6px 0 0 15px;
 		font-size: 22px;
@@ -27,7 +23,7 @@
 			color: rgba(255,255,255,.75);
 			}
 	.jqtabs-tabs {
-		margin-left: 90px;
+		margin-left: 8px;
 		}
 		.jqtabs-tabs,
 		.jqtabs-tab,
@@ -110,14 +106,14 @@
 						color: #ddd;
 						text-shadow: 0 0 5px rgba(255,255,255,.2);
 						}
-	.jqtabs-contents,
-	.about {
+	body,
+	.jqtabs-contents {
 		background: #222;
 		}
 	.jqtabs-contents {
 		position: absolute;
 		width: 100%;
-		top: 32px;
+		top: 65px;
 		bottom: 0;
 		}
 		.jqtabs-contents .newTab {

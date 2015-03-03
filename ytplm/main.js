@@ -1,9 +1,5 @@
 function lg(s) { console.log(s); }
 
-if (top.location === self.location ||
-	location.protocol === 'http:')
-	location = 'http://mr21.fr/YouTube-playlists-manager';
-
 var ytplm = {};
 
 window.gapi_onload = function() {

@@ -13,29 +13,6 @@ ytplm.tabs = {
 			});
 		this.tabsContainer = plugin_tabs.container[0];
 		this.tabsContainer.newTabAppend();
-		this.jq_about =
-			$('body > .about')
-				.find('.close')
-					.click(function() {
-						self.aboutHide();
-						return false;
-					})
-					.end();
-		jq_scope.find('.header .link-about')
-			.click(function() {
-				self.aboutShow();
-				return false;
-			});
-		$(document).keydown(function(e) {
-			if (e.keyCode === 27) // escape
-				self.aboutHide();
-		});
-	},
-	aboutShow: function() {
-		this.jq_about.addClass('show');
-	},
-	aboutHide: function() {
-		this.jq_about.removeClass('show');
 	},
 	onNewTab: function(jq_tab, jq_content) {
 		var self = this;
