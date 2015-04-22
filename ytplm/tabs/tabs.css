@@ -1,3 +1,14 @@
+/* body */
+body,
+.jqtabs {
+	background: #222;
+	}
+.jqtabs {
+	position: relative;
+	height: 100%;
+	}
+
+/* header */
 .jqtabs > .header {
 	position: relative;
 	background: #3c3c3c;
@@ -16,144 +27,132 @@
 		margin: 6px 0 0 15px;
 		font-size: 22px;
 		}
-	.header-link {
+	.jqtabs .header-link {
 		color: rgba(255,255,255,.3);
 		}
-		.header-link:hover {
+		.jqtabs .header-link:hover {
 			color: rgba(255,255,255,.75);
 			}
-	.jqtabs-tabs {
-		margin-left: 8px;
+
+/* tabs */
+.jqtabs-tabs {
+	margin-left: 8px;
+	}
+	.jqtabs-tabs,
+	.jqtabs-tab,
+	.jqtabs-tabHole {
+		min-height: 32px;
 		}
-		.jqtabs-tabs,
-		.jqtabs-tab,
-		.jqtabs-tabHole {
-			min-height: 32px;
+
+/* tab */
+.jqtabs-tab {
+	transition: width .2s ease;
+	}
+	.jqtabs-tab.mine {
+		font-weight: bold;
+		font-style: italic;
+		}
+	.jqtabs-tabClosing {
+		width: 0;
+		}
+	.jqtabs-tab div {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		padding: 9px 20px 0 9px;
+		cursor: pointer;
+		background: #555;
+		transition: all .2s ease;
+		}
+		.jqtabs-tabHoverL div,
+		.jqtabs-tabHoverR div,
+		.jqtabs-tab:hover div {
+			background: #333;
 			}
-		.jqtabs-tab {
-			-webkit-transition: width .2s ease;
-			   -moz-transition: width .2s ease;
-			    -ms-transition: width .2s ease;
-			     -o-transition: width .2s ease;
-			        transition: width .2s ease;
+		.jqtabs-tabActive div {
+			background: #222 !important;
 			}
-			.jqtabs-tab.mine {
-				font-weight: bold;
+		.jqtabs-tabHoverL div { right: 20%; }
+		.jqtabs-tabHoverR div { left:  40%; }
+		.jqtabs-btnCloseTab {
+			margin: 0 !important;
+			font-size: 14px !important;
+			position: absolute;
+			top: 9px;
+			right: 7px;
+			}
+		.jqtabs-tab span {
+			display: block;
+			color: #bbb;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			}
+			.jqtabs-tab span:empty:after {
+				content: "New channel";
 				font-style: italic;
 				}
-			.jqtabs-tabClosing {
-				width: 0;
-				}
-			.jqtabs-tab div {
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				padding: 9px 20px 0 9px;
-				cursor: pointer;
-				background: #555;
-				-webkit-transition: all .2s ease;
-				   -moz-transition: all .2s ease;
-				    -ms-transition: all .2s ease;
-				}
-				.jqtabs-tabHoverL div,
-				.jqtabs-tabHoverR div,
-				.jqtabs-tab:hover div {
-					background: #333;
-					}
-				.jqtabs-tabActive div {
-					background: #222 !important;
-					}
-				.jqtabs-tabHoverL div { right: 20%; }
-				.jqtabs-tabHoverR div { left:  40%; }
-				.jqtabs-btnCloseTab {
-					margin: 0 !important;
-					font-size: 14px !important;
-					position: absolute;
-					top: 9px;
-					right: 7px;
-					}
-				.jqtabs-tab span {
-					display: block;
-					color: #bbb;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-					overflow: hidden;
-					}
-					.jqtabs-tab span:empty:after {
-						content: "New channel";
-						font-style: italic;
-						}
-						.jqtabs-tab.mine span:before {
-							content: "\f058"; /* fa-check-circle */
-							font-family: "FontAwesome";
-							font-style: normal;
-							font-weight: normal;
-							margin-right: .5em;
-							}
-					.jqtabs-tab.mine .edit {
-						display: none;
-						margin: 0 0 0 .66em;
-						font-size: 14px;
-						text-shadow: none;
-						vertical-align: middle;
-						}
-						.jqtabs-tabActive.mine .edit {
-							display: inline;
-							}
-					.jqtabs-tabActive span {
-						color: #ddd;
-						text-shadow: 0 0 5px rgba(255,255,255,.2);
-						}
-	body,
-	.jqtabs-contents {
-		background: #222;
-		}
-	.jqtabs-contents {
-		position: absolute;
-		width: 100%;
-		top: 65px;
-		bottom: 0;
-		}
-		.jqtabs-contents .newTab {
-			position: absolute;
-			z-index: 1;
-			margin: 20px 0 0 20px;
-			font-size: 14px;
-			line-height: 2em;
-			}
-			.jqtabs-contents .newTab b,
-			.jqtabs-contents .newTab input[type="text"] {
-				font-family: monospace;
-				}
-			.jqtabs-contents .newTab input,
-			.jqtabs-contents .newTab button {
-				margin-left:.2em;
-				padding: .2em;
-				color: #111;
-				font-size: inherit;
-				border: none;
-				border-radius: 2px;
-				background: rgba(255,255,255,.4);
-				font-weight: bold;
-				}
-			.jqtabs-contents .newTab input[type="text"] {
-				width: 125px;
-				color: #aaa;
-				background: rgba(255,255,255,.05);
-				}
-				.jqtabs-contents .newTab span {
-					display: inline-block;
-					}
-			.jqtabs-contents .newTab .error {
-				display: none;
-				font-weight: bold;
-				color: #ff3232;
-				}
-				.jqtabs-contents .newTab .error:before {
-					content: "\f071"; /* fa-warning */
+				.jqtabs-tab.mine span:before {
+					content: "\f058"; /* fa-check-circle */
 					font-family: "FontAwesome";
+					font-style: normal;
 					font-weight: normal;
 					margin-right: .5em;
 					}
+			.jqtabs-tab.mine .edit {
+				display: none;
+				margin: 0 0 0 .66em;
+				font-size: 14px;
+				text-shadow: none;
+				vertical-align: middle;
+				}
+				.jqtabs-tabActive.mine .edit {
+					display: inline;
+					}
+			.jqtabs-tabActive span {
+				color: #ddd;
+				text-shadow: 0 0 5px rgba(255,255,255,.2);
+				}
+
+/* formulaire */
+.jqtabs .newTab {
+	margin: 20px 0 0 20px;
+	font-size: 14px;
+	line-height: 2em;
+	}
+	.jqtabs .newTab b,
+	.jqtabs .newTab input[type="text"] {
+		font-family: monospace;
+		}
+	.jqtabs .newTab input,
+	.jqtabs .newTab button {
+		margin-left:.2em;
+		padding: .2em;
+		color: #111;
+		font-size: inherit;
+		border: none;
+		border-radius: 2px;
+		background: rgba(255,255,255,.4);
+		font-weight: bold;
+		}
+	.jqtabs .newTab input[type="text"] {
+		width: 125px;
+		color: #aaa;
+		background: rgba(255,255,255,.05);
+		}
+		.jqtabs .newTab span {
+			display: inline-block;
+			}
+	.jqtabs .newTab .error {
+		display: none;
+		font-weight: bold;
+		color: #ff3232;
+		}
+		.jqtabs .newTab .error:before {
+			content: "\f071"; /* fa-warning */
+			font-family: "FontAwesome";
+			font-weight: normal;
+			margin-right: .5em;
+			}
