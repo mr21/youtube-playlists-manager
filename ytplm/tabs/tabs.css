@@ -34,7 +34,7 @@ body,
 			color: rgba(255,255,255,.75);
 			}
 
-/* tabs */
+/* jqtabs */
 .jqtabs-tabs {
 	margin-left: 8px;
 	}
@@ -43,6 +43,12 @@ body,
 	.jqtabs-tabHole {
 		min-height: 32px;
 		}
+.jqtabs-contents {
+	position: absolute;
+	width: 100%;
+	top: 32px;
+	bottom: 0;
+	}
 
 /* tab */
 .jqtabs-tab {
