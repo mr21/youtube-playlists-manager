@@ -14,16 +14,16 @@ ytplm.tabs = {
 		this.tabsContainer = plugin_tabs.container[0];
 		this.tabsContainer.newTabAppend();
 	},
-	onNewTab: function(jq_tab, jq_content) {
+	onNewTab: function(o) {
 		var self = this;
-		jq_tab
+		o.jqTab
 			.html(
 				'<div>'+
 					'<span></span>'+
 					'<a title="Close tab" class="jqtabs-btnCloseTab header-link fa fa-times-circle"></a>'+
 				'</div>'
 			);
-		jq_content
+		o.jqContent
 			.addClass('channel')
 			.html(
 				'<div class="playlists">'+
@@ -49,7 +49,7 @@ ytplm.tabs = {
 						self.loadTab();
 						return false;
 					});
-		this.jq_error = jq_content.find('.error');
+		this.jq_error = o.jqContent.find('.error');
 	},
 	writeError: function(err) {
 		this.jq_error.text(err).show().delay(2000).fadeOut(3000);
